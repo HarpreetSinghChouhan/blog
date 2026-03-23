@@ -42,7 +42,8 @@ export default function DrawerComponent() {
         "& .MuiDrawer-paper": {
           width: DRAWER_WIDTH,
           boxSizing: "border-box",
-          background: "linear-gradient(180deg, #1c1c1e 0%, #2c2c2e 100%)",
+          background: "#efefef",
+          // linear-gradient(180deg, #1c1c1e 0%, #2c2c2e 100%)
           borderRight: "1px solid rgba(255,255,255,0.06)",
           display: "flex",
           flexDirection: "column",
@@ -64,10 +65,10 @@ export default function DrawerComponent() {
           A
         </Avatar>
         <Box>
-          <Typography sx={{ color: "#fff", fontFamily: "'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif", fontWeight: 600, fontSize: 14, letterSpacing: "-0.2px", lineHeight: 1.2 }}>
+          <Typography sx={{ color: "Black", fontFamily: "'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif", fontWeight: 600, fontSize: 14, letterSpacing: "-0.2px", lineHeight: 1.2 }}>
             Admin Panel
           </Typography>
-          <Typography sx={{ color: "rgba(255,255,255,0.35)", fontFamily: "'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif", fontSize: 11 }}>
+          <Typography sx={{ color: "black", fontFamily: "'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif", fontSize: 11 }}>
             Workspace
           </Typography>
         </Box>
@@ -75,7 +76,7 @@ export default function DrawerComponent() {
 
       <Divider sx={{ borderColor: "rgba(255,255,255,0.06)", mx: 2 }} />
 
-      <Typography sx={{ px: 2.5, pt: 2.5, pb: 0.5, color: "rgba(255,255,255,0.25)", fontFamily: "'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif", fontSize: 10.5, fontWeight: 600, letterSpacing: "0.8px", textTransform: "uppercase" }}>
+      <Typography sx={{ px: 2.5, pt: 2.5, pb: 0.5, color: "black", fontFamily: "'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif", fontSize: 10.5, fontWeight: 600, letterSpacing: "0.8px", textTransform: "uppercase" }}>
         Navigation
       </Typography>
 
@@ -105,7 +106,7 @@ export default function DrawerComponent() {
                 } : {},
               }}
             >
-              <ListItemIcon sx={{ minWidth: 32, color: isActive ? "#0A84FF" : "rgba(255,255,255,0.4)", transition: "color 0.2s ease", "& svg": { fontSize: 18 } }}>
+              <ListItemIcon sx={{ minWidth: 32, color: isActive ? "#0A84FF" : "black", transition: "color 0.2s ease", "& svg": { fontSize: 18 } }}>
                 {item.icon}
               </ListItemIcon>
               <ListItemText
@@ -114,7 +115,7 @@ export default function DrawerComponent() {
                   sx: {
                     fontFamily: "'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif",
                     fontSize: 13.5, fontWeight: isActive ? 600 : 400, letterSpacing: "-0.1px",
-                    color: isActive ? "#fff" : "rgba(255,255,255,0.55)",
+                    color: isActive ? "#fff" : "black ",
                     transition: "all 0.2s ease",
                   },
                 }}

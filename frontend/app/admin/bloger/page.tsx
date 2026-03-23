@@ -1,9 +1,13 @@
-import { Typography } from "@mui/material";
+import AppBar1 from "@/app/component/AppBar";
+import { Box, Typography } from "@mui/material";
 
 export default function Bloger(){
     return(
        <>
+       <Box sx={{minHeight:"100vh",backgroundColor:"#d1d1d1"}} >
+          <AppBar1 />
        <Typography variant="h5" component={'div'} sx={{textAlign:"center"}} > Welcome One Bloger page  </Typography>
+       </Box>
        </> 
     )
 }

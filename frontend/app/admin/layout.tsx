@@ -12,7 +12,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <Box display={"flex"}>
         <DrawerComponent />
         <Box width={"100%"}>
-          <AppBar1 />
+         
         
             {/* {tabpanelv.map((tab) =>
                    tab.id === tabvalue ? (
