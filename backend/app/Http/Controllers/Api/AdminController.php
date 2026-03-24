@@ -31,7 +31,7 @@ class AdminController extends Controller
         if ($valdation->fails()) {
             return response()->json(['status' => false, 'message' => $valdation->errors()], 422);
         } else {
-            $role = 'admin'; 
+            $role = 'admin';
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
@@ -41,7 +41,7 @@ class AdminController extends Controller
             ]);
             $token = $user->createToken('apitoken')->plainTextToken;
             $user->assignRole($role);
-            return response()->json(['status' => true, 'user' => $user, "token" => $token,'role'=>$user->role], 201);
+            return response()->json(['status' => true, 'user' => $user, "token" => $token, 'role' => $user->role], 201);
         }
     }
     public function Login(Request $request)
@@ -68,5 +68,70 @@ class AdminController extends Controller
                 return response()->json(['status' => true, 'token' => $token, 'user' => $user, 'role' => $user->role ?? null]);
             }
         }
+    }
+    public function RegisterUB(Request $request)
+    {
+        $rule = array(
+            "name" => 'required | min:2',
+            'email' => "required | email | unique:users",
+            'password' => "required | min:8",
+            'role' => 'required'
+        );
+        $message = [
+            "name.required" => "Name Are Required",
+            "name.min" => "Name minimum letter 2 letter",
+            "email.required" => "Email Are Required",
+            "email.email" => "Email Are Not Correct Format",
+            "email.unique" => "Email Are Allready userd Try Other or Login",
+            "password.required" => "Password Are Required",
+            "password.min" => "Password Are Minimum 8 Letter ",
+            "Role.required" => "Role Are Required"
+        ];
+        $valdation = Validator::make($request->all(), $rule, $message);
+        if ($valdation->fails()) {
+            return response()->json(['status' => false, 'message' => $valdation->errors()], 422);
+        } else {
+            $role = $request->role;
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'role' => $role,
+
+            ]);
+            $token = $user->createToken('apitoken')->plainTextToken;
+            $user->assignRole($role);
+            return response()->json(['status' => true, 'user' => $user, "token" => $token, 'role' => $user->role], 201);
+        }
+    }
+
+    public function logout(Request $request)
+    {
+        $token = $request->user()?->currentAccessToken();
+        if ($token) {
+            $token->delete();
+        }
+        return response()->json([
+            'status' => true,
+            'message' => "Logged out Successfully"
+        ]);
+    }
+    public function verifyProfile(Request $request)
+    {
+        //  $rolled = $request->user()->load('role')->rolle->name;
+
+        return response()->json(['status' => true, "user" => $request->user()], 200);
+    }
+    public function getallusers(){
+        $user = User::Where('role','!=','admin')->get();
+        return response()->json(["status"=>true,"user"=>$user],200);
+    }
+    Public function getuser(){
+        $user = User::Where('role','user')->get();
+        return response()->json(['status'=>true,"user"=>$user],200);
+    }
+     Public function getbloger(){
+        $user = User::Where('role','bloger')->get();
+        return response()->json(['status'=>true,"user"=>$user],200);
     }
 }

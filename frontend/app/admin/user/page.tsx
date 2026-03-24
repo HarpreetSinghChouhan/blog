@@ -1,13 +1,33 @@
+"use client"
+import { GetUsers } from "@/app/AuthValidator";
 import AppBar1 from "@/app/component/AppBar";
-import { Box, Typography } from "@mui/material";
+import TableBody1 from "@/app/component/TableBody";
+import { Box, Table, TableCell, TableHead, TableRow, Typography } from "@mui/material";
+import { Dispatch, SetStateAction, useState } from "react";
 
 export default function Users(){
+  const [users,setusers] = useState<any[]>([])
+   GetUsers(setusers,"users");
     return(
        <>
-       <Box sx={{minHeight:"100vh",backgroundColor:"#d1d1d1"}} >
+       <Box sx={{minHeight:"100vh",backgroundColor:"#eef0f2"}} >
           <AppBar1 />
-       <Typography variant="h5" component={'div'} sx={{textAlign:"center"}} > Welcome On User page  </Typography>
+       <Typography variant="h5" component={'div'} sx={{textAlign:"center",my:3}} > Welcome On User page  </Typography>
+         <Table  >
+         <TableHead>
+             <TableRow>
+               <TableCell>Id</TableCell>
+               <TableCell>Name</TableCell>
+               <TableCell>Email</TableCell>
+               <TableCell>Role</TableCell>
+               <TableCell>Create AT</TableCell>
+               <TableCell>Action</TableCell>
+             </TableRow>
+         </TableHead>
+         <TableBody1 users={users} />
+       </Table>
        </Box>
+     
        </> 
     )
 }

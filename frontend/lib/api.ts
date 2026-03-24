@@ -1,3 +1,5 @@
+import { json } from "stream/consumers";
+import { resourceLimits } from "worker_threads";
 
 const api = process.env.LARAVAL_API || "http://127.0.0.1:8000/api";
 export async function Logout(token: any) {
@@ -24,7 +26,7 @@ export default async function AdminRegister1(data: any) {
     const res = await response.json();
     return res;
 }
-export  async function AdminLogin1(data: any) {
+export async function AdminLogin1(data: any) {
     const response = await fetch(`${api}/adminlogin`, {
         method: "POST",
         headers: {
@@ -35,4 +37,29 @@ export  async function AdminLogin1(data: any) {
     })
     const res = await response.json();
     return res;
+}
+export async function RegisterUserBloger(data: any, token: string | null) {
+    const response = await fetch(`${api}/registerub`, {
+        method: "POST",
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+        },
+        body: JSON.stringify(data),
+    })
+    const res = await response.json();
+    return res;
+}
+export async function AllUB(token: string | null,mode:string | null) {
+    const response = await fetch(`${api}/${mode}`, {
+        method: "GET",
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        },
+     })
+      const res = response.json();
+      return res;
 }

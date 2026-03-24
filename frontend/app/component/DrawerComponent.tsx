@@ -130,16 +130,16 @@ export default function DrawerComponent() {
 
       {/* Footer */}
       <Box sx={{ px: 2.5, pb: 3 }}>
-        <Divider sx={{ borderColor: "rgba(255,255,255,0.06)", mb: 2 }} />
+        <Divider sx={{ borderColor: "rgba(250,20,25,0.1)", mb: 2 }} />
         <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
-          <Avatar sx={{ width: 30, height: 30, borderRadius: "8px", background: "rgba(255,255,255,0.1)", fontSize: 12, fontWeight: 600, color: "rgba(255,255,255,0.7)" }}>
+          <Avatar sx={{ width: 30, height: 30, borderRadius: "8px", fontSize: 12, fontWeight: 600,  }}>
             U
           </Avatar>
           <Box sx={{ flex: 1, minWidth: 0 }}>
-            <Typography sx={{ color: "rgba(255,255,255,0.75)", fontFamily: "'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif", fontSize: 12, fontWeight: 500, letterSpacing: "-0.1px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+            <Typography sx={{ fontFamily: "'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif", fontSize: 12, fontWeight: 500, letterSpacing: "-0.1px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
               Admin User
             </Typography>
-            <Typography sx={{ color: "rgba(255,255,255,0.28)", fontFamily: "'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif", fontSize: 10.5 }}>
+            <Typography sx={{  fontFamily: "'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif", fontSize: 10.5 }}>
               admin@example.com
             </Typography>
           </Box>
