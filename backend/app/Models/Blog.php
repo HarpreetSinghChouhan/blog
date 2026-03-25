@@ -8,6 +8,6 @@ class Blog extends Model
 {
     //
     public function user(){
-        $this->hasMany(User::class,'id');
+            return $this->belongsTo(User::class,'id');
     }
 }

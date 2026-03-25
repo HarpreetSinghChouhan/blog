@@ -37,12 +37,17 @@ return [
     |
     */
 
-    'guards' => [
-        'web' => [
-            'driver' => 'session',
-            'provider' => 'users',
-        ],
+   'guards' => [
+    'web' => [
+        'driver' => 'session',
+        'provider' => 'users',
     ],
+
+    'bloger' => [
+        'driver' => 'sanctum',
+        'provider' => 'users',
+    ],
+],
 
     /*
     |--------------------------------------------------------------------------

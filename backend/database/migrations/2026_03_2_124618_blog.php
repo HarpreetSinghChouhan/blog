@@ -12,14 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         //
-        Schema::create('blog',function (Blueprint $table){
-            $table->id();
+        Schema::create('blogs', function (Blueprint $table) {
+            $table->id();  
             $table->string('title');
-            $table->foreignId('bloger_id')->constrained("users",'id');
-            $table-> string('header');
-            $table->longBlob('image');
-            $table->string('Description');
+            $table->foreignId('bloger_id')->constrained('users')->onDelete('cascade');         
+            $table->string('slug')->unique();
+            $table->text('content');
             $table->string('footer')->default("null");
+            $table->string('image')->nullable(); 
+            $table->enum('status', ['draft', 'published'])->default('draft');
+            $table->timestamps();
         });
     }
 
@@ -29,6 +31,6 @@ return new class extends Migration
     public function down(): void
     {
         //
-        Schema::dropIfExists('blog');
+        Schema::dropIfExists('blogs');
     }
 };

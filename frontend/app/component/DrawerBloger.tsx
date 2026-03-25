@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import {
   AddCircleOutlined,
   Dashboard,
@@ -23,21 +24,42 @@ import { useTab } from "../bloger/context/Provider";
 const DRAWER_WIDTH = 260;
 
 const navItems = [
-  { id: 0, label: "Dashboard", icon: <Dashboard fontSize="small" /> },
-  { id: 1, label: "Blog", icon: <PendingOutlined fontSize="small" /> },
-  { id: 2, label: "Add Blog", icon: <AddCircleOutlined fontSize="small" /> },
-  { id: 3, label: "Status", icon: <PendingActionsOutlined fontSize="small" /> },
+  {
+    id: 0,
+    label: "Dashboard",
+    path: "/bloger",
+    icon: <Dashboard fontSize="small" />,
+  },
+  {
+    id: 1,
+    label: "Blog",
+    path: "/bloger/blog",
+    icon: <PendingOutlined fontSize="small" />,
+  },
+  {
+    id: 2,
+    label: "Add Blog",
+    path: "/bloger/addblog",
+    icon: <AddCircleOutlined fontSize="small" />,
+  },
+  {
+    id: 3,
+    label: "Status",
+    path: "/bloger/status",
+    icon: <PendingActionsOutlined fontSize="small" />,
+  },
 ];
-
 
 export default function DrawerComponent() {
   const { settabvalue } = useTab();
-  const [value, setValue] = useState(0);
-
-  const handleSelect = (id: number) => {
-    setValue(id);
-    settabvalue(id);
-  };
+  // const [value, setValue] = useState(0);
+  const pathname = usePathname();
+  const router = useRouter();
+  
+  // const handleSelect = (id: number) => {
+  //   // setValue(id);
+  //   settabvalue(id);
+  // };
 
   return (
     <Drawer
@@ -131,11 +153,15 @@ export default function DrawerComponent() {
 
       <List sx={{ px: 1.5, pt: 0.5, flexGrow: 1 }} disablePadding>
         {navItems.map((item) => {
-          const isActive = value === item.id;
+          const isActive =
+            item.path === "/bloger"
+              ? pathname === item.path
+              : pathname.startsWith(item.path);
+
           return (
             <ListItemButton
               key={item.id}
-              onClick={() => handleSelect(item.id)}
+              onClick={() => router.push(item.path)}
               sx={{
                 borderRadius: "10px",
                 mb: 0.5,
