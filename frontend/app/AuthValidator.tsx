@@ -37,7 +37,7 @@ export async function Login1(data: any, go: Function, seterror: any) {
 export async function UserBlogerAdd(form: any, go: Function, seterror: any) {
   let token = localStorage.getItem("token");
   const response = await RegisterUserBloger(form, token);
-  console.log(response);
+  // console.log(response);
   if (response.status == true) {
     go("/admin");
     return null;
@@ -52,7 +52,7 @@ export async function GetUsers(setusers:any | [],mode:string | null) {
        const Get = async () =>{
         const res = await  AllUB(token,mode);
           setusers(res.user);
-         console.log(res);
+        //  console.log(res);
        }
       
        Get();
@@ -100,3 +100,33 @@ export async function blogCreate(data: any, go: Function, seterror: any) {
     Error(response, seterror);
   }
 }
+export function Blog(setblog: any,mode:string |null){
+ 
+    useEffect(() => {
+      
+        const token = localStorage.getItem("token");
+      if (!token) return;
+      const GetData = async () => {
+        const response = await AllUB(token,mode);
+         setblog(response.message);
+      };
+      GetData();
+    },[]);
+    return null;
+}
+// export function Blog(setblog: any) {
+//   const token = localStorage.getItem("token");
+
+//   useEffect(() => {
+//     if (!token) return;
+
+//     const getData = async () => {
+//       const response = await AllUB(token, "blogs");
+//       setblog(response.blogs);
+//     };
+
+//     getData();
+//   }, [token]);
+
+//   return null;
+// }

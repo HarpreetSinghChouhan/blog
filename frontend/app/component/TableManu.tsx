@@ -2,7 +2,7 @@ import { useState } from "react";
 import { IconButton, Menu, MenuItem, TableCell } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
-function TableMenu({ user }: any) {
+ export default function TableMenu({ user }: any) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const open = Boolean(anchorEl);
@@ -36,15 +36,8 @@ function TableMenu({ user }: any) {
         >
           Edit
         </MenuItem>
-        {/* 
-        <MenuItem
-          onClick={() => {
-            console.log("Add");
-            handleClose();
-          }}
-        >
-          Add
-        </MenuItem> */}
+       
+      
 
         <MenuItem
           onClick={() => {
@@ -60,4 +53,4 @@ function TableMenu({ user }: any) {
   );
 }
 
-export default TableMenu;
+// export default TableMenu;

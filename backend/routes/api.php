@@ -22,4 +22,9 @@ Route::middleware('auth:sanctum')->group(function(){
 });
 Route::middleware(['auth:sanctum','role:bloger'])->group(function(){
     Route::post('/blogcreate',[BlogController::class,'CreateBlog']);
+    Route::get('/blogs',[BlogController::class,'getblogs']);
+});
+Route::middleware(['auth:sanctum','role:admin'])->group( function (){
+   Route::get('/allblogs',[BlogController::class,'getallblogs']);
+   Route::put('/blogerchange',[BlogController::class,'ChangeStatus']);
 });

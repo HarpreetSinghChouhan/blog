@@ -16,7 +16,7 @@ export default function BlogForm({
 }: props) {
   return (
     <>
-      <Box component={"form"} sx={{ p: 3 }}  onSubmit={(e)=>handlesubmit(e)} >
+      <Box component={"form"} sx={{ p: 3 }}  onSubmit={(e)=>handlesubmit(e)}  encType="multipart/form-data" >
         <TextField
           required
           placeholder="Enter Title"
@@ -65,13 +65,13 @@ export default function BlogForm({
           Select Image{" "}
         </Typography>
 
-        <TextField
+        {/* <TextField
           type="file"
           required
           fullWidth
           variant="outlined"
           placeholder="Enter Slug"
-          name="file"
+          name="image"
           size="small" 
           sx={{ mb: 1, mt: -0.2 }}
           inputProps={{accept: "image/*"}}
@@ -79,7 +79,14 @@ export default function BlogForm({
           onChange={(e) => {
             handleinput(e);
           }}
-        />
+        /> */}
+        <input className="border-2 rounded-md w-full p-2"
+  type="file"
+  name="image"
+  accept="image/*"
+  onChange={(e: any) => handleinput(e)}
+  style={{ marginBottom: "10px" }}
+/>
         <Box sx={{ my: 1 }}>
           <Typography >
             write Content :--

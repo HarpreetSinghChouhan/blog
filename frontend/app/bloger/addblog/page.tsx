@@ -30,18 +30,18 @@ export default function AddBlog() {
   });
   const [content, setcontent] = useState("");
    const handleinput = (e: any) => {
-     if (e.target.type === "file") {
-    const file = e.target.files?.[0] || null;
-    setform((prev: any) => ({ ...prev, image: file }));  
-  } else {
-    setform((prev: any) => ({ ...prev, [e.target.name]: e.target.value }));
-  }
+  //    if (e.target.type === "file") {
+  //   const file = e.target.files?.[0] || null;
+  //   setform((prev: any) => ({ ...prev, image: file }));  
+  // } else {
+  //   setform((prev: any) => ({ ...prev, [e.target.name]: e.target.value }));
+  // }
 // };
-  // const { name, value, type, files } = e.target;
-  // setform({
-  //   ...form,
-  //   [name]: type === "file" ? files[0] : value,
-  // });
+  const { name, value, type, files } = e.target;
+  setform({
+    ...form,
+    [name]: type === "file" ? files[0] : value,
+  });
   };
   const handlesubmit = (e:any) =>{
      e.preventDefault();
@@ -74,10 +74,10 @@ export default function AddBlog() {
           <Grid container spacing={2}>
             <Grid size={{ md: 10, xs: 12 }} sx={{ mx: "auto" }}>
               {error && (
-                <Typography>
-                  {error.map((value: any,i)=>(
+                <Typography color="red" >
+                  {error.map((err: any,i)=>(
                     <Typography key={i}>
-                       {error}                    
+                       {err}                    
                       </Typography>
                   ) )}
                 </Typography>

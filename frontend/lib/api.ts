@@ -86,9 +86,19 @@ export async function blogCreation(data:any, token ?: string | null, url?: strin
         method: "POST",
         headers: {
             // "Content-Type": "multipart/form-data",
-            "Accept": "application/json",
+            // "Accept": "application/json",
             "Authorization": `Bearer ${token}`,
-            
+        },
+        body:data,
+    })
+    const res = await response.json();
+    return res;
+}export async function ChangeStatus(data : any,token:string | null){
+    const response = await fetch(`${api}/blogerchange`,{
+        method: "PUT",
+        headers:{
+            "Authorization": `Bearer ${token}`,
+            "Accept": "application/json",
         },
         body:data,
     })
