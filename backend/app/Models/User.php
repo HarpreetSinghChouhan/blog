@@ -57,8 +57,8 @@ class User extends Authenticatable
     //  public function rolle(){
     //     return $this->belongsTo(Rolles::class,'rolle_id');
     // }
-    public function blog(){
-    return $this->belongsTo(Blog::class,'bloger_id');
+    public function blogs(){
+    return $this->hasMany(Blog::class,'bloger_id');
     }
     
 }

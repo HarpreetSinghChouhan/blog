@@ -10,8 +10,7 @@ export default function Bloger(){
    GetUsers(setbloger,"bloger");
     return(
        <>
-       <Box sx={{minHeight:"100vh",backgroundColor:"#eef0f2"}} >
-          <AppBar1 />
+       
        <Typography variant="h5" component={'div'} sx={{textAlign:"center",my:4}} > Welcome One Bloger page  </Typography>
           <Box sx={{px:3}} >
              <Table >
@@ -28,7 +27,6 @@ export default function Bloger(){
                   <TableBody1 users={bloger} />
                 </Table>
           </Box>
-       </Box>
        </> 
     )
 }

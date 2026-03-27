@@ -105,3 +105,15 @@ export async function blogCreation(data:any, token ?: string | null, url?: strin
     const res = await response.json();
     return res;
 }
+export async function Delete(data:any,token:string | null){
+    const response = await fetch(`${api}/deleteblog`,{
+        method:"DELETE",
+        headers:{
+            "Authorization":`Bearer ${token}`,
+            "Accept":"applicaton/json",
+        },
+        body:data,
+    })
+    const res = response.json();
+    return res;
+}

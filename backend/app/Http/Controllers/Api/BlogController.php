@@ -29,13 +29,13 @@ class BlogController extends Controller
         return ["status" => true, "message" => $blogs];
     }
     public function getallblogs(Request $request)
-    {
-        $blog = Blog::all();
-        return response()->json(["status" => true, "message" => $blog]);
+    { 
+        // dd(Blog::all());
+        $blog = Blog::with(['user:id,email,name'])->get();
+        return response()->json(["status" => true, "message" => $blog,"hello"=>"Hello Every One"]);
     }
     public function CreateBlog(Request $request)
     {
-        // dd($_FILES, $request->all());
         $rule = [
             "title" => "required | min:2",
             "footer" => "required | min:4",
@@ -74,7 +74,14 @@ class BlogController extends Controller
         return response()->json([
             "status" => true,
             "message" => $blog,
-
         ]);
     }
+   public function Deleteblog(Request $request){
+          $blog = Blog::find($request->blogid);
+        if($blog){
+            $blog->delete();
+            return response()->json(["status"=>true,"message"=>"Blog are Delete succesfull"],200);
+        }
+         return response()->json(["status"=>false,"message"=>"blog are Not Found"],404);
+   }
 }

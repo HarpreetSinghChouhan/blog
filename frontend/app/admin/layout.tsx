@@ -1,28 +1,34 @@
+"use client";
 import { Box } from "@mui/material";
 import DrawerComponent from "../component/DrawerComponent";
 import AppBar1 from "../component/AppBar";
-import { settabvalue, tabpanelv, tabvalue } from "./type";
 import { TabProvider } from "./context/TabContext";
-// import { TabProvider } from "./context/tabcontext";
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+function AdminContent({ children }: { children: React.ReactNode }) {
   return (
-    <>
-      <TabProvider  >
-        <Box display={"flex"}>
-        <DrawerComponent />
-        <Box width={"100%"}>
-         
-        
-            {/* {tabpanelv.map((tab) =>
-                   tab.id === tabvalue ? (
-                     <Box key={tab.id}>{tab.value}</Box>
-                   ) : null
-                 )} */}
-            {children}
+    <Box display="flex" sx={{ minHeight: "100vh" }}>
+      <DrawerComponent />
+      <Box
+        sx={{
+          flexGrow: 1,
+          display: "flex",
+          flexDirection: "column",
+          minWidth: 0,
+        }}
+      >
+        <AppBar1 />
+        <Box sx={{ flexGrow: 1, p: 3, backgroundColor: "#f5f5f5" }}>
+          {children}
         </Box>
       </Box>
-      </TabProvider>
-    </>
+    </Box>
+  );
+}
+  
+export default function Layout({ children }: { children: React.ReactNode }) {
+  return (
+    <TabProvider>
+      <AdminContent>{children}</AdminContent>
+    </TabProvider>
   );
 }

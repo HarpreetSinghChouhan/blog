@@ -1,10 +1,11 @@
-
-import { Alarm,AccessTime,  CalendarMonthTwoTone, ChatBubbleOutline, Search,DashboardOutlined } from "@mui/icons-material";
+"use client"
+import { Alarm,AccessTime,  CalendarMonthTwoTone, ChatBubbleOutline, Search,DashboardOutlined, Menu } from "@mui/icons-material";
 
 import {
   AppBar,
   Box,
   Button,
+  IconButton,
   List,
   ListItem,
   ListItemButton,
@@ -12,16 +13,27 @@ import {
   Typography,
 } from "@mui/material";
 import LogoutButton from "./LogoutButton";
+import { useTab } from "../admin/context/TabContext";
 
 export default function AppBar1() {
     const buttoncolor = { BorderRadius:"10px","&;hover":{backgroundColor:"purple",}}; 
+  const { toggleDrawer } = useTab();
   return (
     <>
       <AppBar
-        position="static"
-        sx={{ backgroundColor: "#fafafa", color: "black" }}
+        position="relative"  
+      sx={{
+        backgroundColor: "#fafafa",
+        color: "black",
+        boxShadow: "none",
+        borderBottom: "1px solid #e0e0e0",
+        // zIndex: (theme) => theme.zIndex.drawer +1 , 
+      }}
       >
         <Toolbar>
+            <IconButton onClick={toggleDrawer} sx={{ mr: 1 }}>
+          <Menu />
+        </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Dashboard
           </Typography>

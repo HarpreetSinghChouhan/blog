@@ -38,10 +38,10 @@ export default function Admin() {
 // }
 
   return (
-    <Box sx={{ backgroundColor: "#fff", minHeight: "100vh" }}>
-      {/* <GetUsers /> */}
-      <AppBar1 />
-      <Paper elevation={0}>
+    // <Box sx={{ backgroundColor: "#fff", minHeight: "100vh" }}>
+    //   {/* <GetUsers /> 
+    //   <AppBar1 />
+    <>  <Paper elevation={0}>
         <Box
           sx={{
             display: "flex",
@@ -86,6 +86,7 @@ export default function Admin() {
           
         </Table>
       </Box>
-    </Box>
+    {/* </Box> */}
+    </>
   );
 }

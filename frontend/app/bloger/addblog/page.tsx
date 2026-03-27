@@ -2,14 +2,11 @@
 import { blogCreate } from "@/app/AuthValidator";
 import AppBar1 from "@/app/component/AppBar";
 import BlogForm from "@/app/component/BlogForm";
-import TipTapEditor from "@/app/component/tiptapeditor";
 import { navigation } from "@/lib/routes";
 import {
   Box,
   Container,
   Grid,
-  TextareaAutosize,
-  TextField,
   Typography,
 } from "@mui/material";
 import { useState } from "react";
@@ -30,13 +27,6 @@ export default function AddBlog() {
   });
   const [content, setcontent] = useState("");
    const handleinput = (e: any) => {
-  //    if (e.target.type === "file") {
-  //   const file = e.target.files?.[0] || null;
-  //   setform((prev: any) => ({ ...prev, image: file }));  
-  // } else {
-  //   setform((prev: any) => ({ ...prev, [e.target.name]: e.target.value }));
-  // }
-// };
   const { name, value, type, files } = e.target;
   setform({
     ...form,
@@ -54,6 +44,7 @@ export default function AddBlog() {
     formData.append("image", form.image); 
   }
   blogCreate(formData, go, seterror);
+
   }
   return (
     <>
@@ -81,9 +72,7 @@ export default function AddBlog() {
                       </Typography>
                   ) )}
                 </Typography>
-              )
-
-              }
+              )}
              <BlogForm handleinput={(e:any)=>handleinput(e)} form={form} content={content} setcontent={setcontent} handlesubmit={(e:any)=>handlesubmit(e) } />
             </Grid>
           </Grid>

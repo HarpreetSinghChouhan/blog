@@ -10,8 +10,7 @@ export default function Users(){
    GetUsers(setusers,"users");
     return(
        <>
-       <Box sx={{minHeight:"100vh",backgroundColor:"#eef0f2"}} >
-          <AppBar1 />
+      
        <Typography variant="h5" component={'div'} sx={{textAlign:"center",my:3}} > Welcome On User page  </Typography>
          <Table  >
          <TableHead>
@@ -26,7 +25,6 @@ export default function Users(){
          </TableHead>
          <TableBody1 users={users} />
        </Table>
-       </Box>
      
        </> 
     )

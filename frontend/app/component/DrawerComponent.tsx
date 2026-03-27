@@ -4,41 +4,75 @@ import { useState } from "react";
 import {
   ContactPage,
   Dashboard,
+  ForkRight,
   Image,
   PendingActions,
   Person,
   ProductionQuantityLimits,
 } from "@mui/icons-material";
 import {
-  Box, Drawer, List, ListItemButton, ListItemIcon,
-  ListItemText, Typography, Avatar, Divider,
+  Box,
+  Drawer,
+  List,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Typography,
+  Avatar,
+  Divider,
+  Button,
 } from "@mui/material";
+import { usePathname } from "next/navigation";
 
 const DRAWER_WIDTH = 260;
 
 const navItems = [
-  { id: 0, label: "Dashboard",  icon: <Dashboard fontSize="small" /> },
-  { id: 1, label: "Blog",     icon: <PendingActions fontSize="small" /> },
-  { id: 2, label: "Users",   icon: <Person fontSize="small" /> },
-  { id: 3, label: "Bloger", icon: <ContactPage fontSize="small" /> },
+  {
+    id: 0,
+    label: "Dashboard",
+    path: "/admin",
+    icon: <Dashboard fontSize="small" />,
+  },
+  {
+    id: 1,
+    label: "Blogs",
+    path: "/admin/blogs",
+    icon: <PendingActions fontSize="small" />,
+  },
+  {
+    id: 2,
+    label: "Users",
+    path: "/admin/user",
+    icon: <Person fontSize="small" />,
+  },
+  {
+    id: 3,
+    label: "Bloger",
+    path: "/admin/bloger",
+    icon: <ContactPage fontSize="small" />,
+  },
 ];
 import { useTab } from "../admin/context/TabContext";
-
 export default function DrawerComponent() {
-  const { settabvalue } = useTab();
+  const { settabvalue, drawerOpen } = useTab();
   const [value, setValue] = useState(0);
-
+  const pathname = usePathname();
+  // console.log(DRAWER_WIDTH);
+  //  const [DRAWER_WIDTH,SETDRAWER_WIDTH] = useState<Number>(260);
+  // DRAWER_WIDTH = 260;
   const handleSelect = (id: number) => {
     setValue(id);
     settabvalue(id);
   };
-
+  const blog = useState<boolean>(true);
   return (
     <Drawer
-      variant="permanent"
+     variant="persistent"
+      open={drawerOpen} // ← ADD THIS — was missing!
       sx={{
-        width: DRAWER_WIDTH,
-        flexShrink: 0,
+        width: drawerOpen ? DRAWER_WIDTH : 0,
+        // flexShrink: 0,
+        transition: "width 0.7s ease",
         "& .MuiDrawer-paper": {
           width: DRAWER_WIDTH,
           boxSizing: "border-box",
@@ -47,28 +81,59 @@ export default function DrawerComponent() {
           borderRight: "1px solid rgba(255,255,255,0.06)",
           display: "flex",
           flexDirection: "column",
+          position:"relative",
           boxShadow: "4px 0 24px rgba(0,0,0,0.4)",
         },
       }}
     >
       {/* App Identity */}
-      <Box sx={{ px: 2.5, pt: 3.5, pb: 2.5, display: "flex", alignItems: "center", gap: 1.5 }}>
+      <Box
+        sx={{
+          px: 2.5,
+          pt: 3.5,
+          pb: 2.5,
+          display: "flex",
+          alignItems: "center",
+          gap: 1.5,
+        }}
+      >
         <Avatar
           sx={{
-            width: 36, height: 36, borderRadius: "10px",
+            width: 36,
+            height: 36,
+            borderRadius: "10px",
             background: "linear-gradient(135deg, #0A84FF 0%, #30D158 100%)",
-            fontSize: 15, fontWeight: 700,
-            fontFamily: "'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif",
+            fontSize: 15,
+            fontWeight: 700,
+            fontFamily:
+              "'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif",
             boxShadow: "0 2px 12px rgba(10,132,255,0.4)",
           }}
         >
           A
         </Avatar>
         <Box>
-          <Typography sx={{ color: "Black", fontFamily: "'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif", fontWeight: 600, fontSize: 14, letterSpacing: "-0.2px", lineHeight: 1.2 }}>
+          <Typography
+            sx={{
+              color: "Black",
+              fontFamily:
+                "'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif",
+              fontWeight: 600,
+              fontSize: 14,
+              letterSpacing: "-0.2px",
+              lineHeight: 1.2,
+            }}
+          >
             Admin Panel
           </Typography>
-          <Typography sx={{ color: "black", fontFamily: "'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif", fontSize: 11 }}>
+          <Typography
+            sx={{
+              color: "black",
+              fontFamily:
+                "'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif",
+              fontSize: 11,
+            }}
+          >
             Workspace
           </Typography>
         </Box>
@@ -76,20 +141,41 @@ export default function DrawerComponent() {
 
       <Divider sx={{ borderColor: "rgba(255,255,255,0.06)", mx: 2 }} />
 
-      <Typography sx={{ px: 2.5, pt: 2.5, pb: 0.5, color: "black", fontFamily: "'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif", fontSize: 10.5, fontWeight: 600, letterSpacing: "0.8px", textTransform: "uppercase" }}>
+      <Typography
+        sx={{
+          px: 2.5,
+          pt: 2.5,
+          pb: 0.5,
+          color: "black",
+          fontFamily:
+            "'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif",
+          fontSize: 10.5,
+          fontWeight: 600,
+          letterSpacing: "0.8px",
+          textTransform: "uppercase",
+        }}
+      >
         Navigation
       </Typography>
 
       <List sx={{ px: 1.5, pt: 0.5, flexGrow: 1 }} disablePadding>
         {navItems.map((item) => {
-          const isActive = value === item.id;
+          const isActive =
+            item.path === "/admin"
+              ? pathname === item.path
+              : pathname.startsWith(item.path);
           return (
             <ListItemButton
               key={item.id}
               onClick={() => handleSelect(item.id)}
               sx={{
-                borderRadius: "10px", mb: 0.5, px: 1.5, py: 1, minHeight: 44,
-                position: "relative", overflow: "hidden",
+                borderRadius: "10px",
+                mb: 0.5,
+                px: 1.5,
+                py: 1,
+                minHeight: 44,
+                position: "relative",
+                overflow: "hidden",
                 transition: "all 0.2s cubic-bezier(0.4, 0, 0.2, 1)",
                 background: isActive
                   ? "linear-gradient(135deg, rgba(10,132,255,0.28) 0%, rgba(10,132,255,0.14) 100%)"
@@ -99,29 +185,55 @@ export default function DrawerComponent() {
                     ? "linear-gradient(135deg, rgba(10,132,255,0.34) 0%, rgba(10,132,255,0.18) 100%)"
                     : "rgba(255,255,255,0.06)",
                 },
-                "&::before": isActive ? {
-                  content: '""', position: "absolute", left: 0, top: "20%",
-                  height: "60%", width: 3, borderRadius: "0 3px 3px 0",
-                  background: "linear-gradient(180deg, #0A84FF, #30D158)",
-                } : {},
+                "&::before": isActive
+                  ? {
+                      content: '""',
+                      position: "absolute",
+                      left: 0,
+                      top: "20%",
+                      height: "60%",
+                      width: 3,
+                      borderRadius: "0 3px 3px 0",
+                      background: "linear-gradient(180deg, #0A84FF, #30D158)",
+                    }
+                  : {},
               }}
             >
-              <ListItemIcon sx={{ minWidth: 32, color: isActive ? "#0A84FF" : "black", transition: "color 0.2s ease", "& svg": { fontSize: 18 } }}>
+              <ListItemIcon
+                sx={{
+                  minWidth: 32,
+                  color: isActive ? "#0A84FF" : "black",
+                  transition: "color 0.2s ease",
+                  "& svg": { fontSize: 18 },
+                }}
+              >
                 {item.icon}
               </ListItemIcon>
               <ListItemText
                 primary={item.label}
                 primaryTypographyProps={{
                   sx: {
-                    fontFamily: "'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif",
-                    fontSize: 13.5, fontWeight: isActive ? 600 : 400, letterSpacing: "-0.1px",
+                    fontFamily:
+                      "'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif",
+                    fontSize: 13.5,
+                    fontWeight: isActive ? 600 : 400,
+                    letterSpacing: "-0.1px",
                     color: isActive ? "#fff" : "black ",
                     transition: "all 0.2s ease",
                   },
                 }}
               />
               {isActive && (
-                <Box sx={{ width: 6, height: 6, borderRadius: "50%", background: "#0A84FF", boxShadow: "0 0 6px rgba(10,132,255,0.8)", flexShrink: 0 }} />
+                <Box
+                  sx={{
+                    width: 6,
+                    height: 6,
+                    borderRadius: "50%",
+                    background: "#0A84FF",
+                    boxShadow: "0 0 6px rgba(10,132,255,0.8)",
+                    flexShrink: 0,
+                  }}
+                />
               )}
             </ListItemButton>
           );
@@ -132,14 +244,39 @@ export default function DrawerComponent() {
       <Box sx={{ px: 2.5, pb: 3 }}>
         <Divider sx={{ borderColor: "rgba(250,20,25,0.1)", mb: 2 }} />
         <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
-          <Avatar sx={{ width: 30, height: 30, borderRadius: "8px", fontSize: 12, fontWeight: 600,  }}>
+          <Avatar
+            sx={{
+              width: 30,
+              height: 30,
+              borderRadius: "8px",
+              fontSize: 12,
+              fontWeight: 600,
+            }}
+          >
             U
           </Avatar>
           <Box sx={{ flex: 1, minWidth: 0 }}>
-            <Typography sx={{ fontFamily: "'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif", fontSize: 12, fontWeight: 500, letterSpacing: "-0.1px", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+            <Typography
+              sx={{
+                fontFamily:
+                  "'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif",
+                fontSize: 12,
+                fontWeight: 500,
+                letterSpacing: "-0.1px",
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+              }}
+            >
               Admin User
             </Typography>
-            <Typography sx={{  fontFamily: "'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif", fontSize: 10.5 }}>
+            <Typography
+              sx={{
+                fontFamily:
+                  "'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif",
+                fontSize: 10.5,
+              }}
+            >
               admin@example.com
             </Typography>
           </Box>

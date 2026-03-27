@@ -51,7 +51,7 @@ const navItems = [
 ];
 
 export default function DrawerComponent() {
-  const { settabvalue } = useTab();
+  const { settabvalue,drawerOpen } = useTab();
   // const [value, setValue] = useState(0);
   const pathname = usePathname();
   const router = useRouter();
@@ -63,9 +63,10 @@ export default function DrawerComponent() {
 
   return (
     <Drawer
-      variant="permanent"
+      variant="persistent"
+      open={drawerOpen}
       sx={{
-        width: DRAWER_WIDTH,
+        width:drawerOpen ? DRAWER_WIDTH:0 ,
         flexShrink: 0,
         "& .MuiDrawer-paper": {
           width: DRAWER_WIDTH,

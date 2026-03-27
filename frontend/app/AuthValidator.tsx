@@ -85,9 +85,7 @@ export async function blogCreate(data: any, go: Function, seterror: any) {
   const response = await blogCreation(data,token,"blogcreate");
     console.log(response);
   if (response.status == true) {
-    // let token = response.token;
-    // localStorage.setItem("token", JSON.stringify(token));
-    // document.cookie = `token=${token}; path=/`;
+     go("/bloger/status")
     if(response.role == "bloger"){
       go("/bloger");
     }
@@ -109,24 +107,9 @@ export function Blog(setblog: any,mode:string |null){
       const GetData = async () => {
         const response = await AllUB(token,mode);
          setblog(response.message);
+         console.log(response);
       };
       GetData();
     },[]);
     return null;
 }
-// export function Blog(setblog: any) {
-//   const token = localStorage.getItem("token");
-
-//   useEffect(() => {
-//     if (!token) return;
-
-//     const getData = async () => {
-//       const response = await AllUB(token, "blogs");
-//       setblog(response.blogs);
-//     };
-
-//     getData();
-//   }, [token]);
-
-//   return null;
-// }

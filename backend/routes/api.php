@@ -27,4 +27,5 @@ Route::middleware(['auth:sanctum','role:bloger'])->group(function(){
 Route::middleware(['auth:sanctum','role:admin'])->group( function (){
    Route::get('/allblogs',[BlogController::class,'getallblogs']);
    Route::put('/blogerchange',[BlogController::class,'ChangeStatus']);
+   Route::delete('/deleteblog',[BlogController::class,'DeleteBlog']);
 });
