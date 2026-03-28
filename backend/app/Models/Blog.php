@@ -13,6 +13,7 @@ class Blog extends Model
     "title",
     "slug",
     "image",
+    "image_url",
     "content",
     "footer",
     "created_at",
@@ -24,5 +25,8 @@ class Blog extends Model
 
     public function user(){
             return $this->belongsTo(User::class,'bloger_id');
+    }
+    public function getUrlImageAttribute(){
+        return $this->image_url? asset('storage/blogs/'.$this->image):null;         
     }
 }

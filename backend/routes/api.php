@@ -19,6 +19,8 @@ Route::middleware('auth:sanctum')->group(function(){
    Route::get('/allusers',[AdminController::class,'getallusers']);
    Route::get('/users',[AdminController::class,'getuser']);
    Route::get('/bloger',[AdminController::class,'getbloger']);
+   Route::get('/blog/{id}', [BlogController::class, 'getblog']);
+   Route::delete('/blog/{id}',[BlogController::class,'deleteblog1']);
 });
 Route::middleware(['auth:sanctum','role:bloger'])->group(function(){
     Route::post('/blogcreate',[BlogController::class,'CreateBlog']);
@@ -28,4 +30,5 @@ Route::middleware(['auth:sanctum','role:admin'])->group( function (){
    Route::get('/allblogs',[BlogController::class,'getallblogs']);
    Route::put('/blogerchange',[BlogController::class,'ChangeStatus']);
    Route::delete('/deleteblog',[BlogController::class,'DeleteBlog']);
+   Route::delete('/user/{id}',[AdminController::class,'DeleteUser']);
 });

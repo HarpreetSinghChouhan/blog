@@ -24,7 +24,7 @@ export default function Bloger(){
                         <TableCell>Action</TableCell>
                       </TableRow>
                   </TableHead>
-                  <TableBody1 users={bloger} />
+                  <TableBody1 users={bloger} setusers={setbloger} />
                 </Table>
           </Box>
        </> 

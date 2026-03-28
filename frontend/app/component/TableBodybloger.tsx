@@ -1,12 +1,12 @@
 import { TableRow, TableCell,TableBody, TableFooter } from "@mui/material";
-import TableMenu from "./TableManu";
 import { useState } from "react";
 import Users from "../admin/user/page";
 import { stripHtml } from "../admin/blogs/page";
+import TableMenuBloger from "./bloger/TableMenuBloger";
 
-export default function  TableBodyBloger({blogs}:any){
+export default function  TableBodyBloger({blogs,setblogs}:any){
     // const [user1,setusers] = useState<any[]>([users])
-    console.log(blogs);
+    // console.log(blogs);
     return(
        <>
         <TableBody>
@@ -22,7 +22,7 @@ export default function  TableBodyBloger({blogs}:any){
                 <TableCell>
                   {new Date(user.created_at).toLocaleString()}
                 </TableCell>
-                <TableCell> <TableMenu user={user} /></TableCell>
+                <TableCell> <TableMenuBloger blog={user} setblogs={setblogs}  /></TableCell>
               </TableRow>
             ))}
           </TableBody>

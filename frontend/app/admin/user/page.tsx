@@ -23,7 +23,7 @@ export default function Users(){
                <TableCell>Action</TableCell>
              </TableRow>
          </TableHead>
-         <TableBody1 users={users} />
+         <TableBody1 users={users} setusers={setusers} />
        </Table>
      
        </> 

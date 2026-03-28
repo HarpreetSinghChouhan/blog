@@ -3,9 +3,9 @@ import TableMenu from "./TableManu";
 import { useState } from "react";
 import Users from "../admin/user/page";
 
-export default function  TableBody1({users}:any){
+export default function  TableBody1({users,setusers}:any){
     // const [user1,setusers] = useState<any[]>([users])
-    console.log(users);
+    // console.log(users);
     return(
         <TableBody>
             {users.map((user:any,index:any) => (
@@ -17,7 +17,7 @@ export default function  TableBody1({users}:any){
                 <TableCell>
                   {new Date(user.created_at).toLocaleString()}
                 </TableCell>
-                <TableCell> <TableMenu user={user} /></TableCell>
+                <TableCell> <TableMenu user={user} setusers={setusers} /></TableCell>
               </TableRow>
             ))}
           </TableBody>

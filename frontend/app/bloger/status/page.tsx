@@ -1,7 +1,7 @@
 "use client"
 import { Blog } from "@/app/AuthValidator";
 import AppBar1 from "@/app/component/AppBar";
-import TableBodyBloger from "@/app/component/TableBodybloger";
+import TableComponent from "@/app/component/bloger/TableComponent";
 import { Box, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material";
 import { useState } from "react";
 
@@ -14,19 +14,7 @@ export default function Status(){
         <AppBar1 />
         <Typography  component={'div'} sx={{my:3,textAlign:"center"}} variant="h5" > WelCome Blog Status Page   </Typography> 
        <Box sx={{px:4}}>
-         <Table >
-            <TableHead>
-                <TableRow>
-                    <TableCell> ID </TableCell>
-                    <TableCell> Title </TableCell>
-                    <TableCell> Footer </TableCell>
-                    <TableCell> Content </TableCell>
-                    <TableCell>Status </TableCell>
-                    <TableCell>Action </TableCell>
-                </TableRow>
-            </TableHead>
-            <TableBodyBloger blogs={blogs}  />
-        </Table>
+       <TableComponent blogs={blogs} setblogs={setblogs}  />
        </Box>
        </Box>
     </>

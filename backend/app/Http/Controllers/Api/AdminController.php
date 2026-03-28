@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
+use function Laravel\Prompts\error;
+
 class AdminController extends Controller
 {
     //
@@ -42,6 +44,23 @@ class AdminController extends Controller
             $token = $user->createToken('apitoken')->plainTextToken;
             $user->assignRole($role);
             return response()->json(['status' => true, 'user' => $user, "token" => $token, 'role' => $user->role], 201);
+        }
+    }
+    public function DeleteUser($id)
+    {
+        try {
+            $user = User::find($id);
+            if (!$user) {
+                return response()->json(["status" => false, "message" => "User Not Found"], 404);
+            } else {
+                $user->delete();
+                return response()->json(["status" => true, "message" => "User Are Deleted"], 200);
+            }
+        } catch (\Exception $e) {
+            return response()->json([
+                "status" => false,
+                "message" => $e->getMessage()
+            ]);
         }
     }
     public function Login(Request $request)
@@ -122,16 +141,19 @@ class AdminController extends Controller
 
         return response()->json(['status' => true, "user" => $request->user()], 200);
     }
-    public function getallusers(){
-        $user = User::Where('role','!=','admin')->get();
-        return response()->json(["status"=>true,"user"=>$user],200);
+    public function getallusers()
+    {
+        $user = User::Where('role', '!=', 'admin')->get();
+        return response()->json(["status" => true, "user" => $user], 200);
     }
-    Public function getuser(){
-        $user = User::Where('role','user')->get();
-        return response()->json(['status'=>true,"user"=>$user],200);
+    public function getuser()
+    {
+        $user = User::Where('role', 'user')->get();
+        return response()->json(['status' => true, "user" => $user], 200);
     }
-     Public function getbloger(){
-        $user = User::Where('role','bloger')->get();
-        return response()->json(['status'=>true,"user"=>$user],200);
+    public function getbloger()
+    {
+        $user = User::Where('role', 'bloger')->get();
+        return response()->json(['status' => true, "user" => $user], 200);
     }
 }

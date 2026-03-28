@@ -1,4 +1,4 @@
-import AdminRegister1, { AdminLogin1, AllUB, blogCreation, LoginPage, RegisterUserBloger } from "@/lib/api";
+import AdminRegister1, { AdminLogin1, AllUB, blogCreation,  LoginPage, OneDelete, RegisterUserBloger } from "@/lib/api";
 import { ListItem } from "@mui/material";
 import Error from "./script";
 import { useEffect } from "react";
@@ -26,7 +26,7 @@ export async function Login1(data: any, go: Function, seterror: any) {
   //   console.log(response);
   if (response.status == true) {
     let token = response.token;
-    localStorage.setItem("token", JSON.stringify(token));
+    localStorage.setItem("token",token);
     document.cookie = `token=${token}; path=/`;
     go("/admin");
     return null;
@@ -107,9 +107,21 @@ export function Blog(setblog: any,mode:string |null){
       const GetData = async () => {
         const response = await AllUB(token,mode);
          setblog(response.message);
-         console.log(response);
+        //  console.log(response);
       };
       GetData();
     },[]);
     return null;
+}
+// export function Blogfind(form:any,setblog:any,mode:any){
+//   useEffect(()=>{
+//     const token = localStorage
+//   })
+// }
+export async function Delete(url:string | null,id:any){
+  const token = localStorage.getItem("token");
+   if(!token) return;
+   const res = await OneDelete({id,token,url});
+    return res;
+  
 }

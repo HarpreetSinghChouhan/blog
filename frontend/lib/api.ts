@@ -5,6 +5,11 @@ interface props{
     token:string | null,
     url:string ,
 }
+interface Onedele{
+    id:String | null,
+    token: String | null,
+    url:String | null,
+}
 const api = process.env.LARAVAL_API || "http://127.0.0.1:8000/api";
 export async function Logout(token: any) {
     const response = await fetch(`${api}/logout`, {
@@ -110,10 +115,32 @@ export async function Delete(data:any,token:string | null){
         method:"DELETE",
         headers:{
             "Authorization":`Bearer ${token}`,
-            "Accept":"applicaton/json",
+            "Accept":"application/json",
         },
         body:data,
     })
     const res = response.json();
     return res;
 }
+export async function Blogfind(id:String | null,token:String | null){
+  const res = await fetch(`${api}/blog/${id}`,{
+    method:"GET",
+    headers:{
+        "Content-Type":"application/json",
+        "Authorization":`Bearer ${token}`,
+        "Accept":"application/json",
+    },
+  });
+  return await res.json();
+};
+export async function OneDelete({id,token,url}:Onedele){
+    const response = await fetch(`${api}/${url}/${id}`,{
+        method:"DELETE",
+        headers:{
+            "Authorization":`Bearer ${token}`,
+            "Accept":"application/json",            
+        },
+    })
+    const res = response.json();
+    return res;
+} 

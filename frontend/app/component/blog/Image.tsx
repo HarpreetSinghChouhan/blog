@@ -1,14 +1,14 @@
 import { Box } from "@mui/material";
-
-export default function BlogData(Imagerurl:String | null){
-     const image = Imagerurl;
-     const url = process.env.LARAVEL_IMAGE
+import Image from "next/image";
+export default function BlogImage({src,title}:any){
+     const image = src;
+    //  const url = process.env.LARAVEL_IMAGE
     return (
         <>
-         <Box>
+         <Box  >
             {image &&(
-                <Image src={url+image}  />
-      
+                <Image src={image} className="mx-auto"  width={700} height={500} alt="Blog" unoptimized    />
+                 
             )}
          </Box>
         </>

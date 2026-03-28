@@ -10,29 +10,65 @@ use Illuminate\Support\Facades\Validator;
 
 class BlogController extends Controller
 {
-    public function ChangeStatus(Request $request){
+    public function ChangeStatus(Request $request)
+    {
         $blogId = $request->blogid;
-        $blog = Blog::Where('id',$blogId)->update(['status'=>'published']);
-        $updated = Blog::find($blogId); 
-        return response()->json(["status"=>true, "message"=>"data are changed Successfull","blog"=>$blog,"update"=>$updated],200);
+        $blog = Blog::Where('id', $blogId)->update(['status' => 'published']);
+        $updated = Blog::find($blogId);
+        return response()->json(["status" => true, "message" => "data are changed Successfull", "blog" => $blog, "update" => $updated], 200);
     }
+
     public function getblogs(Request $request)
     {
         $userId  = Auth::id();
-         $blogs = Blog::where('bloger_id', $userId)->get()->map(function ($blog) {
-            $blog->image_url = $blog->image
-                ? asset('storage/blogs/' . $blog->image)
-                : null;
+        $blogs = Blog::where('bloger_id', $userId)->get()->map( function ($blog){
+            $blog->image_url = $blog->image?asset("/storage/blogs/".$blog->image):null;
             return $blog;
         });
-        // $blogs = Blog::where('bloger_id', $userId)->get();
         return ["status" => true, "message" => $blogs];
     }
+
+
+    public function deleteblog1($id){
+        try{
+            $blog = Blog::find($id);
+            if(!$blog){
+                return response()->json(["status"=>false,"message"=>"Blog Are Not Found"],404);
+                
+            }
+        }
+        catch(\Exception $e){
+            return response()->json(["status"=>false,"message"=>$e->getMessage()]);
+        }
+
+    }
+    public function getblog($id)
+    {
+        $blog = Blog::find($id);
+
+        if (!$blog) {
+            return response()->json([
+                "status" => false,
+                "message" => "Blog not found"
+            ]);
+        }
+
+        $blog->image_url = $blog->image
+            ? asset('storage/blogs/' . $blog->image)
+            : null;
+
+        return response()->json([
+            "status" => true,
+            "data" => $blog
+        ]);
+    }
+
+
     public function getallblogs(Request $request)
-    { 
+    {
         // dd(Blog::all());
         $blog = Blog::with(['user:id,email,name'])->get();
-        return response()->json(["status" => true, "message" => $blog,"hello"=>"Hello Every One"]);
+        return response()->json(["status" => true, "message" => $blog, "hello" => "Hello Every One"]);
     }
     public function CreateBlog(Request $request)
     {
@@ -76,12 +112,13 @@ class BlogController extends Controller
             "message" => $blog,
         ]);
     }
-   public function Deleteblog(Request $request){
-          $blog = Blog::find($request->blogid);
-        if($blog){
+    public function Deleteblog(Request $request)
+    {
+        $blog = Blog::find($request->blogid);
+        if ($blog) {
             $blog->delete();
-            return response()->json(["status"=>true,"message"=>"Blog are Delete succesfull"],200);
+            return response()->json(["status" => true, "message" => "Blog are Delete succesfull"], 200);
         }
-         return response()->json(["status"=>false,"message"=>"blog are Not Found"],404);
-   }
+        return response()->json(["status" => false, "message" => "blog are Not Found"], 404);
+    }
 }

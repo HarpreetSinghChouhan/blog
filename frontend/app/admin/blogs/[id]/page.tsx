@@ -1,18 +1,15 @@
-// "use client"
 import BlogContent from "@/app/component/BlogContent";
-import { Box, Container } from "@mui/material";
-import { log } from "console";
-// import { usePathname } from "next/navigation";
+import { ArrowBack, ArrowRightAltRounded } from "@mui/icons-material";
+import { Container } from "@mui/material";
+import Link from "next/link";
 
-export default async function ViewBlog({params}:{params:{id:string}}){
-    // const pathname = usePathname()
-    const {id} = await params; 
-    console.log(id);
-    return(
-        <>
-        <Container maxWidth="xl" sx={{border:"1px solid black",p:3}} > 
-            <BlogContent /> 
-        </Container>
-        </>
-    )
+export default async function ViewBlog({ params }: { params: { id: string } }) {
+  const { id } = await params;
+
+  return (
+    <Container maxWidth="md" sx={{ border: "1px solid black", p:{md:3,xs:0}  }}>
+        <Link href={'/admin/blogs'} className="" ><ArrowBack /> Back </Link>
+      <BlogContent id={id} />
+    </Container>
+  );
 }

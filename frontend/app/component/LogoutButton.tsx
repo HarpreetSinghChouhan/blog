@@ -20,7 +20,7 @@ export default function LogoutButton() {
        ;
       if (response.status === true) {
         localStorage.removeItem("token"); // Clear token from local storage
-            go("/adminlogin")
+            go("/login")
         // Logout successful, you can redirect the user or update the UI accordingly
         console.log(response.message);
       } else {

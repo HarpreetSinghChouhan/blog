@@ -82,7 +82,7 @@ export default function Admin() {
               <TableCell>Action</TableCell>
             </TableRow>
           </TableHead>
-         <TableBody1 users={users} />
+         <TableBody1 users={users} setusers={setusers} />
           
         </Table>
       </Box>

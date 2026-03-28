@@ -22,7 +22,7 @@ export default function Blogs() {
   const [blogs, setblogs] = useState<any[]>([]);
 
   const res = Blog(setblogs, "allblogs");
-  console.log(blogs);
+  // console.log(blogs);
   return (
     <>
       

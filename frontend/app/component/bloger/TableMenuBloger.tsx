@@ -2,9 +2,9 @@
 import { useState } from "react";
 import { IconButton, Menu, MenuItem, TableCell } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { Delete } from "../AuthValidator";
+import { Delete } from "../../AuthValidator";
 
- export default function TableMenu({ user,setusers }: any) {
+ export default function TableMenuBloger({ blog,setblogs }: any) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const open = Boolean(anchorEl);
@@ -14,16 +14,16 @@ import { Delete } from "../AuthValidator";
   };
 
   const handleEdit = () => {
-    console.log("Edit user:", user.id);
+    console.log("Edit user:", blog.id);
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
  const handleDelete = async (id:any) =>{
-  const response = await Delete("user",user.id);
+  const response = await Delete("blog",blog.id);
   // console.log(response);
   if(response.status == true){
-    setusers((prev:any[])=>prev.filter((user:{id:any})=>user.id !== id));
+    setblogs((prev:any[])=>prev.filter((blog:{id:any})=>blog.id !== id));
   }
  }
   return (
@@ -50,7 +50,7 @@ import { Delete } from "../AuthValidator";
         <MenuItem
           onClick={() => {
             // console.log("Delete");
-            handleDelete(user.id);
+            handleDelete(blog.id);
             handleClose();
           }}
         >
