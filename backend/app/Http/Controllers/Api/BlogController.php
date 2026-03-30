@@ -28,13 +28,11 @@ class BlogController extends Controller
         return ["status" => true, "message" => $blogs];
     }
 
-
     public function deleteblog1($id){
         try{
             $blog = Blog::find($id);
             if(!$blog){
-                return response()->json(["status"=>false,"message"=>"Blog Are Not Found"],404);
-                
+                return response()->json(["status"=>false,"message"=>"Blog Are Not Found"],404);       
             }
         }
         catch(\Exception $e){
@@ -66,9 +64,8 @@ class BlogController extends Controller
 
     public function getallblogs(Request $request)
     {
-        // dd(Blog::all());
         $blog = Blog::with(['user:id,email,name'])->get();
-        return response()->json(["status" => true, "message" => $blog, "hello" => "Hello Every One"]);
+        return response()->json(["status" => true, "message" => $blog]);
     }
     public function CreateBlog(Request $request)
     {
@@ -92,7 +89,6 @@ class BlogController extends Controller
             return response()->json(["status" => false, "message" => $validation->errors()]);
         } else {
             $image = null;
-
             if ($request->file('image')) {
                 $file = $request->file('image');
                 $image = time() . '_' . $file->getClientOriginalName();

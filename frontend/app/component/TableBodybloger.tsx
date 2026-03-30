@@ -1,4 +1,4 @@
-import { TableRow, TableCell,TableBody, TableFooter } from "@mui/material";
+import { TableRow, TableCell,TableBody, TableFooter, Table } from "@mui/material";
 import { useState } from "react";
 import Users from "../admin/user/page";
 import { stripHtml } from "../admin/blogs/page";
@@ -10,7 +10,8 @@ export default function  TableBodyBloger({blogs,setblogs}:any){
     return(
        <>
         <TableBody>
-            {blogs.map((user:any,index:any) => (
+            { blogs && blogs.length >= 1 ? (
+              blogs.map((user:any,index:any) => (
               <TableRow key={index}>
                 <TableCell>{index +1}</TableCell>
                 <TableCell>{user.title}</TableCell>
@@ -24,7 +25,15 @@ export default function  TableBodyBloger({blogs,setblogs}:any){
                 </TableCell>
                 <TableCell> <TableMenuBloger blog={user} setblogs={setblogs}  /></TableCell>
               </TableRow>
-            ))}
+            ))
+            ):(
+              <TableRow >
+                    <TableCell colSpan={6} >
+                           not have any Blog
+                    </TableCell>
+
+              </TableRow>
+            ) }
           </TableBody>
           {/* <TableFooter>
 

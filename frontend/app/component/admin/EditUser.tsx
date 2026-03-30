@@ -1,13 +1,14 @@
 "use client";
 import {
   Box,
-  Button, 
-  Divider,
+  Button,
   Container,
   TextField,
   Typography,
   InputAdornment,
   IconButton,
+  Divider,
+  Link,
   Select,
   MenuItem,
   FormControl,
@@ -22,34 +23,28 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
 
 import { navigation } from "@/lib/routes";
-import { UserBlogerAdd } from "@/app/AuthValidator";
+import { UserBlogerAdd, UserBlogerEdit } from "@/app/AuthValidator";
 
 interface FormType {
   name: string;
   email: string;
-  password: string;
-  role:string;
+  role?:string;
 }
 
-export default function UserBloger() {
+export default function EditUserBloger({form,setform}:any) {
   const [error, seterror] = useState<React.ReactNode[]>([]);
   const { go } = navigation();
-  const [form, setForm] = useState<FormType>({
-    name: "",
-    email: "",
-    password: "",
-    role:"user",
-  });
+//   const [form1, setForm1] = useState<FormType>(form);
   const [showPassword, setShowPassword] = useState(false);
 
   const submitHandle = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(form);
-    UserBlogerAdd(form,go, seterror );
+    // console.log(form);
+    UserBlogerEdit({form,go, seterror} );
   };
 
   const inputHandle = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm({
+    setform({
       ...form,
       [e.target.name]: e.target.value,
     });
@@ -198,7 +193,7 @@ export default function UserBloger() {
               ),
             }}
           />
-
+          
           {/* Email Field */}
           <TextField
             label="Email Address"
@@ -210,6 +205,7 @@ export default function UserBloger() {
             onChange={inputHandle}
             fullWidth
             required
+            aria-readonly
             sx={{ ...fieldStyles, mb: 2 }}
             InputProps={{
               startAdornment: (
@@ -221,7 +217,7 @@ export default function UserBloger() {
           />
 
           {/* Password Field */}
-          <TextField
+          {/* <TextField
             label="Password"
             placeholder="Enter your password"
             name="password"
@@ -255,7 +251,7 @@ export default function UserBloger() {
                 </InputAdornment>
               ),
             }}
-          />
+          /> */}
 
           <FormControl fullWidth sx={{my:1}} >
             <InputLabel id="RoleId-no1">Role </InputLabel>
@@ -285,7 +281,7 @@ export default function UserBloger() {
               },
             }}
           >
-            Add {form.role}
+            save {form.role}
           </Button>
 
           {/* Divider */}

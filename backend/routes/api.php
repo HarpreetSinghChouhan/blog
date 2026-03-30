@@ -31,4 +31,5 @@ Route::middleware(['auth:sanctum','role:admin'])->group( function (){
    Route::put('/blogerchange',[BlogController::class,'ChangeStatus']);
    Route::delete('/deleteblog',[BlogController::class,'DeleteBlog']);
    Route::delete('/user/{id}',[AdminController::class,'DeleteUser']);
+   Route::put('/edituserblog',[AdminController::class,'EditUser']);
 });

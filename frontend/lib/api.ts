@@ -1,9 +1,9 @@
 import { json } from "stream/consumers";
 import { resourceLimits } from "worker_threads";
-interface props{
+interface Props{
     data:any,
     token:string | null,
-    url:string ,
+    url:string | null ,
 }
 interface Onedele{
     id:String | null,
@@ -91,7 +91,7 @@ export async function blogCreation(data:any, token ?: string | null, url?: strin
         method: "POST",
         headers: {
             // "Content-Type": "multipart/form-data",
-            // "Accept": "application/json",
+            "Accept": "application/json",
             "Authorization": `Bearer ${token}`,
         },
         body:data,
@@ -144,3 +144,15 @@ export async function OneDelete({id,token,url}:Onedele){
     const res = response.json();
     return res;
 } 
+export async function AllDb({data,token,url}:Props) {
+     const response = await fetch(`${api}/${url}`,{
+        method:"PUT",
+        headers:{
+            "Authorization":`Brearer ${token}`,
+            "Accept":"application/josn",
+        },
+        body:data,
+     })
+     const res = await response.json();
+     return res;
+}

@@ -1,7 +1,12 @@
-import AdminRegister1, { AdminLogin1, AllUB, blogCreation,  LoginPage, OneDelete, RegisterUserBloger } from "@/lib/api";
+import AdminRegister1, { AdminLogin1, AllDb, AllUB, blogCreation,  LoginPage, OneDelete, RegisterUserBloger } from "@/lib/api";
 import { ListItem } from "@mui/material";
 import Error from "./script";
-import { useEffect } from "react";
+import { use, useEffect } from "react";
+ interface Props {
+  form:any,
+  go:Function,
+  seterror:any
+ } 
 
 export default async function Register1(
   go: Function,
@@ -123,5 +128,31 @@ export async function Delete(url:string | null,id:any){
    if(!token) return;
    const res = await OneDelete({id,token,url});
     return res;
+  
+}
+export async function UserBlogerEdit({form,go,seterror}:Props) {
+   const token = localStorage.getItem("token");
+   if(!token) return;
+   const data =  form;
+   const url = "edituserblog";
+   const res = await AllDb({data,token,url} );
+    console.log(res);
+}
+export  function AuthCheckBloger(){
+  const token = localStorage.getItem("token");
+   if(!token){
+     return "token not found";
+   }
+
+    else {
+   useEffect(()=>{
+      const get = async () => {    
+    const response = await AuthCheker(token); 
+    console.log(response); }
+    get();
+   },[]);
+ 
+ 
+  }
   
 }

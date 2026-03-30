@@ -8,7 +8,8 @@ export default function  TableBody1({users,setusers}:any){
     // console.log(users);
     return(
         <TableBody>
-            {users.map((user:any,index:any) => (
+            {  users && users.length>0 ?(
+               users.map((user:any,index:any) => (
               <TableRow key={index}>
                 <TableCell>{index +1}</TableCell>
                 <TableCell>{user.name}</TableCell>
@@ -19,7 +20,15 @@ export default function  TableBody1({users,setusers}:any){
                 </TableCell>
                 <TableCell> <TableMenu user={user} setusers={setusers} /></TableCell>
               </TableRow>
-            ))}
+            ))
+            ) :(
+              <TableRow  >
+                 <TableCell colSpan={6} >
+                 nothing no have any blog
+              </TableCell>
+
+              </TableRow>
+            )}
           </TableBody>
     )
 }

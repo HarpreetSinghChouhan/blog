@@ -3,6 +3,7 @@ import { TabProvider } from "./context/Provider";
 import DrawerComponent from "../component/DrawerBloger";
 
 export default function Layout({children}:{children:React.ReactNode}){
+    const bloger = AuthCheckBloger();
     return(
         <>
         <TabProvider  >
