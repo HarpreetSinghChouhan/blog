@@ -169,15 +169,7 @@ export default function UserBloger() {
               }}
             ></Typography>
           </Box>
-          {error && (
-            <Typography sx={{ color: "red" }}>
-              {error.map((err: any, i: any) => (
-                <Typography key={i} component={"span"}>
-                  {err}
-                </Typography>
-              ))}
-            </Typography>
-          )}
+          
           {/* Name Field */}
           <TextField
             label="Full Name"

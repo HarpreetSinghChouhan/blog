@@ -1,3 +1,4 @@
+
 import { json } from "stream/consumers";
 import { resourceLimits } from "worker_threads";
 interface Props{
@@ -155,4 +156,16 @@ export async function AllDb({data,token,url}:Props) {
      })
      const res = await response.json();
      return res;
+}
+export async function AuthCheker(token:String | null) {
+    const response = await fetch(`${api}/authication`,{
+        method:"Get",
+        headers:{
+            "Accept":"application/json",
+            "Authorization":`Bearer ${token}`,
+        }     
+    })
+    const res = await response.json();
+    return res;
+    
 }

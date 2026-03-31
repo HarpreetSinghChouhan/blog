@@ -156,7 +156,7 @@ export default function AdminLogin() {
               variant="body2"
               sx={{ color: "#8A94A6", mt: 0.5, fontFamily: "'Nunito', sans-serif" }}
             >
-              Sign up to access your dashboard
+              Sign in to access your dashboard
             </Typography>
             {error &&(
                 <Typography sx={{color:"red"}} >
@@ -265,7 +265,7 @@ export default function AdminLogin() {
           {/* Divider */}
           <Divider sx={{ my: 3, borderColor: "#EEF0F6" }}>
             <Typography variant="caption" sx={{ color: "#B0B8C8", fontFamily: "'Nunito', sans-serif" }}>
-              Secure Admin Access
+              Secure Admin Access <Link href={"/adminregister"} >Register</Link>
             </Typography>
           </Divider>
 

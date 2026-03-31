@@ -268,7 +268,8 @@ export default function AdminRegister() {
           {/* Divider */}
           <Divider sx={{ my: 3, borderColor: "#EEF0F6" }}>
             <Typography variant="caption" sx={{ color: "#B0B8C8", fontFamily: "'Nunito', sans-serif" }}>
-              Secure Admin Access
+              Secure Admin Access <Link href={"/adminlogin"} >login</Link>
+              
             </Typography>
           </Divider>
 

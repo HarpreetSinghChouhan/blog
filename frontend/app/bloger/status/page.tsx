@@ -7,7 +7,7 @@ import { useState } from "react";
 
 export default function Status(){
     const [blogs,setblogs] = useState<any[]>([]);
-    const response = Blog(setblogs,"blogs");
+   Blog(setblogs,"blogs");
     return(
     <>
      <Box sx={{minHeight:"100vh",bgcolor:"#eef0f2"}} >  

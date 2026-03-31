@@ -5,7 +5,7 @@ interface props {
   form: any;
   content: string;
   setcontent: (html: string) => void;
-  handlesubmit:Function,
+  handlesubmit: Function,
 }
 export default function BlogForm({
   handleinput,
@@ -16,7 +16,7 @@ export default function BlogForm({
 }: props) {
   return (
     <>
-      <Box component={"form"} sx={{ p: 3 }}  onSubmit={(e)=>handlesubmit(e)}  encType="multipart/form-data" >
+      <Box component={"form"} sx={{ p: 3 }} onSubmit={(e) => handlesubmit(e)} encType="multipart/form-data" >
         <TextField
           required
           placeholder="Enter Title"
@@ -28,7 +28,7 @@ export default function BlogForm({
           size="small"
           sx={{ my: 1 }}
           value={form.title}
-          onChange={(e)=>{handleinput(e)}}
+          onChange={(e) => { handleinput(e) }}
         />
         <TextField
           required
@@ -44,8 +44,8 @@ export default function BlogForm({
           onChange={(e) => {
             handleinput(e);
           }}
-        />      
-           <TextField
+        />
+        <TextField
           required
           fullWidth
           variant="outlined"
@@ -65,28 +65,14 @@ export default function BlogForm({
           Select Image{" "}
         </Typography>
 
-        {/* <TextField
-          type="file"
-          required
-          fullWidth
-          variant="outlined"
-          placeholder="Enter Slug"
-          name="image"
-          size="small" 
-          sx={{ mb: 1, mt: -0.2 }}
-          inputProps={{accept: "image/*"}}
-        //    inputProps={{ accept: "image/*" }}
-          onChange={(e) => {
-            handleinput(e);
-          }}
-        /> */}
+
         <input className="border-2 rounded-md w-full p-2"
-  type="file"
-  name="image"
-  accept="image/*"
-  onChange={(e: any) => handleinput(e)}
-  style={{ marginBottom: "10px" }}
-/>
+          type="file"
+          name="image"
+          accept="image/*"
+          onChange={(e: any) => handleinput(e)}
+          style={{ marginBottom: "10px" }}
+        />
         <Box sx={{ my: 1 }}>
           <Typography >
             write Content :--
@@ -96,10 +82,11 @@ export default function BlogForm({
             value={content}
             onChange={setcontent}
           />
-        </Box>
-          <Button type="submit" variant="outlined" fullWidth >
-            Create Blog
-          </Button>
+        </Box> 
+        
+        <Button type="submit" variant="outlined" fullWidth >
+          save
+        </Button>
 
       </Box>
     </>

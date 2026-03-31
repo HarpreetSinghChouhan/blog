@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -13,7 +14,7 @@ class AuthController extends Controller
     //
     public function Login(Request $request){
         
-    {
+    try {
         $rule = [
             'email' => "required | email ",
             'password' => "required | min:8",
@@ -36,6 +37,26 @@ class AuthController extends Controller
                 return response()->json(['status' => true, 'token' => $token, 'user' => $user, 'role' => $user->role ?? null]);
             }
         }
+
     }
+    catch(\Exception $e){
+        return response()->json(["status"=>false , "message"=>$e->getMessage()]);
+    }
+    }
+    public function AuthChenker1(){
+      try{
+        $user = Auth::id();
+        if(!$user){
+        return response()->json(["status"=>true,"message"=>" User Not Found"]);
+
+        }
+        else{
+        return response()->json(["status"=>true,"data"=>$user]);
+
+        }
+      } 
+      catch(\Throwable $e){
+        return response()->json(["status"=>false, "message"=>$e->getMessage()]);
+      }   
     }
 }

@@ -1,11 +1,13 @@
 import { Box } from "@mui/material";
+import AppBar1 from "../component/AppBar";
+import BlogContainer from "../component/blog/BlogContainer";
 
 export default function User(){
+    
     return(
         <>
-        <Box>
-            Hello Every One 
-        </Box>
+         <AppBar1 />
+          <BlogContainer />
         </>
     )
 }

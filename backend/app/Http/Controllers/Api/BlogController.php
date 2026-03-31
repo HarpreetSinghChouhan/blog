@@ -61,12 +61,36 @@ class BlogController extends Controller
         ]);
     }
 
-
-    public function getallblogs(Request $request)
+      
+     public function blogs(Request $request)
     {
-        $blog = Blog::with(['user:id,email,name'])->get();
-        return response()->json(["status" => true, "message" => $blog]);
+        try {
+            $user = $request->user();
+
+            if ($user->hasRole('admin')) {
+                $blogs = Blog::with('user:id,name,email')->get();
+            } elseif ($user->hasRole('bloger')) {
+                // Bloger sees only their own blogs
+                $blogs = Blog::with('user:id,name,email')->get();
+            } else {
+                // Regular user sees only published blogs
+                $blogs = Blog::where('status', 'published')->get();
+            }
+
+            return response()->json([
+                'status' => true,
+                'blogs'  => $blogs,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json(["status" => false, "message" => $e->getMessage()]);
+        }
     }
+
+    // public function getallblogs(Request $request)
+    // {
+    //     $blog = Blog::with(['user:id,email,name'])->get();
+    //     return response()->json(["status" => true, "message" => $blog]);
+    // }
     public function CreateBlog(Request $request)
     {
         $rule = [

@@ -1,7 +1,9 @@
-import AdminRegister1, { AdminLogin1, AllDb, AllUB, blogCreation,  LoginPage, OneDelete, RegisterUserBloger } from "@/lib/api";
+// "use client"
+import AdminRegister1, { AdminLogin1, AllDb, AllUB, AuthCheker, blogCreation,  LoginPage, OneDelete, RegisterUserBloger } from "@/lib/api";
 import { ListItem } from "@mui/material";
 import Error from "./script";
 import { use, useEffect } from "react";
+import { useRouter } from "next/navigation";
  interface Props {
   form:any,
   go:Function,
@@ -104,14 +106,20 @@ export async function blogCreate(data: any, go: Function, seterror: any) {
   }
 }
 export function Blog(setblog: any,mode:string |null){
- 
+   const router = useRouter();
     useEffect(() => {
       
         const token = localStorage.getItem("token");
       if (!token) return;
       const GetData = async () => {
         const response = await AllUB(token,mode);
-         setblog(response.message);
+        //  console.log("Api response ");
+        if(response.message == "Unauthorized"){
+          localStorage.removeItem("token");
+          router.push("/login");
+          return;
+        }
+         setblog(response.blogs);
         //  console.log(response);
       };
       GetData();
@@ -138,21 +146,25 @@ export async function UserBlogerEdit({form,go,seterror}:Props) {
    const res = await AllDb({data,token,url} );
     console.log(res);
 }
-export  function AuthCheckBloger(){
-  const token = localStorage.getItem("token");
-   if(!token){
-     return "token not found";
-   }
+export function useAuthCheckBloger() {
+  const router = useRouter();
+   
+  useEffect(() => {
+    const token = localStorage.getItem("token");
 
-    else {
-   useEffect(()=>{
-      const get = async () => {    
-    const response = await AuthCheker(token); 
-    console.log(response); }
+    const get = async () => {
+      const response = await AuthCheker(token);
+
+      if (response.message === "Unauthorized") {
+        localStorage.removeItem("token");
+        router.push("/login");
+        return;
+      }
+    };
+
     get();
-   },[]);
- 
- 
-  }
-  
+  }, [router]);
+}
+export function blogEdit({form,go,seterror}:Props){
+ const token = localStorage.getItem("token");
 }

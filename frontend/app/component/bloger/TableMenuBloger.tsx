@@ -1,10 +1,11 @@
-
+// "use client"
 import { useState } from "react";
 import { IconButton, Menu, MenuItem, TableCell } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Delete } from "../../AuthValidator";
+import { useRouter } from "next/navigation";
 
- export default function TableMenuBloger({ blog,setblogs }: any) {
+ export default function TableMenuBloger({ blog,setblogs,go }: any) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const open = Boolean(anchorEl);
@@ -14,7 +15,9 @@ import { Delete } from "../../AuthValidator";
   };
 
   const handleEdit = () => {
-    console.log("Edit user:", blog.id);
+    // console.log("Edit user:", blog.id);
+    // const router = useRouter();
+    go(`/bloger/status/${blog.id}`);
   };
   const handleClose = () => {
     setAnchorEl(null);

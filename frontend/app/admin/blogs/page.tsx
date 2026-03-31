@@ -21,7 +21,7 @@ export const stripHtml = (html: any) => {
 export default function Blogs() {
   const [blogs, setblogs] = useState<any[]>([]);
 
-  const res = Blog(setblogs, "allblogs");
+  const res = Blog(setblogs, "blogs");
   // console.log(blogs);
   return (
     <>
