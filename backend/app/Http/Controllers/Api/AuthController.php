@@ -59,4 +59,14 @@ class AuthController extends Controller
         return response()->json(["status"=>false, "message"=>$e->getMessage()]);
       }   
     }
+    public function UserFound($id){
+         
+    $user = User::find($id);
+        if(!$user){
+            return response()->json(["status"=>false,"message"=>"User Not Found"]);
+        }
+        else{
+            return response()->json(["status"=>true,"message"=>$user]);
+        }
+    }
 }

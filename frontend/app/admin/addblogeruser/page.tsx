@@ -17,6 +17,7 @@ import { use, useState } from "react";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
+import Error from "@/app/component/Error";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
@@ -32,7 +33,7 @@ interface FormType {
 }
 
 export default function UserBloger() {
-  const [error, seterror] = useState<React.ReactNode[]>([]);
+  const [error, seterror] = useState<string[]>([]);
   const { go } = navigation();
   const [form, setForm] = useState<FormType>({
     name: "",
@@ -169,7 +170,7 @@ export default function UserBloger() {
               }}
             ></Typography>
           </Box>
-          
+           <Error  error={error} />
           {/* Name Field */}
           <TextField
             label="Full Name"

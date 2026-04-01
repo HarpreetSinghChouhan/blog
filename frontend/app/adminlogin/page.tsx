@@ -20,6 +20,7 @@ import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettin
 import { navigation } from "@/lib/routes";
 import { Login1 } from "../AuthValidator";
 import { Span } from "next/dist/trace";
+import Error from "../component/Error";
   
 interface FormType {
   name: string;
@@ -29,7 +30,7 @@ interface FormType {
 
 export default function AdminLogin() {
      const { go } = navigation();
-  const [error, seterror] = useState<React.ReactNode[]>([]);
+  const [error, seterror] = useState<string[]>([]);
   const [form, setForm] = useState<FormType>({
     name: "",
     email: "",
@@ -158,15 +159,7 @@ export default function AdminLogin() {
             >
               Sign in to access your dashboard
             </Typography>
-            {error &&(
-                <Typography sx={{color:"red"}} >
-                  {error.map((err:any,i)=>(
-                    <Typography key={i} component={'span'} >
-                        {err}
-                        </Typography>
-                  ))}
-                </Typography>
-            )}
+            <Error error={error} />
           </Box>
           {/* Email Field */}
           <TextField

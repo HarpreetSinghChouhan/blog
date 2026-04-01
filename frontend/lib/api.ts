@@ -11,6 +11,10 @@ interface Onedele{
     token: String | null,
     url:String | null,
 }
+interface prop1 {
+    form:any,
+    token:string | null,
+}
 const api = process.env.LARAVAL_API || "http://127.0.0.1:8000/api";
 export async function Logout(token: any) {
     const response = await fetch(`${api}/logout`, {
@@ -148,9 +152,9 @@ export async function OneDelete({id,token,url}:Onedele){
 export async function AllDb({data,token,url}:Props) {
      const response = await fetch(`${api}/${url}`,{
         method:"PUT",
-        headers:{
-            "Authorization":`Brearer ${token}`,
-            "Accept":"application/josn",
+        headers:{ 
+            "Accept":"application/json",
+            "Authorization":`Bearer ${token}`,
         },
         body:data,
      })
@@ -165,6 +169,31 @@ export async function AuthCheker(token:String | null) {
             "Authorization":`Bearer ${token}`,
         }     
     })
+    const res = await response.json();
+    return res;
+    
+}
+export async function blogEditer({form,token}:prop1){
+    const response =  await fetch(`${api}/blogedit`,{
+        method:"POST",
+        headers:{
+            "Accept":"application/json",
+            "Authorization":`Bearer ${token}`
+        },
+         body:form
+    }) 
+    const res = await response.json();
+    return res;
+}
+export async function FindUser1(id:any,token:string | null) {
+    const response = await fetch(`${api}/user/${id}`,{
+        method:"GET",
+        headers:{
+            "Accept":"application/json",
+            "Authorization":`Bearer ${token}`
+        }
+        
+    });
     const res = await response.json();
     return res;
     

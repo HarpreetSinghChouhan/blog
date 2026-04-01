@@ -23,7 +23,8 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
 
 import { navigation } from "@/lib/routes";
-import { UserBlogerAdd, UserBlogerEdit } from "@/app/AuthValidator";
+import { UserBlogerEdit } from "@/app/AuthValidator";
+import Error from "../Error";
 
 interface FormType {
   name: string;
@@ -31,16 +32,21 @@ interface FormType {
   role?:string;
 }
 
-export default function EditUserBloger({form,setform}:any) {
-  const [error, seterror] = useState<React.ReactNode[]>([]);
+export default function EditUserBloger({id,form,setform}:any) {
+  const [error, seterror] = useState<string[]>([]);
   const { go } = navigation();
 //   const [form1, setForm1] = useState<FormType>(form);
   const [showPassword, setShowPassword] = useState(false);
 
   const submitHandle = async (e: React.FormEvent) => {
     e.preventDefault();
-    // console.log(form);
-    UserBlogerEdit({form,go, seterror} );
+    const formdata = new FormData();
+    formdata.append("name",String(form.name));
+    formdata.append("email",String(form.email));
+    formdata.append("role",String(form.role));
+    // formdata.append("_method","PUT");
+
+    UserBlogerEdit({formdata,go, seterror,id} );
   };
 
   const inputHandle = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -126,7 +132,7 @@ export default function EditUserBloger({form,setform}:any) {
         >
           {/* Header */}
           <Box sx={{ textAlign: "center", mb: 4 }}>
-            <Box
+            {/* <Box
               sx={{
                 width: 64,
                 height: 64,
@@ -143,7 +149,7 @@ export default function EditUserBloger({form,setform}:any) {
               <AdminPanelSettingsOutlinedIcon
                 sx={{ color: "#fff", fontSize: 32 }}
               />
-            </Box>
+            </Box> */}
             <Typography
               variant="h5"
               fontWeight={700}
@@ -153,7 +159,7 @@ export default function EditUserBloger({form,setform}:any) {
                 letterSpacing: "-0.3px",
               }}
             >
-              Admin Portal
+             User Edit
             </Typography>
             <Typography
               variant="body2"
@@ -164,15 +170,7 @@ export default function EditUserBloger({form,setform}:any) {
               }}
             ></Typography>
           </Box>
-          {error && (
-            <Typography sx={{ color: "red" }}>
-              {error.map((err: any, i: any) => (
-                <Typography key={i} component={"span"}>
-                  {err}
-                </Typography>
-              ))}
-            </Typography>
-          )}
+        <Error error={error} />
           {/* Name Field */}
           <TextField
             label="Full Name"
@@ -201,6 +199,7 @@ export default function EditUserBloger({form,setform}:any) {
             type="email"
             name="email"
             size="small"
+            
             value={form.email}
             onChange={inputHandle}
             fullWidth
@@ -208,12 +207,14 @@ export default function EditUserBloger({form,setform}:any) {
             aria-readonly
             sx={{ ...fieldStyles, mb: 2 }}
             InputProps={{
+              readOnly:true,
               startAdornment: (
                 <InputAdornment position="start">
                   <EmailOutlinedIcon sx={{ fontSize: 18, color: "#A0AAB8" }} />
                 </InputAdornment>
               ),
             }}
+            
           />
 
           {/* Password Field */}

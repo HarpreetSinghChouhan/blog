@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Blog;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -66,7 +67,10 @@ class BlogController extends Controller
     {
         try {
             $user = $request->user();
-
+            // $role = User::with('role:id,name')->find($user->id);
+            $user->load('role:id,name');
+            // if()
+              return response()->json(["status"=>true,"message"=>$user]);
             if ($user->hasRole('admin')) {
                 $blogs = Blog::with('user:id,name,email')->get();
             } elseif ($user->hasRole('bloger')) {
@@ -84,6 +88,57 @@ class BlogController extends Controller
         } catch (\Exception $e) {
             return response()->json(["status" => false, "message" => $e->getMessage()]);
         }
+    }
+    public function EditBlog(Request $request){
+   try{
+    $rule = [
+        "title" => "required | min:2",
+        "footer" =>"required | min:4",
+        "slug" => "required|min:5|unique:blogs,slug," . $request->id,
+        "content"=>"required | min:100",
+        "image" => "nullable | image | mimes:jpg,jpeg,png,webp | max:3072",
+    ];
+    $message = [
+        "tilte.required" => "Title are Required",
+        "title.min" => "Title are Minimum 2 letter",
+        "footer.required" => "Footer Are required ",
+        "footer.min" => "Footer Are Minimum 4 letter",
+        "slug.required" => "Slug Are Required",
+        "slug.unique"      => "Slug already exists", 
+        "content.required" => "Content Are  Required",
+    ];
+      $validation =  Validator::make($request->all(),$rule,$message);
+      if($validation->fails()){
+        return response()->json(["status"=>false,"message"=>$validation->errors()]);
+      }
+      else{
+        $blog = Blog::find($request->id);
+        // $blog1 = Blog::find($request->id);
+        if(!$blog){
+          return response()->json(["status"=>false, "message"=>"Blog are Not Found"]);
+        }
+        else{
+            $image = $blog->image;
+            if($request->file('image')){
+                $file = $request->file('image');
+                $image = time()."_".$file->getClientOriginalName();
+                $file->storeAs('blogs',$image,'public'); 
+            }
+             $blog->update([
+                'title'=>$request->title,
+                'footer'=>$request->footer,
+                'content' => $request->content,
+                'slug' => $request->slug,
+                'image'=>$image,
+                ]
+             );
+            return response()->json(["status"=>true,"update"=>$blog]);
+        }
+      }
+   }
+   catch(\Exception $e){
+        return response()->json(["status"=>false, "message"=>$e->getMessage()]);
+         }
     }
 
     // public function getallblogs(Request $request)

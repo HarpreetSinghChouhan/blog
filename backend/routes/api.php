@@ -22,14 +22,16 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/bloger', [AdminController::class, 'getbloger']);
     Route::get('/blog/{id}', [BlogController::class, 'getblog']);
     Route::delete('/blog/{id}', [BlogController::class, 'deleteblog1']);
+    Route::put('/blogedit',[BlogController::class,'EditBlog']);
+    Route::get('/user/{id}',[AuthController::class,'UserFound']);
 });
 Route::middleware(['auth:sanctum', 'role:bloger'])->group(function () {
     Route::post('/blogcreate', [BlogController::class, 'CreateBlog']);
+
 });
 Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
-    
     Route::put('/blogerchange', [BlogController::class, 'ChangeStatus']);
     Route::delete('/deleteblog', [BlogController::class, 'DeleteBlog']);
     Route::delete('/user/{id}', [AdminController::class, 'DeleteUser']);
-    Route::put('/edituserblog', [AdminController::class, 'EditUser']);
+    Route::put('/user/{id}', [AdminController::class, 'EditUser']);
 });

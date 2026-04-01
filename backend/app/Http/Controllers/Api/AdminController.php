@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Spatie\Permission\Models\Role;
 
 use function Laravel\Prompts\error;
 
@@ -15,7 +16,8 @@ class AdminController extends Controller
     //
     public function  Register(Request $request)
     {
-        $rule = array(
+       try{
+         $rule = array(
             "name" => 'required | min:2',
             'email' => "required | email | unique:users",
             'password' => "required | min:8",
@@ -33,18 +35,22 @@ class AdminController extends Controller
         if ($valdation->fails()) {
             return response()->json(['status' => false, 'message' => $valdation->errors()], 422);
         } else {
-            $role = 'admin';
+            
+           $defaultrole = Role::findOrCreate('admin');
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
-                'role' => $role,
-
+                'role_id' => $defaultrole->id,
             ]);
             $token = $user->createToken('apitoken')->plainTextToken;
-            $user->assignRole($role);
+            // $user->assignRole($defaultrole);
             return response()->json(['status' => true, 'user' => $user, "token" => $token, 'role' => $user->role], 201);
         }
+       }
+       catch(\Exception $e){
+        return response()->json(['status'=>false,"message"=>$e->getMessage()]);
+       }
     }
     public function DeleteUser($id)
     {
@@ -88,11 +94,26 @@ class AdminController extends Controller
             }
         }
     }
-    public function EditUser(Request $request){
+    public function EditUser(Request $request ,$id){
         try{
-            $data=  $request->all();
-            return response()->json(["data"=>$data]);
-
+            $rule = [
+                "name"=> "required | min:3",
+            ];
+            $message = [
+                "name.required"=>"name are required",
+                "name.min"=>"name Letter minimum 3 letter",
+            ];
+            $validation = validator($request->all(),$rule,$message);
+            if($validation->fails()){
+            return response()->json(["status"=>false,"message"=>$validation->errors()],400);
+            }
+            // $email=$request->email;
+            $user = User::find($id);
+            $user->update([
+                'name'=>$request->name,
+                'role_id'=>$request->role,
+            ]);
+            return response()->json(["status "=>true, "message"=>"user Are UPDATED"]);
         }
         catch(\Exception $e){
             return response()->json(["status"=>false,"message"=>$e->getMessage()],400);
@@ -121,16 +142,17 @@ class AdminController extends Controller
         if ($valdation->fails()) {
             return response()->json(['status' => false, 'message' => $valdation->errors()], 422);
         } else {
-            $role = $request->role;
+            // $role = $request->role;
+            $defaultrole = Role::findOrCreate(`$request->role`);
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
-                'role' => $role,
+                'role_id' => $defaultrole->id,
 
             ]);
             $token = $user->createToken('apitoken')->plainTextToken;
-            $user->assignRole($role);
+            $user->assignRole($defaultrole);
             return response()->json(['status' => true, 'user' => $user, "token" => $token, 'role' => $user->role], 201);
         }
     }
@@ -149,7 +171,6 @@ class AdminController extends Controller
     public function verifyProfile(Request $request)
     {
         //  $rolled = $request->user()->load('role')->rolle->name;
-
         return response()->json(['status' => true, "user" => $request->user()], 200);
     }
     public function getallusers()

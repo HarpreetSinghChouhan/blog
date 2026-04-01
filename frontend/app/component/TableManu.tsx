@@ -3,8 +3,10 @@ import { useState } from "react";
 import { IconButton, Menu, MenuItem, TableCell } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Delete } from "../AuthValidator";
+import { useRouter } from "next/navigation";
 
  export default function TableMenu({ user,setusers }: any) {
+  const router = useRouter();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const open = Boolean(anchorEl);
@@ -15,15 +17,18 @@ import { Delete } from "../AuthValidator";
 
   const handleEdit = () => {
     console.log("Edit user:", user.id);
+    router.push(`/admin/edit/${user.id}`);
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
  const handleDelete = async (id:any) =>{
-  const response = await Delete("user",user.id);
+  if(confirm(`are you want to Delete ${user.email}`)){
+     const response = await Delete("user",user.id);
   // console.log(response);
   if(response.status == true){
     setusers((prev:any[])=>prev.filter((user:{id:any})=>user.id !== id));
+  }
   }
  }
   return (
@@ -44,9 +49,6 @@ import { Delete } from "../AuthValidator";
         >
           Edit
         </MenuItem>
-       
-      
-
         <MenuItem
           onClick={() => {
             // console.log("Delete");
