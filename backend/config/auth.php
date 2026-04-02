@@ -43,10 +43,10 @@ return [
         'provider' => 'users',
     ],
 
-    'bloger' => [
-        'driver' => 'sanctum',
-        'provider' => 'users',
-    ],
+    // 'bloger' => [
+    //     'driver' => 'session',
+    //     'provider' => 'users',
+    // ],
 ],
 
     /*

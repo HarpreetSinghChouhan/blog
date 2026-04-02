@@ -59,9 +59,10 @@ export async function UserBlogerAdd(form: any, go: Function, seterror: any) {
   }
 }
 export async function GetUsers(setusers: any | [], mode: string | null) {
-  let token = localStorage.getItem("token");
+ 
   //  token = JSON.stringify(token);
   useEffect(() => {
+     let token = localStorage.getItem("token");
     const Get = async () => {
       const res = await AllUB(token, mode);
       setusers(res.user);
@@ -77,15 +78,20 @@ export async function Login2(data: any, go: Function, seterror: any) {
   const response = await LoginPage(data, "login");
   //   console.log(response);
   if (response.status == true) {
-    let token = response.token;
-    localStorage.setItem("token", token);
-    document.cookie = `token=${token}; path=/`;
-    if (response.role == "bloger") {
-      go("/bloger");
-    }
-    else if (response.role == "user") {
-      go("/user");
-    }
+    //  console.log("Hello Every One");
+    // let token = response.token;
+      if(response.message == "success"){
+        alert("Verify email and login")
+        go("/emailverify");
+      }
+    // localStorage.setItem("token", token);
+    // document.cookie = `token=${token}; path=/`;
+    // if (response.role.name == "bloger") {
+    //   go("/bloger");
+    // }
+    // else if (response.role.name == "user") {
+    //   go("/user");
+    // }
 
     return null;
   } else {
@@ -149,6 +155,9 @@ export async function UserBlogerEdit({ formdata, go, seterror,id }: Props) {
     if(res== false){
       Error(res,seterror);  
     }
+    else{
+      go("/admin");
+    }
 }
 export function useAuthCheckBloger() {
   const router = useRouter();
@@ -187,11 +196,11 @@ export function FindUser({ id, setform }: any) {
     const Get = async () => {
       const response = await FindUser1(id, token);
       let user = response.message
-      // console.log(user);
+      console.log(user);
       setform({
         name: user.name,
         email: user.email,
-        role: user.role,
+        role: user.role.name,
       })
     }
     Get();

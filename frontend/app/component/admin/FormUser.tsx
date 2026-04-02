@@ -10,7 +10,7 @@ interface Form{
 
 }
 export default function FormUser({id}:any){
-    console.log(id);
+    // console.log(id);
     const [form,setform]= useState<Form>({
         name:"",
         email:"",

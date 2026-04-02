@@ -69,8 +69,6 @@ class BlogController extends Controller
             $user = $request->user();
             // $role = User::with('role:id,name')->find($user->id);
             $user->load('role:id,name');
-            // if()
-              return response()->json(["status"=>true,"message"=>$user]);
             if ($user->hasRole('admin')) {
                 $blogs = Blog::with('user:id,name,email')->get();
             } elseif ($user->hasRole('bloger')) {

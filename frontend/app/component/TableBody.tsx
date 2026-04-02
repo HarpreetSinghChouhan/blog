@@ -14,7 +14,7 @@ export default function  TableBody1({users,setusers}:any){
                 <TableCell>{index +1}</TableCell>
                 <TableCell>{user.name}</TableCell>
                 <TableCell>{user.email}</TableCell>
-                <TableCell>{user.role}</TableCell>
+                <TableCell>{user.role.name}</TableCell>
                 <TableCell>
                   {new Date(user.created_at).toLocaleString()}
                 </TableCell>

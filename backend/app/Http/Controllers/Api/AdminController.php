@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Http\Exceptions\OriginMismatchException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -36,15 +37,15 @@ class AdminController extends Controller
             return response()->json(['status' => false, 'message' => $valdation->errors()], 422);
         } else {
             
-           $defaultrole = Role::findOrCreate('admin');
+          $role = Role::findOrCreate('admin', 'web');
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
-                'role_id' => $defaultrole->id,
+                'role_id' => $role->id,
             ]);
             $token = $user->createToken('apitoken')->plainTextToken;
-            // $user->assignRole($defaultrole);
+            $user->assignRole($role);
             return response()->json(['status' => true, 'user' => $user, "token" => $token, 'role' => $user->role], 201);
         }
        }
@@ -98,6 +99,7 @@ class AdminController extends Controller
         try{
             $rule = [
                 "name"=> "required | min:3",
+                "role"=>"required",
             ];
             $message = [
                 "name.required"=>"name are required",
@@ -109,9 +111,10 @@ class AdminController extends Controller
             }
             // $email=$request->email;
             $user = User::find($id);
+            $role = Role::findOrCreate($request->role,'web');
             $user->update([
                 'name'=>$request->name,
-                'role_id'=>$request->role,
+                'role_id'=>$role->id,
             ]);
             return response()->json(["status "=>true, "message"=>"user Are UPDATED"]);
         }
@@ -142,8 +145,8 @@ class AdminController extends Controller
         if ($valdation->fails()) {
             return response()->json(['status' => false, 'message' => $valdation->errors()], 422);
         } else {
-            // $role = $request->role;
-            $defaultrole = Role::findOrCreate(`$request->role`);
+            $role = $request->role;
+            $defaultrole = Role::findOrCreate($role,'web');
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
@@ -151,9 +154,9 @@ class AdminController extends Controller
                 'role_id' => $defaultrole->id,
 
             ]);
-            $token = $user->createToken('apitoken')->plainTextToken;
+            // $token = $user->createToken('apitoken')->plainTextToken;
             $user->assignRole($defaultrole);
-            return response()->json(['status' => true, 'user' => $user, "token" => $token, 'role' => $user->role], 201);
+            return response()->json(['status' => true, 'user' => $user, ], 201);
         }
     }
 
@@ -174,18 +177,31 @@ class AdminController extends Controller
         return response()->json(['status' => true, "user" => $request->user()], 200);
     }
     public function getallusers()
-    {
-        $user = User::Where('role', '!=', 'admin')->get();
+    { 
+        $user = User::with('role:id,name')->whereHas('role',function ($query) {
+            $query->where('name','!=','admin');
+        })->get();
+
+        // $user1 = $user->filter(function ($value,$key){
+        //   return  optional($value->role)->name !== 'admin';
+        // });
+        // $user = User::Where('role', '!=', 'admin')->get();
         return response()->json(["status" => true, "user" => $user], 200);
     }
     public function getuser()
-    {
-        $user = User::Where('role', 'user')->get();
-        return response()->json(['status' => true, "user" => $user], 200);
+    {  
+        // $user = User::with('role:id,name')->get();
+        $user = User::with('role:id,name')->whereHas('role',function ($query) {
+            $query->where('name','user');
+        })->get();
+        return response()->json(['status' => true, "user" => $user,], 200);
     }
     public function getbloger()
     {
-        $user = User::Where('role', 'bloger')->get();
+        // $user = User::Where('role', 'bloger')->get();
+        $user = User::with('role:id,name')->whereHas('role',function ($query){
+            $query->where('name','bloger');
+        })->get();
         return response()->json(['status' => true, "user" => $user], 200);
     }
 }

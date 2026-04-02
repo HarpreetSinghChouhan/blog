@@ -3,8 +3,10 @@ import { Box } from "@mui/material";
 import DrawerComponent from "../component/DrawerComponent";
 import AppBar1 from "../component/AppBar";
 import { TabProvider } from "./context/TabContext";
+import { useAuthCheckBloger } from "../AuthValidator";
 
 function AdminContent({ children }: { children: React.ReactNode }) {
+  useAuthCheckBloger();
   return (
     <Box display="flex" sx={{ minHeight: "100vh" }}>
       <DrawerComponent />

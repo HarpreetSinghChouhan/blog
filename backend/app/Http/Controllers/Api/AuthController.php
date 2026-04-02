@@ -33,8 +33,8 @@ class AuthController extends Controller
             if (!$user || !Hash::check($request->password, $user->password)) {
                 return response()->json(['status' => false, 'message' => 'Email and Password are Not Matched']);
             } else {
-                $token = $user->createToken('apitoken')->plainTextToken;
-                return response()->json(['status' => true, 'token' => $token, 'user' => $user, 'role' => $user->role ?? null]);
+                // $token = $user->createToken('apitoken')->plainTextToken;
+                return response()->json(['status' => true, "message"=>"success"]);
             }
         }
 
@@ -61,7 +61,7 @@ class AuthController extends Controller
     }
     public function UserFound($id){
          
-    $user = User::find($id);
+    $user = User::with('role:id,name')->find($id);
         if(!$user){
             return response()->json(["status"=>false,"message"=>"User Not Found"]);
         }
