@@ -23,7 +23,7 @@ class AuthController extends Controller
             "email.required" => "Email Are Required",
             "email.email" => "Email Are Not Correct Format",
             "password.required" => "Password Are Required",
-            "password.min" => "Password Are Minimum 8 Letter "
+            "password.min" => "Password Are Minimum 8 Letter"
         ];
         $validation = Validator::make($request->all(), $rule, $message);
         if ($validation->fails()) {
@@ -33,7 +33,7 @@ class AuthController extends Controller
             if (!$user || !Hash::check($request->password, $user->password)) {
                 return response()->json(['status' => false, 'message' => 'Email and Password are Not Matched']);
             } else {
-                // $token = $user->createToken('apitoken')->plainTextToken;
+                $token = $user->createToken('apitoken')->plainTextToken;
                 return response()->json(['status' => true, "message"=>"success"]);
             }
         }
@@ -45,14 +45,13 @@ class AuthController extends Controller
     }
     public function AuthChenker1(){
       try{
-        $user = Auth::id();
+        $id = Auth::id();
+        $user = User::with('role:id,name')->find($id);
         if(!$user){
         return response()->json(["status"=>true,"message"=>" User Not Found"]);
-
         }
         else{
-        return response()->json(["status"=>true,"data"=>$user]);
-
+        return response()->json(["status"=>true,"user"=>$user]);
         }
       } 
       catch(\Throwable $e){

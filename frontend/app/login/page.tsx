@@ -224,7 +224,7 @@ export default function AdminLogin() {
           {/* Forgot Password */}
           <Box sx={{ textAlign: "right", mb: 3 }}>
             <Link
-              href="#"
+              href="/forget-password"
               underline="hover"
               sx={{
                 fontSize: "0.78rem",

@@ -1,5 +1,5 @@
 // "use client"
-import AdminRegister1, { AdminLogin1, AllDb, AllUB, AuthCheker, blogCreation, blogEditer, FindUser1, LoginPage, OneDelete, RegisterUserBloger } from "@/lib/api";
+import AdminRegister1, { AdminLogin1, AllDb, AllUB, AuthCheker, blogCreation, blogEditer, FindUser1, LoginPage, OneDelete, RegisterUserBloger, VerifyMail, VerifyOTP } from "@/lib/api";
 import { ListItem } from "@mui/material";
 import Error from "./script";
 import { use, useEffect } from "react";
@@ -205,4 +205,40 @@ export function FindUser({ id, setform }: any) {
     }
     Get();
   }, [])
+}
+
+
+export async function VerifyEmail({ formdata, setstatus, seterror }: any) {
+  try {
+    const response = await VerifyMail(formdata);
+    if (response?.status === true) {
+      setstatus(true);
+      return response;
+    } else {
+      Error(response, seterror);
+      return response;
+    }
+
+  } catch (err) {
+    console.log("VerifyEmail Error:", err);
+    seterror(["Something went wrong"]);
+    return null;
+  }
+}
+export async function VerifyOtp({ formdata, seterror }: any) {
+  try {
+    const response = await VerifyOTP(formdata);
+
+    if (response?.status === true) {
+      return response;
+    } else {
+      Error(response, seterror);
+      return response;
+    }
+
+  } catch (err) {
+    console.log("VerifyOtp Error:", err);
+    seterror(["Something went wrong"]);
+    return null;
+  }
 }

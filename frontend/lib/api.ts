@@ -65,7 +65,8 @@ export async function RegisterUserBloger(data: any, token: string | null) {
     const res = await response.json();
     return res;
 }
-export async function AllUB(token: string | null,mode:string | null) {
+export async function 
+AllUB(token: string | null,mode:string | null) {
     const response = await fetch(`${api}/${mode}`, {
         method: "GET",
         headers: {
@@ -170,8 +171,7 @@ export async function AuthCheker(token:String | null) {
         }     
     })
     const res = await response.json();
-    return res;
-    
+    return res;  
 }
 export async function blogEditer({form,token}:prop1){
     const response =  await fetch(`${api}/blogedit`,{
@@ -195,6 +195,29 @@ export async function FindUser1(id:any,token:string | null) {
         
     });
     const res = await response.json();
+    return res;
+    
+}
+export async function VerifyMail(formdata:any){
+    const response = await fetch(`${api}/verifyemail`,{
+        method:"POST",
+        headers:{
+            "Accept":"application/json",
+        },
+        body:formdata,
+    });
+    const res = response.json();
+    return res;
+}
+export async function VerifyOTP(formdata:any) {
+    const response = await fetch(`${api}/verifyotp`,{
+        method:"POST",
+        headers:{
+            "Accept":"application/json",
+        },
+        body:formdata,
+    });
+    const res = response.json();
     return res;
     
 }
