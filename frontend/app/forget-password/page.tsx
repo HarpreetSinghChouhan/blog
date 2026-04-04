@@ -1,3 +1,4 @@
+"use client"
 import { Box, Container } from "@mui/material";
 import EmailVerification from "../component/admin/EmailVerify";
 import { useState } from "react";
@@ -41,7 +42,7 @@ export default function ForgetPassword() {
            formdata.append("otp", otp);
            const response = await VerifyOtp({ formdata, seterror });
    
-           if (response?.status === true) {
+           if (response?.status === true) { 
              localStorage.setItem("token", response.token);
              setRunAuthCheck(true); 
            }
@@ -54,11 +55,10 @@ export default function ForgetPassword() {
      };
     return (
         <>
-             {runAuthCheck && (<PasswordForget />) }
+             {runAuthCheck && (<PasswordForget email={form.email} />) }
             <Container maxWidth={'lg'} >
                 <Container maxWidth={'lg'} sx={{ minHeight: "100vh", alignContent: "center" }}>
                     <Box sx={{ maxWidth: "900px", mx: "auto", boxShadow: "0px 0px 10px black", p: 4, borderRadius: "15px" }}>
-
                         <EmailVerification handleSubmit={handleSubmit} error={error} handleinput={handleinput} handleChange={handleChange} form={form} otp={otp} loading={loading} status={status} />
                     </Box>
                 </Container>

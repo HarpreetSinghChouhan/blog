@@ -8,6 +8,7 @@ use App\Mail\AuthMail;
 use App\Models\User;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Password;
 
 class EmailContoller extends Controller
 {
@@ -46,6 +47,9 @@ class EmailContoller extends Controller
                     return response()->json(['status' => false, 'message' => 'this Mail is not exist or regiter your account'], 404);
                 } else {
                     $token =  $user->createToken('apitoken')->plainTextToken;
+                    // if($request->forgetpassword){
+                    //     $token = Password::getRepository()->create($user);
+                    // }
                     return response()->json(['status' => true, 'message' => 'OTP Verified Successfully', 'token' => $token], 200);
                 }
             }

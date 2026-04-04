@@ -218,7 +218,7 @@ export default function EditUserBloger({id,form,setform}:any) {
           />
 
           {/* Password Field */}
-          {/* <TextField
+          <TextField
             label="Password"
             placeholder="Enter your password"
             name="password"
@@ -252,7 +252,7 @@ export default function EditUserBloger({id,form,setform}:any) {
                 </InputAdornment>
               ),
             }}
-          /> */}
+          />
 
           <FormControl fullWidth sx={{my:1}} >
             <InputLabel id="RoleId-no1">Role </InputLabel>

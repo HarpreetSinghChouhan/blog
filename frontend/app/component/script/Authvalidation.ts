@@ -1,7 +1,7 @@
 "use client"
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { AuthCheker } from "@/lib/api";
+import { AuthCheker, CreateToken, verifyPasswordToken } from "@/lib/api";
 
 export function AuthChecker() {
   const router = useRouter();
@@ -31,20 +31,17 @@ export function AuthChecker() {
 
   return null;
 }
-export function  PasswordForget(){
-    const  router = useRouter();
-
+export function PasswordForget({ email }: { email: String | null }) {
+  const router = useRouter();
   useEffect(() => {
-    const token = localStorage.getItem("token");
 
     const Get = async () => {
-      const response = await AuthCheker(token);
-      console.log(response);
-
+      const token = localStorage.getItem("token");
+      const response = await CreateToken(email, token); // Pass the object here
       if (response?.status === true) {
-          router.push("/CreateNewPassword");
+        localStorage.setItem("token1", response.token);
+        router.push("/forget-password/CreateNewPassword");
       }
-      
     };
 
     Get();

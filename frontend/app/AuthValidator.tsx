@@ -1,5 +1,5 @@
 // "use client"
-import AdminRegister1, { AdminLogin1, AllDb, AllUB, AuthCheker, blogCreation, blogEditer, FindUser1, LoginPage, OneDelete, RegisterUserBloger, VerifyMail, VerifyOTP } from "@/lib/api";
+import AdminRegister1, { AdminLogin1, AllDb, AllUB, AuthCheker, blogCreation, blogEditer, ChangePassword, FindUser1, LoginPage, OneDelete, RegisterUserBloger, VerifyMail, VerifyOTP } from "@/lib/api";
 import { ListItem } from "@mui/material";
 import Error from "./script";
 import { use, useEffect } from "react";
@@ -238,6 +238,23 @@ export async function VerifyOtp({ formdata, seterror }: any) {
 
   } catch (err) {
     console.log("VerifyOtp Error:", err);
+    seterror(["Something went wrong"]);
+    return null;
+  }
+}
+export async function ChangePassword1({ form, seterror }: any) {
+  try {
+      const token1 = localStorage.getItem("token");
+    const response = await ChangePassword(form,token1);
+    if (response?.status === true) {
+      return response;
+    } else {
+      Error(response, seterror);
+      return response;
+    }
+
+  } catch (err) {
+    console.log(" Error:", err);
     seterror(["Something went wrong"]);
     return null;
   }
