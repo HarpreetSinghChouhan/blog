@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import {
   AddCircleOutlined,
@@ -19,7 +19,8 @@ import {
   Avatar,
   Divider,
 } from "@mui/material";
-import { useTab } from "../bloger/context/Provider";
+import { useTab1 } from "../bloger/context/Provider";
+import { AuthChecker1 } from "./script/Authvalidation";
 
 const DRAWER_WIDTH = 260;
 
@@ -51,23 +52,33 @@ const navItems = [
 ];
 
 export default function DrawerComponent() {
-  const { settabvalue,drawerOpen } = useTab();
+  const { settabvalue,drawerOpen } = useTab1();
   // const [value, setValue] = useState(0);
   const pathname = usePathname();
   const router = useRouter();
-  
-  // const handleSelect = (id: number) => {
-  //   // setValue(id);
-  //   settabvalue(id);
-  // };
+  const [response,setresponse] = useState(false);
+    const [user,setuser] = useState<any>();
+     useEffect(()=>{
+      const get = async () =>{
+        setresponse(true);
+        console.log(user);
+      };
+      get();
+     },[]);
+  const handleSelect = (id: number) => {
+
+    settabvalue(id);
+  }; 
 
   return (
+    <>
+    {response && (<AuthChecker1 setuser={setuser} />)}  
     <Drawer
       variant="persistent"
       open={drawerOpen}
       sx={{
         width:drawerOpen ? DRAWER_WIDTH:0 ,
-        flexShrink: 0,
+        transition: "width 0.7s ease",
         "& .MuiDrawer-paper": {
           width: DRAWER_WIDTH,
           boxSizing: "border-box",
@@ -104,7 +115,11 @@ export default function DrawerComponent() {
             boxShadow: "0 2px 12px rgba(10,132,255,0.4)",
           }}
         >
-          B
+          {user && (
+              <span>
+               {user.name.charAt(0).toUpperCase()}
+              </span>
+             )  }
         </Avatar>
         <Box>
           <Typography
@@ -162,7 +177,7 @@ export default function DrawerComponent() {
           return (
             <ListItemButton
               key={item.id}
-              onClick={() => router.push(item.path)}
+              onClick={() => handleSelect(item.id)}
               sx={{
                 borderRadius: "10px",
                 mb: 0.5,
@@ -249,7 +264,11 @@ export default function DrawerComponent() {
               fontWeight: 600,
             }}
           >
-            B
+            {user && (
+              <span>
+                {user.name.charAt(0).toUpperCase()}
+              </span>
+            )}
           </Avatar>
           <Box sx={{ flex: 1, minWidth: 0 }}>
             <Typography
@@ -264,7 +283,11 @@ export default function DrawerComponent() {
                 textOverflow: "ellipsis",
               }}
             >
-              Bloger
+             {user && (
+              <span>
+                {user.name}
+              </span>
+             )}
             </Typography>
             <Typography
               sx={{
@@ -273,11 +296,16 @@ export default function DrawerComponent() {
                 fontSize: 10.5,
               }}
             >
-              Bloger@example.com
+              {user && (
+                <span>
+                  {user.email}
+                </span>
+              )}
             </Typography>
           </Box>
         </Box>
       </Box>
     </Drawer>
+    </>
   );
 }

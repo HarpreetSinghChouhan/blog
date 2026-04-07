@@ -6,7 +6,6 @@ export default function EditBlog(){
     return (
         <>
          <Box>
-            <AppBar1 />
              {/* <BlogForm  /> */}
          </Box>
         </>

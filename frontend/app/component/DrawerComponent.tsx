@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ContactPage,
   Dashboard,
@@ -53,25 +53,40 @@ const navItems = [
   },
 ];
 import { useTab } from "../admin/context/TabContext";
+import { useAuthCheckBloger } from "../AuthValidator";
+import { AuthChecker1 } from "./script/Authvalidation";
 export default function DrawerComponent() {
   const { settabvalue, drawerOpen } = useTab();
+  const [response,setresponse] = useState(false);
+    const [user,setuser] = useState<any>();
+     useEffect(()=>{
+      const get = async () =>{
+        setresponse(true);
+        console.log(user);
+      };
+      get();
+     },[]);
   const [value, setValue] = useState(0);
   const pathname = usePathname();
+  
   // console.log(DRAWER_WIDTH);
   //  const [DRAWER_WIDTH,SETDRAWER_WIDTH] = useState<Number>(260);
   // DRAWER_WIDTH = 260;
   const handleSelect = (id: number) => {
-    setValue(id);
     settabvalue(id);
   };
   const blog = useState<boolean>(true);
   return (
+    <>
+    {response && (<AuthChecker1 setuser={setuser} />)}
     <Drawer
-     variant="persistent"
+     variant="persistent" 
       open={drawerOpen} // ← ADD THIS — was missing!
       sx={{
+        
         width: drawerOpen ? DRAWER_WIDTH : 0,
         // flexShrink: 0,
+        
         transition: "width 0.7s ease",
         "& .MuiDrawer-paper": {
           width: DRAWER_WIDTH,
@@ -99,10 +114,10 @@ export default function DrawerComponent() {
       >
         <Avatar
           sx={{
-            width: 36,
-            height: 36,
-            borderRadius: "10px",
-            background: "linear-gradient(135deg, #0A84FF 0%, #30D158 100%)",
+            width: 45,
+            height: 45,
+            borderRadius: "12px",
+          background:"rgba(235, 235, 183, 1)",
             fontSize: 15,
             fontWeight: 700,
             fontFamily:
@@ -110,7 +125,11 @@ export default function DrawerComponent() {
             boxShadow: "0 2px 12px rgba(10,132,255,0.4)",
           }}
         >
-          A
+          {user && (
+              <span style={{color:"black"}} >
+               {user.name.charAt(0).toUpperCase()}
+              </span>
+             )  }
         </Avatar>
         <Box>
           <Typography
@@ -248,12 +267,18 @@ export default function DrawerComponent() {
             sx={{
               width: 30,
               height: 30,
+                 background:"rgba(235, 235, 183, 1)",
               borderRadius: "8px",
               fontSize: 12,
               fontWeight: 600,
             }}
           >
-            U
+              {user && (
+              <span>
+               {user.name.charAt(0).toUpperCase()}
+              </span>
+             )}
+           
           </Avatar>
           <Box sx={{ flex: 1, minWidth: 0 }}>
             <Typography
@@ -268,7 +293,11 @@ export default function DrawerComponent() {
                 textOverflow: "ellipsis",
               }}
             >
-              Admin User
+             {user && (
+              <span>
+                {user.name}
+              </span>
+             )}
             </Typography>
             <Typography
               sx={{
@@ -277,11 +306,16 @@ export default function DrawerComponent() {
                 fontSize: 10.5,
               }}
             >
-              admin@example.com
+                {user && (
+              <span>
+                {user.email}
+              </span>
+             )}
             </Typography>
           </Box>
         </Box>
       </Box>
     </Drawer>
+    </>
   );
 }

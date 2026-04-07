@@ -34,7 +34,6 @@ export function AuthChecker() {
 export function PasswordForget({ email }: { email: String | null }) {
   const router = useRouter();
   useEffect(() => {
-
     const Get = async () => {
       const token = localStorage.getItem("token");
       const response = await CreateToken(email, token); // Pass the object here
@@ -47,5 +46,24 @@ export function PasswordForget({ email }: { email: String | null }) {
     Get();
   }, []);
 
+  return null;
+}
+export function AuthChecker1({setuser}:{setuser:any}){
+  const router = useRouter();
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const get = async () => {
+      const response = await AuthCheker(token);
+           
+      if (response.message === "Unauthorized") {
+        localStorage.removeItem("token");
+        router.push("/login");
+        return;
+      }
+        // console.log(response.user);
+        setuser(response.user);
+    };
+    get();
+  }, []);
   return null;
 }

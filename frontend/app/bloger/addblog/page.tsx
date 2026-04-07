@@ -48,8 +48,6 @@ export default function AddBlog() {
   }
   return (
     <>
-      <Box sx={{ minHeight: "100vh", bgcolor: "#eef0f2" }}>
-        <AppBar1 />
         <Typography
           component={"div"}
           sx={{ my: 3, textAlign: "center" }}
@@ -77,7 +75,6 @@ export default function AddBlog() {
             </Grid>
           </Grid>
         </Container>
-      </Box>
     </>
   );
 }

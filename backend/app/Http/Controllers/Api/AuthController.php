@@ -102,6 +102,7 @@ class AuthController extends Controller
     }
     public function ChangePassword(Request $request)
     {
+        // return response()->json(["status" => false, "message" => $request->all()]);
         try {
             $id = Auth::id();
             $user = User::with('role:id,name')->find($id);
@@ -134,8 +135,9 @@ class AuthController extends Controller
                 $user->update([
                     'password' => Hash::make($request->newpassword)
                 ]);
-
-                return response()->json(['status' => true, "message" => "Password updated successfully."], 200);
+                // $user->tokens()->delete();
+                $token = $user->createToken('apitoken')->plainTextToken;
+                return response()->json(['status' => true, "message" => "Password updated successfully.","token"=>$token], 200);
             } else {
                 $rule = [
                     'password' => 'required|min:8',
@@ -177,6 +179,15 @@ class AuthController extends Controller
     }
     public function UserFound($id)
     {
+        $user = User::with('role:id,name')->find($id);
+        if (!$user) {
+            return response()->json(["status" => false, "message" => "User Not Found"]);
+        } else {
+            return response()->json(["status" => true, "message" => $user]);
+        }
+    }
+    public function FindUser(){
+        $id = Auth::id();
         $user = User::with('role:id,name')->find($id);
         if (!$user) {
             return response()->json(["status" => false, "message" => "User Not Found"]);

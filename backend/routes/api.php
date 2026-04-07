@@ -32,6 +32,7 @@ Route::patch('/changepassword', [AuthController::class, 'ChangePassword']);
     Route::delete('/blog/{id}', [BlogController::class, 'deleteblog1']);
     Route::put('/blogedit', [BlogController::class, 'EditBlog']);
     Route::get('/user/{id}', [AuthController::class, 'UserFound']);
+    Route::get('/finduser', [AuthController::class, 'FindUser']);
 });
 Route::middleware(['auth:sanctum', 'role:bloger'])->group(function () {
     Route::post('/blogcreate', [BlogController::class, 'CreateBlog']);

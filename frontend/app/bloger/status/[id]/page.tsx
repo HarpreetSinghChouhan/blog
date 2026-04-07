@@ -10,7 +10,6 @@ export default async function EditBlog({params}:{params:{id:string}}){
     return (
         <>
          <Box>
-            <AppBar1 />
             <FormContainer id={id} />
           
          </Box>

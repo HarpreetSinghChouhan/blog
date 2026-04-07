@@ -14,10 +14,25 @@ import {
 } from "@mui/material";
 import LogoutButton from "./LogoutButton";
 import { useTab } from "../admin/context/TabContext";
+import { useTab1 } from "../bloger/context/Provider";
+import { usePathname } from "next/navigation";
 
 export default function AppBar1() {
     const buttoncolor = { BorderRadius:"10px","&;hover":{backgroundColor:"purple",}}; 
-  const { toggleDrawer } = useTab();
+    const pathname = usePathname();
+    const adminContext = useTab();
+    const blogerContext = useTab1();
+    const header = [{id:0,label:"Search",icon:<Search />,buttoncolor:buttoncolor},
+      {id:1,label:"Alarm",icon:<Alarm />,buttoncolor:buttoncolor},
+      {id:2,label:"Calendar",icon:<CalendarMonthTwoTone />,buttoncolor:buttoncolor},
+      {id:3,label:"Chat",icon:<ChatBubbleOutline />,buttoncolor:buttoncolor },
+      {id:4,label:"Access Time",icon:<AccessTime />,buttoncolor:buttoncolor},
+      {id:5,label:"Dashboard",icon:<DashboardOutlined />,buttoncolor:buttoncolor},
+      {id:6,label:"Logout",icon:<LogoutButton />,buttoncolor:buttoncolor}]
+    // Choose the appropriate toggle function based on the route
+    const toggleDrawer = pathname.startsWith("/admin") 
+      ? adminContext.toggleDrawer 
+      : blogerContext.toggleDrawer;
   return (
     <>
       <AppBar
@@ -40,42 +55,16 @@ export default function AppBar1() {
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <List sx={{ display: "flex", flexDirection: "row", padding: 0 }}>
               <ListItem>
+                 {header && header.map((item)=>{
+                  return(
+                    <ListItemButton key={item.id} sx={item.buttoncolor}  >
+                      <Typography variant="body1">
+                        {item.icon}
+                      </Typography>
+                    </ListItemButton>
+                  )
+                 })}
                 
-                <ListItemButton sx={{ BorderRadius:"10px","&;hover":{backgroundColor:"purple",}}}>
-                  <Typography variant="body1">
-                    <Search />
-                  </Typography>
-                </ListItemButton>
-                <ListItemButton sx={buttoncolor}>
-                  <Typography variant="body1">
-                    <Alarm />
-                  </Typography>
-                </ListItemButton>
-                <ListItemButton sx={buttoncolor}  >
-                  <Typography variant="body1">
-                    <CalendarMonthTwoTone />
-                  </Typography>
-                </ListItemButton>
-                <ListItemButton sx={{}} disabled>
-                  <Typography variant="body1">
-                    <ChatBubbleOutline />
-                  </Typography>
-                </ListItemButton>
-                <ListItemButton sx={buttoncolor}  >
-                  <Typography variant="body1">
-                    <AccessTime />
-                  </Typography>
-                </ListItemButton>
-                  <ListItemButton sx={buttoncolor}  >
-                  <Typography variant="body1">
-                    <DashboardOutlined />
-                  </Typography>
-                </ListItemButton>
-                <ListItemButton sx={{ BorderRadius:"10px","&;hover":{backgroundColor:"purple",}}}>
-                  <Typography variant="body1">
-                    <LogoutButton />
-                  </Typography>
-                </ListItemButton>
               </ListItem>
             </List>
           </Box>

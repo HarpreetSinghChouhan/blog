@@ -13,9 +13,7 @@ export default function Blogs() {
       const response = Blog(setblogs,"blogs");
   return (
     <>
-      <Box sx={{ minHeight: "100vh", bgcolor: "#eef0f2" }}>
-        <AppBar1 />
-
+      
         <Paper elevation={0} sx={{ bgcolor: "#eef0f2" }}>
           <Box
             sx={{display: "flex",justifyContent: "space-between",mx: 4,px: 4,py: 2,}}>
@@ -29,7 +27,6 @@ export default function Blogs() {
 
             </Box>
         </Paper>
-      </Box>
     </>
   );
 }

@@ -6,7 +6,7 @@ import {  VerifyEmail, VerifyOtp } from "../AuthValidator";
 import { AuthChecker } from "../component/script/Authvalidation";
 import EmailVerification from "../component/admin/EmailVerify";
 
-interface Form {
+export interface Form {
   email: string,
   otp: string,
 }

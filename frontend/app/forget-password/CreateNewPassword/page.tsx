@@ -20,7 +20,6 @@ export default function CreatePassword() {
     const [user, setUser] = useState<any>();
     const [error, seterror] = useState<string[]>([]);
     const [load, setload] = useState<boolean>(true);
-  const [runAuthCheck, setRunAuthCheck] = useState<boolean>(false);
     const [form, setform] = useState<Form>({
         password: "",
         confirmpassword: "",
@@ -33,8 +32,6 @@ export default function CreatePassword() {
                 let token = localStorage.getItem("token1");
                 let token1 = localStorage.getItem("token");
                 let email = localStorage.getItem("email");
-                // console.log(email);
-                // console.log(token);
                 const res = await verifyPasswordToken(email,token,token1);
                 if (res.message == "Unauthorized") {
                     router.push("/login");
@@ -67,17 +64,19 @@ export default function CreatePassword() {
     const submitHandle = async (e: any) => {
         e.preventDefault();
         const response = await ChangePassword1({form,seterror});
-        // console.log(response);
-         if(response.status==true){
-            alert("your password are changed");
-            localStorage.removeItem("token1");
-             setRunAuthCheck(true);             
-         }
+        console.log(response);
+        //  if(response.status==true){
+        //     let token =  response.token
+        //     alert("your password are changed");
+        //     localStorage.removeItem("token1");
+        //     localStorage.setItem("token",token);
+        //     localStorage.removeItem("email");
+            // router.push("/login");        
+        //  }
 
     }
     return (
         <>
-         {runAuthCheck && <AuthChecker />}
             <Container maxWidth={'lg'} sx={{ alignContent: "center", minHeight: "100vh" }} >
                 <Box sx={{ maxWidth: "900px", boxShadow: "0px 0px 10px", p: 4, mx: "auto", borderRadius: 3 }} >
 

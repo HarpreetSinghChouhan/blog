@@ -14,14 +14,14 @@ type TabContextType = {
   tabvalue: number;
   settabvalue: (v: number) => void;
   drawerOpen:boolean,
-  toggledrawer: () => void;
+  toggleDrawer: () => void;
 };
 
 const TabContext = createContext<TabContextType>({
   tabvalue: 0,
   settabvalue: () => {},
   drawerOpen: true,
-  toggledrawer: () => {},
+  toggleDrawer: () => {},
 });
 
 export function TabProvider({ children }: { children: React.ReactNode }) {
@@ -35,13 +35,13 @@ export function TabProvider({ children }: { children: React.ReactNode }) {
     const tab = tabpanelv.find((t) => t.id === v);
     if (tab) router.push(tab.route);
   };
-   const toggledrawer = () => setDrawerOpen(prev => !prev);
+   const toggleDrawer = () => setDrawerOpen(prev => !prev);
 
   return (
-    <TabContext.Provider value={{ tabvalue, settabvalue,drawerOpen,toggledrawer }}>
+    <TabContext.Provider value={{ tabvalue, settabvalue,drawerOpen,toggleDrawer }}>
       {children}
     </TabContext.Provider>
   );
 }
 
-export const useTab = () => useContext(TabContext);
+export const useTab1 = () => useContext(TabContext);
