@@ -24,6 +24,8 @@ import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettin
 
 import { navigation } from "@/lib/routes";
 import { UserBlogerAdd } from "@/app/AuthValidator";
+import SubmitButton from "@/app/component/SubmitButton";
+import PasswordInput from "@/app/component/PasswordInput";
 
 interface FormType {
   name: string;
@@ -31,6 +33,23 @@ interface FormType {
   password: string;
   role:string;
 }
+  export const fieldStyles = {
+    "& .MuiOutlinedInput-root": {
+      borderRadius: "10px",
+      backgroundColor: "#F8F9FC",
+      fontSize: "0.9rem",
+      "&:hover fieldset": {
+        borderColor: "#4F6EF7",
+      },
+      "&.Mui-focused fieldset": {
+        borderColor: "#4F6EF7",
+        borderWidth: "1.5px",
+      },
+    },
+    "& .MuiInputLabel-root.Mui-focused": {
+      color: "#4F6EF7",
+    },
+  };
 
 export default function UserBloger() {
   const [error, seterror] = useState<string[]>([]);
@@ -56,35 +75,15 @@ export default function UserBloger() {
     });
   };
 
-  const fieldStyles = {
-    "& .MuiOutlinedInput-root": {
-      borderRadius: "10px",
-      backgroundColor: "#F8F9FC",
-      fontSize: "0.9rem",
-      "&:hover fieldset": {
-        borderColor: "#4F6EF7",
-      },
-      "&.Mui-focused fieldset": {
-        borderColor: "#4F6EF7",
-        borderWidth: "1.5px",
-      },
-    },
-    "& .MuiInputLabel-root.Mui-focused": {
-      color: "#4F6EF7",
-    },
-  };
 
   return (
    <>
    
     <Box
       sx={{
-        minHeight: "100vh",
+       flexGrow:1,
         background:
           "linear-gradient(145deg, #EEF2FF 0%, #F5F7FF 50%, #EDF4FF 100%)",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
         fontFamily: "'Nunito', sans-serif",
         position: "relative",
         overflow: "hidden",
@@ -132,24 +131,7 @@ export default function UserBloger() {
         >
           {/* Header */}
           <Box sx={{ textAlign: "center", mb: 4 }}>
-            <Box
-              sx={{
-                width: 64,
-                height: 64,
-                borderRadius: "16px",
-                background: "linear-gradient(135deg, #4F6EF7 0%, #6C8EFF 100%)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                mx: "auto",
-                mb: 2,
-                boxShadow: "0 8px 24px rgba(79,110,247,0.30)",
-              }}
-            >
-              <AdminPanelSettingsOutlinedIcon
-                sx={{ color: "#fff", fontSize: 32 }}
-              />
-            </Box>
+           
             <Typography
               variant="h5"
               fontWeight={700}
@@ -214,73 +196,18 @@ export default function UserBloger() {
           />
 
           {/* Password Field */}
-          <TextField
-            label="Password"
-            placeholder="Enter your password"
-            name="password"
-            type={showPassword ? "text" : "password"}
-            size="small"
-            value={form.password}
-            onChange={inputHandle}
-            fullWidth
-            required
-            sx={{ ...fieldStyles, mb: 1 }}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <LockOutlinedIcon sx={{ fontSize: 18, color: "#A0AAB8" }} />
-                </InputAdornment>
-              ),
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    onClick={() => setShowPassword(!showPassword)}
-                    edge="end"
-                    size="small"
-                    sx={{ color: "#A0AAB8" }}
-                  >
-                    {showPassword ? (
-                      <VisibilityOff fontSize="small" />
-                    ) : (
-                      <Visibility fontSize="small" />
-                    )}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
-
+         <PasswordInput value={form.password} onChange={inputHandle} name={'password'} placeholder={'Enter Password'} label={'password'} minlength={8} />
           <FormControl fullWidth sx={{my:1}} >
             <InputLabel id="RoleId-no1">Role </InputLabel>
-            <Select sx={{}} labelId="RoleId-no1" size="small"  name="role"  onChange={ (e:any)=>{inputHandle(e)}}  value={form.role} label={"Role"}>
+            <Select sx={{...fieldStyles}} labelId="RoleId-no1" size="small"  name="role"  onChange={ (e:any)=>{inputHandle(e)}}  value={form.role} label={"Role"}>
               <MenuItem value={"user"}>user</MenuItem>
               <MenuItem value={"bloger"}>bloger</MenuItem>
             </Select>
           </FormControl>
           {/* Submit Button */}
-          <Button
-            type="submit"
-            variant="contained"
-            fullWidth
-            sx={{
-              background: "linear-gradient(135deg, #4F6EF7 0%, #6C8EFF 100%)",
-              borderRadius: "10px",
-              py: 1.2,
-              fontFamily: "'Nunito', sans-serif",
-              fontWeight: 700,
-              fontSize: "0.95rem",
-              textTransform: "none",
-              letterSpacing: "0.2px",
-              boxShadow: "0 6px 20px rgba(79,110,247,0.35)",
-              "&:hover": {
-                background: "linear-gradient(135deg, #3D5CE8 0%, #5A7AFF 100%)",
-                boxShadow: "0 8px 28px rgba(79,110,247,0.45)",
-              },
-            }}
-          >
-            Add {form.role}
-          </Button>
-
+        <SubmitButton text={`add ${form.role}`} />
+            
+        
           {/* Divider */}
           <Divider sx={{ my: 3, borderColor: "#EEF0F6" }}>
             <Typography

@@ -21,6 +21,9 @@ import { navigation } from "@/lib/routes";
 import { Login1 } from "../AuthValidator";
 import { Span } from "next/dist/trace";
 import Error from "../component/Error";
+import { fieldStyles } from "../admin/addblogeruser/page";
+import PasswordInput from "../component/PasswordInput";
+import SubmitButton from "../component/SubmitButton";
   
 interface FormType {
   name: string;
@@ -57,24 +60,7 @@ export default function AdminLogin() {
     });
   };
 
-  const fieldStyles = {
-    "& .MuiOutlinedInput-root": {
-      borderRadius: "10px",
-      backgroundColor: "#F8F9FC",
-      fontSize: "0.9rem",
-      "&:hover fieldset": {
-        borderColor: "#4F6EF7",
-      },
-      "&.Mui-focused fieldset": {
-        borderColor: "#4F6EF7",
-        borderWidth: "1.5px",
-      },
-    },
-    "& .MuiInputLabel-root.Mui-focused": {
-      color: "#4F6EF7",
-    },
-  };
-   
+
   return (
     <Box
       sx={{
@@ -183,42 +169,13 @@ export default function AdminLogin() {
           />
 
           {/* Password Field */}
-          <TextField
-            label="Password"
-            placeholder="Enter your password"
-            name="password"
-            type={showPassword ? "text" : "password"}
-            size="small"
-            value={form.password}
-            onChange={inputHandle}
-            fullWidth
-            required
-            sx={{ ...fieldStyles, mb: 1 }}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <LockOutlinedIcon sx={{ fontSize: 18, color: "#A0AAB8" }} />
-                </InputAdornment>
-              ),
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    onClick={() => setShowPassword(!showPassword)}
-                    edge="end"
-                    size="small"
-                    sx={{ color: "#A0AAB8" }}
-                  >
-                    {showPassword ? <VisibilityOff fontSize="small" /> : <Visibility fontSize="small" />}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
+         
+           <PasswordInput value={form.password} onChange={inputHandle} name={'password'} placeholder={'Enter Password'} label={'password'} minlength={8} />
 
           {/* Forgot Password */}
           <Box sx={{ textAlign: "right", mb: 3 }}>
             <Link
-              href="#"
+              href="/forget-password"
               underline="hover"
               sx={{
                 fontSize: "0.78rem",
@@ -232,28 +189,7 @@ export default function AdminLogin() {
           </Box>
 
           {/* Submit Button */}
-          <Button
-            type="submit"
-            variant="contained"
-            fullWidth
-            sx={{
-              background: "linear-gradient(135deg, #4F6EF7 0%, #6C8EFF 100%)",
-              borderRadius: "10px",
-              py: 1.2,
-              fontFamily: "'Nunito', sans-serif",
-              fontWeight: 700,
-              fontSize: "0.95rem",
-              textTransform: "none",
-              letterSpacing: "0.2px",
-              boxShadow: "0 6px 20px rgba(79,110,247,0.35)",
-              "&:hover": {
-                background: "linear-gradient(135deg, #3D5CE8 0%, #5A7AFF 100%)",
-                boxShadow: "0 8px 28px rgba(79,110,247,0.45)",
-              },
-            }}
-          >
-            Sign In
-          </Button>
+          <SubmitButton text={'Login'} />
 
           {/* Divider */}
           <Divider sx={{ my: 3, borderColor: "#EEF0F6" }}>

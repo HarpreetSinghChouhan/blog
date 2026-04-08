@@ -20,6 +20,8 @@ import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettin
 import { navigation } from "@/lib/routes";
 import {  Login2 } from "../AuthValidator";
 import { Span } from "next/dist/trace";
+import PasswordInput from "../component/PasswordInput";
+import SubmitButton from "../component/SubmitButton";
   
 interface FormType {
   name: string;
@@ -124,7 +126,7 @@ export default function AdminLogin() {
         >
           {/* Header */}
           <Box sx={{ textAlign: "center", mb: 4 }}>
-            <Box
+            {/* <Box
               sx={{
                 width: 64,
                 height: 64,
@@ -139,7 +141,7 @@ export default function AdminLogin() {
               }}
             >
               <AdminPanelSettingsOutlinedIcon sx={{ color: "#fff", fontSize: 32 }} />
-            </Box>
+            </Box> */}
             <Typography
               variant="h5"
               fontWeight={700}
@@ -189,37 +191,7 @@ export default function AdminLogin() {
           />
 
           {/* Password Field */}
-          <TextField
-            label="Password"
-            placeholder="Enter your password"
-            name="password"
-            type={showPassword ? "text" : "password"}
-            size="small"
-            value={form.password}
-            onChange={inputHandle}
-            fullWidth
-            required
-            sx={{ ...fieldStyles, mb: 1 }}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <LockOutlinedIcon sx={{ fontSize: 18, color: "#A0AAB8" }} />
-                </InputAdornment>
-              ),
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    onClick={() => setShowPassword(!showPassword)}
-                    edge="end"
-                    size="small"
-                    sx={{ color: "#A0AAB8" }}
-                  >
-                    {showPassword ? <VisibilityOff fontSize="small" /> : <Visibility fontSize="small" />}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
+          <PasswordInput  value={form.password} onChange={inputHandle} name={'password'} placeholder={'Enter Your Password'}  label={'password'} minlength={8} />
 
           {/* Forgot Password */}
           <Box sx={{ textAlign: "right", mb: 3 }}>
@@ -228,7 +200,7 @@ export default function AdminLogin() {
               underline="hover"
               sx={{
                 fontSize: "0.78rem",
-                color: "#4F6EF7",
+                color: "#175ad8",
                 fontFamily: "'Nunito', sans-serif",
                 fontWeight: 600,
               }}
@@ -240,28 +212,7 @@ export default function AdminLogin() {
 
           </Box>
           {/* Submit Button */}
-          <Button
-            type="submit"
-            variant="contained"
-            fullWidth
-            sx={{
-              background: "linear-gradient(135deg, #4F6EF7 0%, #6C8EFF 100%)",
-              borderRadius: "10px",
-              py: 1.2,
-              fontFamily: "'Nunito', sans-serif",
-              fontWeight: 700,
-              fontSize: "0.95rem",
-              textTransform: "none",
-              letterSpacing: "0.2px",
-              boxShadow: "0 6px 20px rgba(79,110,247,0.35)",
-              "&:hover": {
-                background: "linear-gradient(135deg, #3D5CE8 0%, #5A7AFF 100%)",
-                boxShadow: "0 8px 28px rgba(79,110,247,0.45)",
-              },
-            }}
-          >
-            Sign In
-          </Button>
+         <SubmitButton text={'Sign Up'} />
 
           {/* Divider */}
           <Divider sx={{ my: 3, borderColor: "#EEF0F6" }}>

@@ -67,7 +67,9 @@ class BlogController extends Controller
     {
         try {
             $user = $request->user();
-            // $role = User::with('role:id,name')->find($user->id);
+          
+            $user = User::with('role:id,name')->find($user->id); 
+            
             $user->load('role:id,name');
             if ($user->hasRole('admin')) {
                 $blogs = Blog::with('user:id,name,email')->get();

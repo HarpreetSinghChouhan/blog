@@ -65,14 +65,14 @@ export default function CreatePassword() {
         e.preventDefault();
         const response = await ChangePassword1({form,seterror});
         console.log(response);
-        //  if(response.status==true){
-        //     let token =  response.token
-        //     alert("your password are changed");
-        //     localStorage.removeItem("token1");
-        //     localStorage.setItem("token",token);
-        //     localStorage.removeItem("email");
-            // router.push("/login");        
-        //  }
+         if(response.status==true){
+            let token =  response.token
+            alert("your password are changed");
+            localStorage.removeItem("token1");
+            // localStorage.setItem("token",token);
+            localStorage.removeItem("email");
+            router.push("/login");        
+         }
 
     }
     return (

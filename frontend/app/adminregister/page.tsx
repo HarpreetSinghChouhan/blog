@@ -19,6 +19,9 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
 import Register1 from "../AuthValidator";
 import { navigation } from "@/lib/routes";
+import PasswordInput from "../component/PasswordInput";
+import SubmitButton from "../component/SubmitButton";
+import { fieldStyles } from "../admin/addblogeruser/page";
   
 interface FormType {
   name: string;
@@ -49,23 +52,6 @@ export default function AdminRegister() {
     });
   };
 
-  const fieldStyles = {
-    "& .MuiOutlinedInput-root": {
-      borderRadius: "10px",
-      backgroundColor: "#F8F9FC",
-      fontSize: "0.9rem",
-      "&:hover fieldset": {
-        borderColor: "#4F6EF7",
-      },
-      "&.Mui-focused fieldset": {
-        borderColor: "#4F6EF7",
-        borderWidth: "1.5px",
-      },
-    },
-    "& .MuiInputLabel-root.Mui-focused": {
-      color: "#4F6EF7",
-    },
-  };
    
   return (
     <Box
@@ -143,7 +129,7 @@ export default function AdminRegister() {
                 letterSpacing: "-0.3px",
               }}
             >
-              Admin Portal
+              Admin Register
             </Typography>
             <Typography
               variant="body2"
@@ -208,62 +194,11 @@ export default function AdminRegister() {
           />
 
           {/* Password Field */}
-          <TextField
-            label="Password"
-            placeholder="Enter your password"
-            name="password"
-            type={showPassword ? "text" : "password"}
-            size="small"
-            value={form.password}
-            onChange={inputHandle}
-            fullWidth
-            required
-            sx={{ ...fieldStyles, mb: 1 }}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <LockOutlinedIcon sx={{ fontSize: 18, color: "#A0AAB8" }} />
-                </InputAdornment>
-              ),
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    onClick={() => setShowPassword(!showPassword)}
-                    edge="end"
-                    size="small"
-                    sx={{ color: "#A0AAB8" }}
-                  >
-                    {showPassword ? <VisibilityOff fontSize="small" /> : <Visibility fontSize="small" />}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
+        <PasswordInput value={form.password} onChange={inputHandle} name={'password'} placeholder={"Enter Secure Password"} label={'password'} minlength={8} />
 
         
           {/* Submit Button */}
-          <Button
-            type="submit"
-            variant="contained"
-            fullWidth
-            sx={{
-              background: "linear-gradient(135deg, #4F6EF7 0%, #6C8EFF 100%)",
-              borderRadius: "10px",
-              py: 1.2,
-              fontFamily: "'Nunito', sans-serif",
-              fontWeight: 700,
-              fontSize: "0.95rem",
-              textTransform: "none",
-              letterSpacing: "0.2px",
-              boxShadow: "0 6px 20px rgba(79,110,247,0.35)",
-              "&:hover": {
-                background: "linear-gradient(135deg, #3D5CE8 0%, #5A7AFF 100%)",
-                boxShadow: "0 8px 28px rgba(79,110,247,0.45)",
-              },
-            }}
-          >
-            Sign Up
-          </Button>
+          <SubmitButton text={'Sign Up'} />
 
           {/* Divider */}
           <Divider sx={{ my: 3, borderColor: "#EEF0F6" }}>

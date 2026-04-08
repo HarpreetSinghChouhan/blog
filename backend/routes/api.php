@@ -13,11 +13,11 @@ Route::get('/user', function (Request $request) {
 
 Route::post('/adminregister', [AdminController::class, 'Register']);
 Route::post('/adminlogin', [AdminController::class, 'Login']);
-Route::post('/logout', [AdminController::class, 'logout']);
 Route::post('/login', [AuthController::class, 'Login']);
 Route::post('/verifyemail', [EmailContoller::class, 'SendOtp']);
 Route::post('/verifyotp', [EmailContoller::class, 'verifyOtp']);
 Route::middleware('auth:sanctum')->group(function () {
+Route::post('/logout', [AdminController::class, 'logout']);
 Route::post('/check-password-token', [AuthController::class, 'CheckToken']);
 Route::patch('/changepassword', [AuthController::class, 'ChangePassword']);
     Route::post('/create', [AuthController::class, 'CreateToken']);
