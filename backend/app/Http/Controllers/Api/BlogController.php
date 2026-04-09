@@ -22,6 +22,7 @@ class BlogController extends Controller
     public function getblogs(Request $request)
     {
         $userId  = Auth::id();
+        
         $blogs = Blog::where('bloger_id', $userId)->get()->map( function ($blog){
             $blog->image_url = $blog->image?asset("/storage/blogs/".$blog->image):null;
             return $blog;
@@ -39,17 +40,31 @@ class BlogController extends Controller
         catch(\Exception $e){
             return response()->json(["status"=>false,"message"=>$e->getMessage()]);
         }
-
     }
+    // public function blogslug($slug)
+    // {
+    //    try{
+    //     return response()->json(["status"=>true,"message"=>$slug]);
+    //     $blog = Blog::where('slug', $slug)->first();
+    //     if(!$blog){
+    //         return response()->json(["status"=>false,"message"=>"Blog Are Not Found"]);
+    //     }
+    //     $blog->image_url = $blog->image?asset("/storage/blogs/".$blog->image):null;
+    //     return response()->json(["status"=>true,"data"=>$blog]);
+    //    }
+    //    catch(\Exception $e){
+    //     return response()->json(["status"=>false,"message"=>$e->getMessage()]);
+    //    }
+    // }
     public function getblog($id)
     {
         $blog = Blog::find($id);
-
+        
         if (!$blog) {
-            return response()->json([
-                "status" => false,
-                "message" => "Blog not found"
-            ]);
+            $blog = Blog::where('slug',$id)->first();
+           if(!$blog){
+             return response()->json(["status"=>false,"message"=>"Blog are Not Found"]);
+           }           
         }
 
         $blog->image_url = $blog->image
@@ -127,7 +142,7 @@ class BlogController extends Controller
              $blog->update([
                 'title'=>$request->title,
                 'footer'=>$request->footer,
-                'content' => $request->content,
+                'content' => $request->input('content'),
                 'slug' => $request->slug,
                 'image'=>$image,
                 ]
@@ -177,7 +192,7 @@ class BlogController extends Controller
                 'title' => $request->title,
                 'slug' => $request->slug,
                 'footer' => $request->footer,
-                'content' => $request->content,
+                'content' => $request->input('content'),
                 'image' => $image,
                 'bloger_id' => Auth::id(),
             ]);

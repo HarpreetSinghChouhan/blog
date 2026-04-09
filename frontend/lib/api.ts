@@ -137,6 +137,18 @@ export async function Blogfind(id: String | null, token: String | null) {
     });
     return await res.json();
 };
+export async function BlogfindSlug(slug: String | null, token: String | null) {
+    const res = await fetch(`${api}/blog/${slug}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+            "Accept": "application/json",
+        },
+    });
+    return await res.json();
+};
+
 export async function OneDelete({ id, token, url }: Onedele) {
     const response = await fetch(`${api}/${url}/${id}`, {
         method: "DELETE",

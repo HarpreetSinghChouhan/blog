@@ -7,6 +7,9 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
 
 const theme = createTheme({
+  typography: {
+    fontFamily: 'var(--font-roboto), Roboto, "Helvetica Neue", Arial, sans-serif',
+  },
   palette: {
     primary: { main: "#1976d2" },
     secondary: { main: "#9c27b0" },

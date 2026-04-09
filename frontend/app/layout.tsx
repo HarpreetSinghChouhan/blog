@@ -1,11 +1,12 @@
 import "./globals.css";
-import { Inter } from 'next/font/google'
+import { Roboto } from 'next/font/google'
 
-const inter = Inter({ subsets: ['latin'] })
+const roboto = Roboto({ 
+  weight: ['300', '400', '500', '700', '900'],
+  subsets: ['latin'],
+  variable: '--font-roboto'
+})
 import ThemeRegistry from "./theme-provider";
-import { Geist, Geist_Mono } from "next/font/google";
-const geistSans = Geist({ subsets: ["latin"], variable: "--font-geist-sans" });
-const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" });
 
 export default function RootLayout({
   children,
@@ -14,7 +15,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`} >
+      <body className={`${roboto.variable} ${roboto.className}`} >
         <ThemeRegistry  >  {children}  </ThemeRegistry>
       </body>
     </html>

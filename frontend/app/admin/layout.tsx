@@ -16,10 +16,19 @@ function AdminContent({ children }: { children: React.ReactNode }) {
           display: "flex",
           flexDirection: "column",
           minWidth: 0,
+          overflow: "hidden",
         }}
       >
         <AppBar1 />
-        <Box sx={{ flexGrow: 1, p: 3, backgroundColor: "#f5f5f5" }}>
+        <Box
+          sx={{
+            flexGrow: 1,
+            p: { xs: 2, sm: 3 },
+            backgroundColor: "#f0f2f5",
+            overflowY: "auto",
+            overflowX: "hidden",
+          }}
+        >
           {children}
         </Box>
       </Box>

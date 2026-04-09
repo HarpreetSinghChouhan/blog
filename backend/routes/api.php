@@ -20,6 +20,7 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::post('/logout', [AdminController::class, 'logout']);
 Route::post('/check-password-token', [AuthController::class, 'CheckToken']);
 Route::patch('/changepassword', [AuthController::class, 'ChangePassword']);
+    // Route::get('/', [BlogController::class, 'blogslug']);
     Route::post('/create', [AuthController::class, 'CreateToken']);
     Route::get('/blogs', [BlogController::class, 'blogs']);
     Route::get('/verifyuser', [AdminController::class, 'verifyProfile']);
