@@ -10,6 +10,7 @@ import {
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { LockOutlined as LockOutlinedIcon } from "@mui/icons-material"
+import { fieldStyles } from "../admin/addblogeruser/page";
 interface PasswordType {
   value:String | null,
   onChange:any,
@@ -19,25 +20,9 @@ interface PasswordType {
   minlength?: number | String | null
 }
 
-export default function PasswordInput({ value, onChange, name, placeholder, label, minlength }: PasswordType) {
+export default function PasswordInput({ value, onChange, name, placeholder, label,  }: PasswordType) {
   const [showPassword, setShowPassword] = useState(false);
-  const fieldStyles = {
-    "& .MuiOutlinedInput-root": {
-      borderRadius: "10px",
-      backgroundColor: "#F8F9FC",
-      fontSize: "0.9rem",
-      "&:hover fieldset": {
-        borderColor: "#4F6EF7",
-      },
-      "&.Mui-focused fieldset": {
-        borderColor: "#4F6EF7",
-        borderWidth: "1.5px",
-      },
-    },
-    "& .MuiInputLabel-root.Mui-focused": {
-      color: "#4F6EF7",
-    },
-  };
+  
   return (
     <>
 

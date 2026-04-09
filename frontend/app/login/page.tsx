@@ -22,6 +22,7 @@ import {  Login2 } from "../AuthValidator";
 import { Span } from "next/dist/trace";
 import PasswordInput from "../component/PasswordInput";
 import SubmitButton from "../component/SubmitButton";
+import { fieldStyles, LoginBox } from "../admin/addblogeruser/page";
   
 interface FormType {
   name: string;
@@ -57,58 +58,11 @@ export default function AdminLogin() {
     });
   };
 
-  const fieldStyles = {
-    "& .MuiOutlinedInput-root": {
-      borderRadius: "10px",
-      backgroundColor: "#F8F9FC",
-      fontSize: "0.9rem",
-      "&:hover fieldset": {
-        borderColor: "#4F6EF7",
-      },
-      "&.Mui-focused fieldset": {
-        borderColor: "#4F6EF7",
-        borderWidth: "1.5px",
-      },
-    },
-    "& .MuiInputLabel-root.Mui-focused": {
-      color: "#4F6EF7",
-    },
-  };
+
    
   return (
     <Box
-      sx={{
-        minHeight: "100vh",
-        background: "linear-gradient(145deg, #EEF2FF 0%, #F5F7FF 50%, #EDF4FF 100%)",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        fontFamily: "'Nunito', sans-serif",
-        position: "relative",
-        overflow: "hidden",
-        "&::before": {
-          content: '""',
-          position: "absolute",
-          width: "500px",
-          height: "500px",
-          borderRadius: "50%",
-          background: "radial-gradient(circle, rgba(79,110,247,0.1) 0%, transparent 70%)",
-          top: "-100px",
-          right: "-100px",
-          pointerEvents: "none",
-        },
-        "&::after": {
-          content: '""',
-          position: "absolute",
-          width: "400px",
-          height: "400px",
-          borderRadius: "50%",
-          background: "radial-gradient(circle, rgba(99,179,237,0.08) 0%, transparent 70%)",
-          bottom: "-80px",
-          left: "-80px",
-          pointerEvents: "none",
-        },
-      }}
+      sx={LoginBox}
     >
       <Container maxWidth="sm">
         <Box

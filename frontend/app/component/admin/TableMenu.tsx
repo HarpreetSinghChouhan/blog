@@ -108,7 +108,5 @@ export default function TableMenuAdmin({blog,setblogs,onStatusChange,}:TableMenu
     </>
   )
 }
-function setblogs(arg0: (prev: any) => any) {
-  throw new Error("Function not implemented.");
-}
+
 

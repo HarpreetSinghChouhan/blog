@@ -21,10 +21,11 @@ import { navigation } from "@/lib/routes";
 import { Login1 } from "../AuthValidator";
 import { Span } from "next/dist/trace";
 import Error from "../component/Error";
-import { fieldStyles } from "../admin/addblogeruser/page";
+import { fieldStyles, LoginBox } from "../admin/addblogeruser/page";
 import PasswordInput from "../component/PasswordInput";
 import SubmitButton from "../component/SubmitButton";
-  
+import { UserEmailInput } from "../component/inputfield/UserName";
+
 interface FormType {
   name: string;
   email: string;
@@ -32,7 +33,7 @@ interface FormType {
 }
 
 export default function AdminLogin() {
-     const { go } = navigation();
+  const { go } = navigation();
   const [error, seterror] = useState<string[]>([]);
   const [form, setForm] = useState<FormType>({
     name: "",
@@ -44,13 +45,13 @@ export default function AdminLogin() {
   const submitHandle = (e: React.FormEvent) => {
     e.preventDefault();
     // console.log(form);
-     const data = {
-        name:form.name,
-        email:form.email,
-        password:form.password,
-     } 
-     Login1(data,go,seterror);
-    
+    const data = {
+      name: form.name,
+      email: form.email,
+      password: form.password,
+    }
+    Login1(data, go, seterror);
+
   };
 
   const inputHandle = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -63,38 +64,7 @@ export default function AdminLogin() {
 
   return (
     <Box
-      sx={{
-        minHeight: "100vh",
-        background: "linear-gradient(145deg, #EEF2FF 0%, #F5F7FF 50%, #EDF4FF 100%)",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        fontFamily: "'Nunito', sans-serif",
-        position: "relative",
-        overflow: "hidden",
-        "&::before": {
-          content: '""',
-          position: "absolute",
-          width: "500px",
-          height: "500px",
-          borderRadius: "50%",
-          background: "radial-gradient(circle, rgba(79,110,247,0.1) 0%, transparent 70%)",
-          top: "-100px",
-          right: "-100px",
-          pointerEvents: "none",
-        },
-        "&::after": {
-          content: '""',
-          position: "absolute",
-          width: "400px",
-          height: "400px",
-          borderRadius: "50%",
-          background: "radial-gradient(circle, rgba(99,179,237,0.08) 0%, transparent 70%)",
-          bottom: "-80px",
-          left: "-80px",
-          pointerEvents: "none",
-        },
-      }}
+      sx={LoginBox}
     >
       <Container maxWidth="sm">
         <Box
@@ -148,29 +118,11 @@ export default function AdminLogin() {
             <Error error={error} />
           </Box>
           {/* Email Field */}
-          <TextField
-            label="Email Address"
-            placeholder="Enter your email"
-            type="email"
-            name="email"
-            size="small"
-            value={form.email}
-            onChange={inputHandle}
-            fullWidth
-            required
-            sx={{ ...fieldStyles, mb: 2 }}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <EmailOutlinedIcon sx={{ fontSize: 18, color: "#A0AAB8" }} />
-                </InputAdornment>
-              ),
-            }}
-          />
+          <UserEmailInput value={form.email} onChange={inputHandle} name={'email'} placeholder={'Enter Your Email'} label={'email'} />
 
           {/* Password Field */}
-         
-           <PasswordInput value={form.password} onChange={inputHandle} name={'password'} placeholder={'Enter Password'} label={'password'} minlength={8} />
+
+          <PasswordInput value={form.password} onChange={inputHandle} name={'password'} placeholder={'Enter Password'} label={'password'} minlength={8} />
 
           {/* Forgot Password */}
           <Box sx={{ textAlign: "right", mb: 3 }}>

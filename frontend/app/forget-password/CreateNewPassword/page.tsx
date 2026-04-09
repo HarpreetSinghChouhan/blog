@@ -4,13 +4,11 @@ import { Box, Button, Container, IconButton, InputAdornment, TextField, Typograp
 import { useEffect, useState } from "react";
 import { LockOutlined as LockOutlinedIcon } from "@mui/icons-material"
 import PasswordInput from "@/app/component/PasswordInput";
-import { AuthCheker, ChangePassword, verifyPasswordToken } from "@/lib/api";
+import { verifyPasswordToken } from "@/lib/api";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Error from "@/app/component/Error";
 import { ChangePassword1 } from "@/app/AuthValidator";
-import { AuthChecker } from "@/app/component/script/Authvalidation";
-
 interface Form{
     password:String | null, 
     confirmpassword:String | null;
@@ -93,11 +91,8 @@ export default function CreatePassword() {
                         <PasswordInput value={form.password} onChange={inputHandler} name={"password"} placeholder={"Enter New Password"} label={"Password"} minlength={6} />
                         <PasswordInput value={form.confirmpassword} onChange={inputHandler} name={"confirmpassword"} placeholder={"Enter Confirm New Password"} label={"confirm Password"} />
                         <Button type="submit" fullWidth variant="contained" sx={{ bgcolor: "#499df0", "&:hover": { bgcolor: "#1976d2" } }} >Create </Button>
-
                     </Box>
-
                 </Box>
-
             </Container>
         </>
     )

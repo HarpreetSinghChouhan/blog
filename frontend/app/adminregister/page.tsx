@@ -10,19 +10,16 @@ import {
   Divider,
   Link,
 } from "@mui/material";
-import { use, useState } from "react";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
-import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import {useState } from "react";
 import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
 import Register1 from "../AuthValidator";
 import { navigation } from "@/lib/routes";
 import PasswordInput from "../component/PasswordInput";
 import SubmitButton from "../component/SubmitButton";
-import { fieldStyles } from "../admin/addblogeruser/page";
-  
+import {LoginBox } from "../admin/addblogeruser/page";
+import UserInput, { UserEmailInput } from "../component/inputfield/UserName";
+import Error from "../component/Error";
+
 interface FormType {
   name: string;
   email: string;
@@ -30,8 +27,8 @@ interface FormType {
 }
 
 export default function AdminRegister() {
-  const [error,seterror] = useState<React.ReactNode[]>([])
-  const {go} = navigation();
+  const [error, seterror] = useState<string[]>([])
+  const { go } = navigation();
   const [form, setForm] = useState<FormType>({
     name: "",
     email: "",
@@ -42,7 +39,7 @@ export default function AdminRegister() {
   const submitHandle = async (e: React.FormEvent) => {
     e.preventDefault();
     // console.log(form);
-     Register1(go,seterror,form);
+    Register1(go, seterror, form);
   };
 
   const inputHandle = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -52,41 +49,10 @@ export default function AdminRegister() {
     });
   };
 
-   
+
   return (
     <Box
-      sx={{
-        minHeight: "100vh",
-        background: "linear-gradient(145deg, #EEF2FF 0%, #F5F7FF 50%, #EDF4FF 100%)",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        fontFamily: "'Nunito', sans-serif",
-        position: "relative",
-        overflow: "hidden",
-        "&::before": {
-          content: '""',
-          position: "absolute",
-          width: "500px",
-          height: "500px",
-          borderRadius: "50%",
-          background: "radial-gradient(circle, rgba(79,110,247,0.1) 0%, transparent 70%)",
-          top: "-100px",
-          right: "-100px",
-          pointerEvents: "none",
-        },
-        "&::after": {
-          content: '""',
-          position: "absolute",
-          width: "400px",
-          height: "400px",
-          borderRadius: "50%",
-          background: "radial-gradient(circle, rgba(99,179,237,0.08) 0%, transparent 70%)",
-          bottom: "-80px",
-          left: "-80px",
-          pointerEvents: "none",
-        },
-      }}
+      sx={LoginBox}
     >
       <Container maxWidth="sm">
         <Box
@@ -138,65 +104,19 @@ export default function AdminRegister() {
               Sign up to access your dashboard
             </Typography>
           </Box>
-        {error && (
-          <Typography sx={{color:"red"}} >
-             {
-             error.map((err:any,i:any)=>( 
-              <Typography key={i} component={'span'} >
-                 {err}
-              </Typography>
+            {/* Error Component */}
+           <Error error={error} />
+          {/* Name Component */}
+          <UserInput value={form.name} onChange={inputHandle} name={'name'} placeholder={'Enter Your Name'} label={'name'} />
 
-             ))
-}
-          </Typography>
-        
-        )}
-          {/* Name Field */}
-          <TextField
-            label="Full Name"
-            placeholder="Enter your full name"
-            name="name"
-            type="text"
-            size="small"
-            value={form.name}
-            onChange={inputHandle}
-            fullWidth
-            required
-            sx={{ ...fieldStyles, mb: 2 }}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <PersonOutlineIcon sx={{ fontSize: 18, color: "#A0AAB8" }} />
-                </InputAdornment>
-              ),
-            }}
-          />
 
-          {/* Email Field */}
-          <TextField
-            label="Email Address"
-            placeholder="Enter your email"
-            type="email"
-            name="email"
-            size="small"
-            value={form.email}
-            onChange={inputHandle}
-            fullWidth
-            required
-            sx={{ ...fieldStyles, mb: 2 }}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <EmailOutlinedIcon sx={{ fontSize: 18, color: "#A0AAB8" }} />
-                </InputAdornment>
-              ),
-            }}
-          />
+          {/* Email Component */}
+          <UserEmailInput value={form.email} onChange={inputHandle} name={'email'} placeholder={'Enter Your Email'} label={'email'} />
+
 
           {/* Password Field */}
-        <PasswordInput value={form.password} onChange={inputHandle} name={'password'} placeholder={"Enter Secure Password"} label={'password'} minlength={8} />
+          <PasswordInput value={form.password} onChange={inputHandle} name={'password'} placeholder={"Enter Secure Password"} label={'password'} minlength={8} />
 
-        
           {/* Submit Button */}
           <SubmitButton text={'Sign Up'} />
 
@@ -204,7 +124,7 @@ export default function AdminRegister() {
           <Divider sx={{ my: 3, borderColor: "#EEF0F6" }}>
             <Typography variant="caption" sx={{ color: "#B0B8C8", fontFamily: "'Nunito', sans-serif" }}>
               Secure Admin Access <Link href={"/adminlogin"} >login</Link>
-              
+
             </Typography>
           </Divider>
 
