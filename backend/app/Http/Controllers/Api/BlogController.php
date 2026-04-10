@@ -16,6 +16,9 @@ class BlogController extends Controller
         $blogId = $request->blogid;
         $blog = Blog::Where('id', $blogId)->update(['status' => 'published']);
         $updated = Blog::find($blogId);
+        
+        broadcast(new \App\Events\BlogPublished($updated));
+        
         return response()->json(["status" => true, "message" => "data are changed Successfull", "blog" => $blog, "update" => $updated], 200);
     }
 
@@ -41,21 +44,7 @@ class BlogController extends Controller
             return response()->json(["status"=>false,"message"=>$e->getMessage()]);
         }
     }
-    // public function blogslug($slug)
-    // {
-    //    try{
-    //     return response()->json(["status"=>true,"message"=>$slug]);
-    //     $blog = Blog::where('slug', $slug)->first();
-    //     if(!$blog){
-    //         return response()->json(["status"=>false,"message"=>"Blog Are Not Found"]);
-    //     }
-    //     $blog->image_url = $blog->image?asset("/storage/blogs/".$blog->image):null;
-    //     return response()->json(["status"=>true,"data"=>$blog]);
-    //    }
-    //    catch(\Exception $e){
-    //     return response()->json(["status"=>false,"message"=>$e->getMessage()]);
-    //    }
-    // }
+  
     public function getblog($id)
     {
         $blog = Blog::find($id);
@@ -64,7 +53,7 @@ class BlogController extends Controller
             $blog = Blog::where('slug',$id)->first();
            if(!$blog){
              return response()->json(["status"=>false,"message"=>"Blog are Not Found"]);
-           }           
+           }
         }
 
         $blog->image_url = $blog->image

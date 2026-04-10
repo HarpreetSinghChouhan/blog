@@ -1,13 +1,21 @@
-import AppBar1 from "@/app/component/AppBar";
-import ButtonClick from "@/app/component/ButtonClick";
-import { Box, Typography } from "@mui/material";
+"use client";
+import PageHeader from "../../component/admin/PageHeader";
+import { Box } from "@mui/material";
+import { Dashboard } from "@mui/icons-material";
+import { navigation } from "@/lib/routes";
 
 export default function Blog() {
-    return (<>
+  const { go } = navigation();
 
-        <Box sx={{ display: "flex", justifyContent: "space-between", px: 10 }}  >
-            <Typography component={'div'} sx={{ my: 3, textAlign: "center" }} variant="h5" > WelCome Blog  Page   </Typography>
-            <Typography sx={{ mt: 2 }} > <ButtonClick buttonName="Add Blog" route="bloger/addblog" /> </Typography>
-        </Box>
-    </>)
-}
+  return (
+    <Box>
+      <PageHeader
+        title="Welcome to Blogger Portal"
+        subtitle="Your hub for creating and managing high-quality content"
+        icon={<Dashboard />}
+        actionLabel="Go to Dashboard"
+        onAction={() => go("bloger")}
+      />
+    </Box>
+  );
+}

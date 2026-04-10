@@ -7,6 +7,7 @@ const roboto = Roboto({
   variable: '--font-roboto'
 })
 import ThemeRegistry from "./theme-provider";
+import RealTimeNotificationListener from "./component/RealTimeNotificationListener";
 
 export default function RootLayout({
   children,
@@ -16,7 +17,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${roboto.variable} ${roboto.className}`} >
-        <ThemeRegistry  >  {children}  </ThemeRegistry>
+        <ThemeRegistry>
+          {children}
+          <RealTimeNotificationListener />
+        </ThemeRegistry>
       </body>
     </html>
   );
