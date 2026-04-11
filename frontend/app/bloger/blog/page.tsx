@@ -14,8 +14,8 @@ export default function Blog() {
         subtitle="Your hub for creating and managing high-quality content"
         icon={<Dashboard />}
         actionLabel="Go to Dashboard"
-        onAction={() => go("bloger")}
+        onAction={() => go("/bloger")}  
       />
     </Box>
   );
-}
+}

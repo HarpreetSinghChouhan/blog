@@ -198,13 +198,14 @@ export function FindUser({ id, setform }: any) {
       let user = response.message
       console.log(user);
       setform({
-        name: user.name,
-        email: user.email,
-        role: user.role.name,
+        name: user?.name ?? "",
+        email: user?.email ?? "",
+        role: user?.role?.name ?? "user",
+        password:""
       })
     }
     Get();
-  }, [])
+  },[id, setform])
 }
 
 

@@ -1,4 +1,5 @@
 "use client";
+import { PagesOutlined } from "@mui/icons-material";
 import {
   Box,
   Table,
@@ -10,8 +11,12 @@ import {
   Typography,
   Paper,
   Skeleton,
+  Button,
 } from "@mui/material";
 import { ReactNode } from "react";
+import ImportButton from "../script/ImportButton";
+import ExportButton from "../script/Exportbutton";
+import SimpleButton from "../script/SimpleButton";
 
 export interface Column {
   id: string;
@@ -60,6 +65,18 @@ export default function DataTable({
       >
         <Table stickyHeader sx={{ minWidth: 650 }}>
           {/* Table Head */}
+          <TableHead>
+            <TableRow >
+           <TableCell colSpan={columns.length} >
+               {
+                <Box 
+                sx={{display:"flex",justifyContent:"right"}} >
+                    <ImportButton /> <ExportButton /> <SimpleButton />
+                </Box>
+               }
+           </TableCell>
+            </TableRow>
+          </TableHead>
           <TableHead>
             <TableRow>
               {columns.map((col) => (
@@ -148,7 +165,7 @@ export default function DataTable({
                           gap: 1.5,
                         }}
                       >
-                        <Box
+                        {/* <Box
                           sx={{
                             width: 64,
                             height: 64,
@@ -160,8 +177,11 @@ export default function DataTable({
                             mb: 1,
                           }}
                         >
-                          <Typography sx={{ fontSize: 28 }}>📋</Typography>
-                        </Box>
+                        <Typography sx={{ fontSize: 28 }}>
+                        <PagesOutlined />
+                            
+                          </Typography>
+                        </Box> */}
                         <Typography
                           variant="body1"
                           sx={{

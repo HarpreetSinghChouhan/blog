@@ -57,18 +57,18 @@ import { useAuthCheckBloger } from "../AuthValidator";
 import { AuthChecker1 } from "./script/Authvalidation";
 export default function DrawerComponent() {
   const { settabvalue, drawerOpen } = useTab();
-  const [response,setresponse] = useState(false);
-    const [user,setuser] = useState<any>();
-     useEffect(()=>{
-      const get = async () =>{
-        setresponse(true);
-        console.log(user);
-      };
-      get();
-     },[]);
+  const [response, setresponse] = useState(false);
+  const [user, setuser] = useState<any>();
+  useEffect(() => {
+    const get = async () => {
+      setresponse(true);
+      console.log(user);
+    };
+    get();
+  }, []);
   const [value, setValue] = useState(0);
   const pathname = usePathname();
-  
+
   // console.log(DRAWER_WIDTH);
   //  const [DRAWER_WIDTH,SETDRAWER_WIDTH] = useState<Number>(260);
   // DRAWER_WIDTH = 260;
@@ -78,244 +78,245 @@ export default function DrawerComponent() {
   const blog = useState<boolean>(true);
   return (
     <>
-    {response && (<AuthChecker1 setuser={setuser} />)}
-    <Drawer
-     variant="persistent" 
-      open={drawerOpen} // ← ADD THIS — was missing!
-      sx={{
-        
-        width: drawerOpen ? DRAWER_WIDTH : 0,
-        // flexShrink: 0,
-        
-        transition: "width 0.7s ease",
-        "& .MuiDrawer-paper": {
-          width: DRAWER_WIDTH,
-          boxSizing: "border-box",
-          background: "#efefef",
-          // linear-gradient(180deg, #1c1c1e 0%, #2c2c2e 100%)
-          borderRight: "1px solid rgba(255,255,255,0.06)",
-          display: "flex",
-          flexDirection: "column",
-          position:"relative",
-          boxShadow: "4px 0 24px rgba(0,0,0,0.4)",
-        },
-      }}
-    >
-      {/* App Identity */}
-      <Box
+      {response && (<AuthChecker1 setuser={setuser} />)}
+      <Drawer
+        variant="persistent"
+        open={drawerOpen} // ← ADD THIS — was missing!
         sx={{
-          px: 2.5,
-          pt: 3.5,
-          pb: 2.5,
-          display: "flex",
-          alignItems: "center",
-          gap: 1.5,
+
+          width: drawerOpen ? DRAWER_WIDTH : 0,
+          // flexShrink: 0,
+
+          transition: "width 0.7s ease",
+          "& .MuiDrawer-paper": {
+            width: DRAWER_WIDTH,
+            boxSizing: "border-box",
+            background: "#efefef",
+            // linear-gradient(180deg, #1c1c1e 0%, #2c2c2e 100%)
+            borderRight: "1px solid rgba(255,255,255,0.06)",
+            display: "flex",
+            flexDirection: "column",
+            position: "relative",
+            boxShadow: "4px 0 24px rgba(0,0,0,0.4)",
+          },
         }}
       >
-        <Avatar
+        {/* App Identity */}
+        <Box
           sx={{
-            width: 45,
-            height: 45,
-            borderRadius: "12px",
-          background:"rgba(235, 235, 183, 1)",
-            fontSize: 15,
-            fontWeight: 700,
-            fontFamily:
-              "'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif",
-            boxShadow: "0 2px 12px rgba(10,132,255,0.4)",
+            px: 2.5,
+            pt: 3.5,
+            pb: 2.5,
+            display: "flex",
+            alignItems: "center",
+            gap: 1.5,
           }}
         >
-          {user && (
-              <span style={{color:"black"}} >
-               {user.name.charAt(0).toUpperCase()}
-              </span>
-             )  }
-        </Avatar>
-        <Box>
-          <Typography
+          <Avatar
             sx={{
-              color: "Black",
+              width: 46,
+              height: 46,
+              borderRadius: "100%",
+              background: "#5ce0ff",
+              fontSize: 15,
+              fontWeight: 700,
               fontFamily:
                 "'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif",
-              fontWeight: 600,
-              fontSize: 14,
-              letterSpacing: "-0.2px",
-              lineHeight: 1.2,
+              boxShadow: "0 2px 12px rgba(10,132,255,0.4)",
             }}
           >
-            Admin Panel
-          </Typography>
-          <Typography
-            sx={{
-              color: "black",
-              fontFamily:
-                "'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif",
-              fontSize: 11,
-            }}
-          >
-            Workspace
-          </Typography>
-        </Box>
-      </Box>
-
-      <Divider sx={{ borderColor: "rgba(255,255,255,0.06)", mx: 2 }} />
-
-      <Typography
-        sx={{
-          px: 2.5,
-          pt: 2.5,
-          pb: 0.5,
-          color: "black",
-          fontFamily:
-            "'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif",
-          fontSize: 10.5,
-          fontWeight: 600,
-          letterSpacing: "0.8px",
-          textTransform: "uppercase",
-        }}
-      >
-        Navigation
-      </Typography>
-
-      <List sx={{ px: 1.5, pt: 0.5, flexGrow: 1 }} disablePadding>
-        {navItems.map((item) => {
-          const isActive =
-            item.path === "/admin"
-              ? pathname === item.path
-              : pathname.startsWith(item.path);
-          return (
-            <ListItemButton
-              key={item.id}
-              onClick={() => handleSelect(item.id)}
+            {user && (
+              <span style={{ color: "White" }} >
+                {user.name.charAt(0).toUpperCase()}
+              </span>
+            )}
+          </Avatar>
+          <Box>
+            <Typography
               sx={{
-                borderRadius: "10px",
-                mb: 0.5,
-                px: 1.5,
-                py: 1,
-                minHeight: 44,
-                position: "relative",
-                overflow: "hidden",
-                transition: "all 0.2s cubic-bezier(0.4, 0, 0.2, 1)",
-                background: isActive
-                  ? "linear-gradient(135deg, rgba(10,132,255,0.28) 0%, rgba(10,132,255,0.14) 100%)"
-                  : "transparent",
-                "&:hover": {
+                color: "Black",
+                fontFamily:
+                  "'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif",
+                fontWeight: 600,
+                fontSize: 14,
+                letterSpacing: "-0.2px",
+                lineHeight: 1.2,
+              }}
+            >
+              Admin Panel
+            </Typography>
+            <Typography
+              sx={{
+                color: "black",
+                fontFamily:
+                  "'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif",
+                fontSize: 11,
+              }}
+            >
+              Workspace
+            </Typography>
+          </Box>
+        </Box>
+
+        <Divider sx={{ borderColor: "rgba(255,255,255,0.06)", mx: 2 }} />
+
+        <Typography
+          sx={{
+            px: 2.5,
+            pt: 2.5,
+            pb: 0.5,
+            color: "black",
+            fontFamily:
+              "'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif",
+            fontSize: 10.5,
+            fontWeight: 600,
+            letterSpacing: "0.8px",
+            textTransform: "uppercase",
+          }}
+        >
+          Navigation
+        </Typography>
+
+        <List sx={{ px: 1.5, pt: 0.5, flexGrow: 1 }} disablePadding>
+          {navItems.map((item) => {
+            const isActive =
+              item.path === "/admin"
+                ? pathname === item.path
+                : pathname.startsWith(item.path);
+            return (
+              <ListItemButton
+                key={item.id}
+                onClick={() => handleSelect(item.id)}
+                sx={{
+                  borderRadius: "10px",
+                  mb: 0.5,
+                  px: 1.5,
+                  py: 1,
+                  minHeight: 44,
+                  position: "relative",
+                  overflow: "hidden",
+                  transition: "all 0.2s cubic-bezier(0.4, 0, 0.2, 1)",
                   background: isActive
-                    ? "linear-gradient(135deg, rgba(10,132,255,0.34) 0%, rgba(10,132,255,0.18) 100%)"
-                    : "rgba(255,255,255,0.06)",
-                },
-                "&::before": isActive
-                  ? {
+                    ? "linear-gradient(135deg, rgba(10,132,255,0.28) 0%, rgba(10,132,255,0.14) 100%)"
+                    : "transparent",
+                  "&:hover": {
+                    background: isActive
+                      ? "linear-gradient(135deg, rgba(10,132,255,0.34) 0%, rgba(10,132,255,0.18) 100%)"
+                      : "rgba(255,255,255,0.06)",
+                  },
+                  "&::before": isActive
+                    ? {
                       content: '""',
                       position: "absolute",
                       left: 0,
                       top: "20%",
                       height: "60%",
-                      width: 3,
+                      width: 5,
                       borderRadius: "0 3px 3px 0",
-                      background: "linear-gradient(180deg, #0A84FF, #30D158)",
+                      background: "#0058ff",
                     }
-                  : {},
-              }}
-            >
-              <ListItemIcon
-                sx={{
-                  minWidth: 32,
-                  color: isActive ? "#0A84FF" : "black",
-                  transition: "color 0.2s ease",
-                  "& svg": { fontSize: 18 },
+                    : {},
                 }}
               >
-                {item.icon}
-              </ListItemIcon>
-              <ListItemText
-                primary={item.label}
-                primaryTypographyProps={{
-                  sx: {
-                    fontFamily:
-                      "'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif",
-                    fontSize: 13.5,
-                    fontWeight: isActive ? 600 : 400,
-                    letterSpacing: "-0.1px",
-                    color: isActive ? "#fff" : "black ",
-                    transition: "all 0.2s ease",
-                  },
-                }}
-              />
-              {isActive && (
-                <Box
+                <ListItemIcon
                   sx={{
-                    width: 6,
-                    height: 6,
-                    borderRadius: "50%",
-                    background: "#0A84FF",
-                    boxShadow: "0 0 6px rgba(10,132,255,0.8)",
-                    flexShrink: 0,
+                    minWidth: 32,
+                    color: isActive ? "#0A84FF" : "black",
+                    transition: "color 0.2s ease",
+                    "& svg": { fontSize: 18 },
+                  }}
+                >
+                  {item.icon}
+                </ListItemIcon>
+                <ListItemText
+                  primary={item.label}
+                  primaryTypographyProps={{
+                    sx: {
+                      fontFamily:
+                        "'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif",
+                      fontSize: 13.5,
+                      fontWeight: isActive ? 600 : 400,
+                      letterSpacing: "-0.1px",
+                      color: isActive ? "#fff" : "black ",
+                      transition: "all 0.2s ease",
+                    },
                   }}
                 />
-              )}
-            </ListItemButton>
-          );
-        })}
-      </List>
+                {isActive && (
+                  <Box
+                    sx={{
+                      width: 6,
+                      height: 6,
+                      borderRadius: "50%",
+                      background: "#0A84FF",
+                      boxShadow: "0 0 6px rgba(10,132,255,0.8)",
+                      flexShrink: 0,
+                    }}
+                  />
+                )}
+              </ListItemButton>
+            );
+          })}
+        </List>
 
-      {/* Footer */}
-      <Box sx={{ px: 2.5, pb: 3 }}>
-        <Divider sx={{ borderColor: "rgba(250,20,25,0.1)", mb: 2 }} />
-        <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
-          <Avatar
-            sx={{
-              width: 30,
-              height: 30,
-                 background:"rgba(235, 235, 183, 1)",
-              borderRadius: "8px",
-              fontSize: 12,
-              fontWeight: 600,
-            }}
-          >
-              {user && (
-              <span>
-               {user.name.charAt(0).toUpperCase()}
-              </span>
-             )}
-           
-          </Avatar>
-          <Box sx={{ flex: 1, minWidth: 0 }}>
-            <Typography
+        {/* Footer */}
+        <Box sx={{ px: 2.5, pb: 3 }}>
+          <Divider sx={{ borderColor: "rgba(250,20,25,0.1)", mb: 2 }} />
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
+            <Avatar
               sx={{
-                fontFamily:
-                  "'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif",
+                width: 46,
+                height: 46,
+                background: "#5ce0ff",
+                borderRadius: "100%",
                 fontSize: 12,
-                fontWeight: 500,
-                letterSpacing: "-0.1px",
-                whiteSpace: "nowrap",
-                overflow: "hidden",
-                textOverflow: "ellipsis",
+                fontWeight: 600,
+                boxShadow: "0 2px 12px rgba(10,132,255,0.4)",
               }}
             >
-             {user && (
-              <span>
-                {user.name}
-              </span>
-             )}
-            </Typography>
-            <Typography
-              sx={{
-                fontFamily:
-                  "'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif",
-                fontSize: 10.5,
-              }}
-            >
+              {user && (
+                <span>
+                  {user.name.charAt(0).toUpperCase()}
+                </span>
+              )}
+
+            </Avatar>
+            <Box sx={{ flex: 1, minWidth: 0 }}>
+              <Typography
+                sx={{
+                  fontFamily:
+                    "'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif",
+                  fontSize: 12,
+                  fontWeight: 500,
+                  letterSpacing: "-0.1px",
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                }}
+              >
                 {user && (
-              <span>
-                {user.email}
-              </span>
-             )}
-            </Typography>
+                  <span>
+                    {user.name}
+                  </span>
+                )}
+              </Typography>
+              <Typography
+                sx={{
+                  fontFamily:
+                    "'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif",
+                  fontSize: 10.5,
+                }}
+              >
+                {user && (
+                  <span>
+                    {user.email}
+                  </span>
+                )}
+              </Typography>
+            </Box>
           </Box>
         </Box>
-      </Box>
-    </Drawer>
+      </Drawer>
     </>
   );
 }

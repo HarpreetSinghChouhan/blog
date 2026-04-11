@@ -122,10 +122,10 @@ export default function BlogForm({
           textTransform: "none",
           fontWeight: 700,
           fontSize: "1rem",
-          background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
           boxShadow: "0 4px 14px rgba(102,126,234,0.35)",
           "&:hover": {
-            background: "linear-gradient(135deg, #5a72d6 0%, #6a4294 100%)",
+              background:" #004cff",
+            // background: "linear-gradient(135deg, #5a72d6 0%, #6a4294 100%)",
             boxShadow: "0 6px 20px rgba(102,126,234,0.5)",
             transform: "translateY(-1px)",
           },

@@ -27,6 +27,7 @@ interface FormType {
   name: string;
   email: string;
   role?: string;
+    password?: string;
 }
 
 export default function EditUserBloger({ id, form, setform }: any) {
@@ -100,10 +101,11 @@ export default function EditUserBloger({ id, form, setform }: any) {
             {/* Email Field */}
             <UserEmailInput value={form.email} onChange={inputHandle} name={'email'} placeholder={'Enter Your Email'} label={'email'} />
             {/* Password Field */}
-            <PasswordInput value={form.password} onChange={inputHandle} name={'password'} placeholder={"Enter password"} label={'password'} minlength={8} />
+            {/* <PasswordInput value={form.password} onChange={inputHandle} name={'password'} placeholder={"Enter password"} label={'password'} minlength={8} /> */}
             <FormControl fullWidth sx={{ my: 1 }} >
               <InputLabel id="RoleId-no1">Role </InputLabel>
-              <Select sx={{}} labelId="RoleId-no1" size="small" name="role" onChange={(e: any) => { inputHandle(e) }} value={form.role} label={"Role"}>
+              <Select sx={{}} labelId="RoleId-no1" size="small" name="role" onChange={(e: any) => { inputHandle(e) }} 
+               value={form.role || "user"} label={"Role"}>
                 <MenuItem value={"user"}>user</MenuItem>
                 <MenuItem value={"bloger"}>bloger</MenuItem>
               </Select>

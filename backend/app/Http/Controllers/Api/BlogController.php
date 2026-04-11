@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Events\BlogPublished;
 use App\Http\Controllers\Controller;
 use App\Models\Blog;
 use App\Models\User;
@@ -17,7 +18,7 @@ class BlogController extends Controller
         $blog = Blog::Where('id', $blogId)->update(['status' => 'published']);
         $updated = Blog::find($blogId);
         
-        broadcast(new \App\Events\BlogPublished($updated));
+        broadcast(new BlogPublished($updated));
         
         return response()->json(["status" => true, "message" => "data are changed Successfull", "blog" => $blog, "update" => $updated], 200);
     }

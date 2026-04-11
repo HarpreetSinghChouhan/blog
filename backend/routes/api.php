@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AdminController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BlogController;
 use App\Http\Controllers\Api\EmailContoller;
+use App\Http\Controllers\Api\ExcelController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -34,6 +35,8 @@ Route::patch('/changepassword', [AuthController::class, 'ChangePassword']);
     Route::put('/blogedit', [BlogController::class, 'EditBlog']);
     Route::get('/user/{id}', [AuthController::class, 'UserFound']);
     Route::get('/finduser', [AuthController::class, 'FindUser']);
+    Route::get('/blog/excel',[ExcelController::class,'BlogExport']);
+    Route::get('/user/excel',[ExcelController::class,'UserExport']);
 });
 Route::middleware(['auth:sanctum', 'role:bloger'])->group(function () {
     Route::post('/blogcreate', [BlogController::class, 'CreateBlog']);
