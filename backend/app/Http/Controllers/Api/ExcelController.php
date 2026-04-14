@@ -6,7 +6,8 @@ use App\Exports\BlogExport;
 use App\Exports\UserExport;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Maatwebsite\Excel\Excel;
+use Maatwebsite\Excel\Facades\Excel;
+
 
 class ExcelController extends Controller
 {
@@ -22,12 +23,16 @@ class ExcelController extends Controller
     }
 
     public function UserExport()
-    {
+    { 
         try {
-            Excel::download(new UserExport, 'Users.xlsx');
-            return response()->json(["status" => true, "message" => "users Execl File Download"]);
+           
+          return  Excel::download(new UserExport, 'Users.xlsx');
+
         } catch (\Exception $e) {
             return response()->json(["status" => false, "message" => $e->getMessage()]);
         }
+    }
+    public function UserImport(Request $request){
+        return response()->json(['status'=>true, 'message'=>$request->all() ]);
     }
 }

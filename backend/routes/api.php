@@ -35,8 +35,10 @@ Route::patch('/changepassword', [AuthController::class, 'ChangePassword']);
     Route::put('/blogedit', [BlogController::class, 'EditBlog']);
     Route::get('/user/{id}', [AuthController::class, 'UserFound']);
     Route::get('/finduser', [AuthController::class, 'FindUser']);
-    Route::get('/blog/excel',[ExcelController::class,'BlogExport']);
-    Route::get('/user/excel',[ExcelController::class,'UserExport']);
+    Route::get('/export/blog',[ExcelController::class,'BlogExport']);
+    Route::get('/export/user',[ExcelController::class,'UserExport']);
+    Route::post('/import/blog',[ExcelController::class,'BlogImport']);
+    Route::post('/import/user',[ExcelController::class,'UserImport']);
 });
 Route::middleware(['auth:sanctum', 'role:bloger'])->group(function () {
     Route::post('/blogcreate', [BlogController::class, 'CreateBlog']);
