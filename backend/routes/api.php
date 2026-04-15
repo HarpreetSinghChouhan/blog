@@ -37,6 +37,7 @@ Route::patch('/changepassword', [AuthController::class, 'ChangePassword']);
     Route::get('/finduser', [AuthController::class, 'FindUser']);
     Route::get('/export/blog',[ExcelController::class,'BlogExport']);
     Route::get('/export/user',[ExcelController::class,'UserExport']);
+    Route::get('/export',[ExcelController::class,'SimpleExport']);
     Route::post('/import/blog',[ExcelController::class,'BlogImport']);
     Route::post('/import/user',[ExcelController::class,'UserImport']);
 });
