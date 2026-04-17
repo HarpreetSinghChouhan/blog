@@ -1,20 +1,20 @@
 
 interface Props {
-    data: any,
+    data: FormData,
     token: string | null,
     url: string | null,
 }
 interface Onedele {
-    id: String | null,
-    token: String | null,
-    url: String | null,
+    id: string | null,
+    token: string | null,
+    url: string | null,
 }
 interface prop1 {
-    form: any,
+    form:FormData,
     token: string | null,
 }
 const api = process.env.LARAVAL_API || "http://127.0.0.1:8000/api";
-export async function Logout(token: any) {
+export async function Logout(token: FormData) {
     const response = await fetch(`${api}/logout`, {
         method: "POST",
         headers: {
@@ -26,7 +26,7 @@ export async function Logout(token: any) {
     const res = await response.json();
     return res;
 };
-export default async function AdminRegister1(data: any) {
+export default async function AdminRegister1(data: FormData) {
     const response = await fetch(`${api}/adminregister`, {
         method: "POST",
         headers: {
@@ -38,7 +38,7 @@ export default async function AdminRegister1(data: any) {
     const res = await response.json();
     return res;
 }
-export async function AdminLogin1(data: any) {
+export async function AdminLogin1(data: FormData) {
     const response = await fetch(`${api}/adminlogin`, {
         method: "POST",
         headers: {
@@ -50,7 +50,7 @@ export async function AdminLogin1(data: any) {
     const res = await response.json();
     return res;
 }
-export async function RegisterUserBloger(data: any, token: string | null) {
+export async function RegisterUserBloger(data: FormData, token: string | null) {
     const response = await fetch(`${api}/registerub`, {
         method: "POST",
         headers: {
@@ -63,22 +63,21 @@ export async function RegisterUserBloger(data: any, token: string | null) {
     const res = await response.json();
     return res;
 }
-export async function
-    AllUB(token: string | null, mode: string | null) {
-    const response = await fetch(`${api}/${mode}`, {
+// mode: string | null
+export async function AllUB(token: string | null) {
+    const response = await fetch(`https://bit.ly/4thfUrp`, {
         method: "GET",
         headers: {
             "Accept": "application/json",
-            "Content-Type": "application/json",
-
             "Authorization": `Bearer ${token}`
         },
+        
     })
     const res = response.json();
     return res;
 }
 
-export async function LoginPage(data: any, url: string | null) {
+export async function LoginPage(data: FormData, url: string | null) {
     const response = await fetch(`${api}/${url}`, {
         method: "POST",
         headers: {
@@ -90,7 +89,7 @@ export async function LoginPage(data: any, url: string | null) {
     const res = await response.json();
     return res;
 }
-export async function blogCreation(data: any, token?: string | null, url?: string) {
+export async function blogCreation(data: FormData, token?: string | null, url?: string) {
     const response = await fetch(`${api}/${url}`, {
         method: "POST",
         headers: {
@@ -102,7 +101,7 @@ export async function blogCreation(data: any, token?: string | null, url?: strin
     })
     const res = await response.json();
     return res;
-} export async function ChangeStatus(data: any, token: string | null) {
+} export async function ChangeStatus(data: FormData, token: string | null) {
     const response = await fetch(`${api}/blogerchange`, {
         method: "PUT",
         headers: {
@@ -114,7 +113,7 @@ export async function blogCreation(data: any, token?: string | null, url?: strin
     const res = await response.json();
     return res;
 }
-export async function Delete(data: any, token: string | null) {
+export async function Delete(data: FormData, token: string | null) {
     const response = await fetch(`${api}/deleteblog`, {
         method: "DELETE",
         headers: {
@@ -126,7 +125,7 @@ export async function Delete(data: any, token: string | null) {
     const res = response.json();
     return res;
 }
-export async function Blogfind(id: String | null, token: String | null) {
+export async function Blogfind(id: string | null, token: string | null) {
     const res = await fetch(`${api}/blog/${id}`, {
         method: "GET",
         headers: {
@@ -137,7 +136,7 @@ export async function Blogfind(id: String | null, token: String | null) {
     });
     return await res.json();
 };
-export async function BlogfindSlug(slug: String | null, token: String | null) {
+export async function BlogfindSlug(slug: string | null, token: string | null) {
     const res = await fetch(`${api}/blog/${slug}`, {
         method: "GET",
         headers: {
@@ -172,7 +171,7 @@ export async function AllDb({ data, token, url }: Props) {
     const res = await response.json();
     return res;
 }
-export async function AuthCheker(token: String | null) {
+export async function AuthCheker(token: string | null) {
     const response = await fetch(`${api}/authication`, {
         method: "Get",
         headers: {
@@ -183,7 +182,7 @@ export async function AuthCheker(token: String | null) {
     const res = await response.json();
     return res;
 }
-export async function verifyPasswordToken(email:String | null,token:String | null,token1:String | null) {
+export async function verifyPasswordToken(email:string | null,token:string | null,token1:string | null) {
     const response = await fetch(`${api}/check-password-token`, {
         method: "POST", 
         headers: {
@@ -197,7 +196,7 @@ export async function verifyPasswordToken(email:String | null,token:String | nul
     return await response.json();
 }
 
-export async function CreateToken(email:any, token: string | null) {
+export async function CreateToken(email:string | null, token: string | null) {
     const response = await fetch(`${api}/create`,{
         method: "POST", 
         headers: {
@@ -223,7 +222,7 @@ export async function blogEditer({ form, token }: prop1) {
     const res = await response.json();
     return res;
 }
-export async function FindUser1(id: any, token: string | null) {
+export async function FindUser1(id: FormData, token: string | null) {
     const response = await fetch(`${api}/user/${id}`, {
         method: "GET",
         headers: {
@@ -236,7 +235,7 @@ export async function FindUser1(id: any, token: string | null) {
     return res;
 
 }
-export async function VerifyMail(formdata: any) {
+export async function VerifyMail(formdata: FormData) {
     const response = await fetch(`${api}/verifyemail`, {
         method: "POST",
         headers: {
@@ -247,7 +246,7 @@ export async function VerifyMail(formdata: any) {
     const res =await response.json();
     return res;
 }
-export async function VerifyOTP(formdata: any) {
+export async function VerifyOTP(formdata: FormData) {
     const response = await fetch(`${api}/verifyotp`, {
         method: "POST",
         headers: {
@@ -258,7 +257,7 @@ export async function VerifyOTP(formdata: any) {
     const res = await response.json();
     return res;
 }
-export async function ChangePassword(form:any,token1:String|null) {
+export async function ChangePassword(form:FormData,token1:string|null) {
  const response = await fetch(`${api}/changepassword`,{
     method:"PATCH",
     headers:{

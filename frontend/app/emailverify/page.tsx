@@ -19,13 +19,13 @@ export default function EmailVerify() {
   const [runAuthCheck, setRunAuthCheck] = useState<boolean>(false);
   const [form, setform] = useState<Form>({ email: "", otp: "" });
 
-  const handleChange = (newValue: any) => setotp(newValue);
+  const handleChange = (newValue: string) => setotp(newValue);
 
-  const handleinput = (e: any) => {
+  const handleinput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setform({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     setloading(true);
 

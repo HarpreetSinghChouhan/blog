@@ -193,8 +193,8 @@ class AdminController extends Controller
         // $user = User::Where('role', '!=', 'admin')->get();
         return response()->json(["status" => true, "user" => $user], 200);
     }
-    public function getuser()
-    {  
+    public function getuser(Request $request)
+    {    
         // $user = User::with('role:id,name')->get();
         $user = User::with('role:id,name')->whereHas('role',function ($query) {
             $query->where('name','user');

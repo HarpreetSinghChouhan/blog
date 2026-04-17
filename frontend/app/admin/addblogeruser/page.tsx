@@ -1,26 +1,17 @@
 "use client";
 import {
   Box,
-  Button,
   Divider,
   Container,
-  TextField,
   Typography,
-  InputAdornment,
-  IconButton,
   Select,
   MenuItem,
   FormControl,
   InputLabel,
+  SelectChangeEvent,
 } from "@mui/material";
-import { use, useState } from "react";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
-import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
+import { useState } from "react";
 import Error from "@/app/component/Error";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
 
 import { navigation } from "@/lib/routes";
 import { UserBlogerAdd } from "@/app/AuthValidator";
@@ -96,7 +87,6 @@ export default function UserBloger() {
     password: "",
     role: "user",
   });
-  const [showPassword, setShowPassword] = useState(false);
 
   const submitHandle = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -159,17 +149,27 @@ export default function UserBloger() {
             </Box>
             <Error error={error} />
             {/* Name Field */}
-           
-            <UserInput value={form.name} onChange={inputHandle} name={'name'} placeholder={'Enter Your Name'} label={'name'}  />
+
+            <UserInput value={form.name} onChange={inputHandle} name={'name'} placeholder={'Enter Your Name'} label={'name'} />
 
             {/* Email Field */}
-            
-            <UserEmailInput value={form.email} onChange={inputHandle} name={'email'} placeholder={'Enter Your Email'} label={'email'}  />
+
+            <UserEmailInput value={form.email} onChange={inputHandle} name={'email'} placeholder={'Enter Your Email'} label={'email'} />
             {/* Password Field */}
             <PasswordInput value={form.password} onChange={inputHandle} name={'password'} placeholder={'Enter Password'} label={'password'} minlength={8} />
             <FormControl fullWidth sx={{ my: 1 }} >
               <InputLabel id="RoleId-no1">Role </InputLabel>
-              <Select sx={{ ...fieldStyles }} labelId="RoleId-no1" size="small" name="role" onChange={(e: any) => { inputHandle(e) }} value={form.role} label={"Role"}>
+              <Select
+                sx={{ ...fieldStyles }}
+                labelId="RoleId-no1"
+                size="small"
+                name="role"
+                onChange={(e: SelectChangeEvent) => {
+                  inputHandle(e);
+                }}
+                value={form.role}
+                label="Role"
+              >
                 <MenuItem value={"user"}>user</MenuItem>
                 <MenuItem value={"bloger"}>bloger</MenuItem>
               </Select>

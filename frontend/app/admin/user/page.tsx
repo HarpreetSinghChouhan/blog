@@ -8,7 +8,7 @@ import { Person } from "@mui/icons-material";
 import { useState } from "react";
 
 export default function Users() {
-  const [users, setusers] = useState<any[]>([]);
+  const [users, setusers] = useState<[]>([]);
   GetUsers(setusers, "users");
 
   const columns: Column[] = [

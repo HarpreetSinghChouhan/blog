@@ -11,10 +11,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
-
 Route::post('/adminregister', [AdminController::class, 'Register']);
 Route::post('/adminlogin', [AdminController::class, 'Login']);
 Route::post('/login', [AuthController::class, 'Login']);
+Route::get('/users', [AdminController::class, 'getuser']);
 Route::post('/verifyemail', [EmailContoller::class, 'SendOtp']);
 Route::post('/verifyotp', [EmailContoller::class, 'verifyOtp']);
 Route::middleware('auth:sanctum')->group(function () {
@@ -28,7 +28,8 @@ Route::patch('/changepassword', [AuthController::class, 'ChangePassword']);
     Route::get('/authication', [AuthController::class, 'AuthChenker1']);
     Route::post('/registerub', [AdminController::class, 'RegisterUB']);
     Route::get('/allusers', [AdminController::class, 'getallusers']);
-    Route::get('/users', [AdminController::class, 'getuser']);
+   
+ 
     Route::get('/bloger', [AdminController::class, 'getbloger']);
     Route::get('/blog/{id}', [BlogController::class, 'getblog']);
     Route::delete('/blog/{id}', [BlogController::class, 'deleteblog1']);
@@ -50,3 +51,4 @@ Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
     Route::delete('/user/{id}', [AdminController::class, 'DeleteUser']);
     Route::put('/user/{id}', [AdminController::class, 'EditUser']);
 });
+// Route::get('/')  

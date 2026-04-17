@@ -58,23 +58,26 @@ export async function UserBlogerAdd(form: any, go: Function, seterror: any) {
     Error(response, seterror);
   }
 }
-export async function GetUsers(setusers: any | [], mode: string | null) {
+export async function GetUsers(setusers:[], mode: string | null) {
  
   //  token = JSON.stringify(token);
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
-     let token = localStorage.getItem("token");
+     const token :string |null = localStorage.getItem("token");
     const Get = async () => {
-      const res = await AllUB(token, mode);
-      setusers(res.user);
-      //  console.log(res);
+      const res = await AllUB(token,mode);
+       console.log(res);
+      // setusers(res.user);
+      
     }
+    // , mode
     Get();
-  }, [])
+  }, [mode, setusers])
 
   return null;
   //  return response.user;
 }
-export async function Login2(data: any, go: Function, seterror: any) {
+export async function Login2(data:any, go: Function , seterror: any) {
   const response = await LoginPage(data, "login");
   //   console.log(response);
   if (response.status == true) {
@@ -82,7 +85,8 @@ export async function Login2(data: any, go: Function, seterror: any) {
     // let token = response.token;
       if(response.message == "success"){
         alert("Verify email and login")
-        go("/emailverify");
+        go("/bloger");
+        // go("/emailverify");
       }
     // localStorage.setItem("token", token);
     // document.cookie = `token=${token}; path=/`;

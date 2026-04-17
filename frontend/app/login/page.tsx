@@ -1,25 +1,17 @@
 "use client"
 import {
   Box,
-  Button,
   Container,
   TextField,
   Typography,
   InputAdornment,
-  IconButton,
   Divider,
   Link,
 } from "@mui/material";
 import { useState } from "react";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
-import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
 import { navigation } from "@/lib/routes";
 import {  Login2 } from "../AuthValidator";
-import { Span } from "next/dist/trace";
 import PasswordInput from "../component/PasswordInput";
 import SubmitButton from "../component/SubmitButton";
 import { fieldStyles, LoginBox } from "../admin/addblogeruser/page";
@@ -38,7 +30,6 @@ export default function AdminLogin() {
     email: "",
     password: "",
   });
-  const [showPassword, setShowPassword] = useState(false);
 
   const submitHandle = (e: React.FormEvent) => {
     e.preventDefault();
